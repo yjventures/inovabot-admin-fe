@@ -8,6 +8,8 @@ import Chat from "@/pages/Chat/Chat";
 import NotFound from "@/pages/NotFound/NotFound";
 import BasicLayout from "@/layout/Basic/BasicLayout";
 import DashboardLayout from "@/layout/DashboardLayout/DashboardLayout";
+import ForgetPassword from "@/pages/ForgetPassword/ForgetPassword";
+import ResetPassword from "@/pages/ResetPassword/ResetPassword";
 
 export const router = createBrowserRouter([
     {
@@ -52,6 +54,14 @@ export const router = createBrowserRouter([
             {
                 path: "register",
                 element: <Register />
+            },
+            {
+                path: "forget-password",
+                element: <ForgetPassword />
+            },
+            {
+                path: "reset-password",
+                element: <ResetPassword />
             },
             {
                 path: "*",
