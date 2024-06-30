@@ -15,7 +15,7 @@ export default {
       colors: {
         light: {
           sidebar: '#F7F8FA',
-          panel: '#FFFFFF',
+          panel: '#F9F9FC',
           gradientButton: '#2778FD',
           headingText: '#19213D',
           normalText: '#666F8D',
