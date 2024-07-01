@@ -78,7 +78,7 @@ const Template = () => {
                         <AdjustmentsHorizontalIcon className="h-6 w-6" />
                         Filters
                     </button>
-                    <button className="flex justify-center items-center gap-2 py-2 bg-white px-4 rounded-md">
+                    <button className="flex justify-center items-center gap-2 py-2 bg-white px-4 rounded-md border-[1px]">
                         View All
                     </button>
                 </div>
