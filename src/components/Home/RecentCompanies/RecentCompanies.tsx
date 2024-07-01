@@ -1,4 +1,4 @@
-import { EllipsisHorizontalIcon, EyeIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { EllipsisHorizontalIcon, EyeIcon, PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 
 interface RecentCompaniesInterface {
@@ -130,7 +130,7 @@ const RecentCompanies = () => {
                             <input type="checkbox" name="common" id="common" />
                             <img src={company.logo} alt={company.name} className="h-[60px] w-[60px] object-cover rounded-md" />
                             <EllipsisHorizontalIcon
-                                className="h-6 w-6 text-black dark:text-white"
+                                className="h-6 w-6 text-black dark:text-white cursor-pointer"
                                 onClick={() => {
                                     setMenu(!menu)
                                     setSelectedIndex(index)
@@ -148,11 +148,11 @@ const RecentCompanies = () => {
                                     </div>
                                     <div className="flex justify-between items-center mb-2 cursor-pointer hover:bg-gray-100 px-4 py-2 rounded-md">
                                         <p className="text-light-headingText dark:text-dark-headingText text-sm font-semibold">Edit</p>
-                                        <EyeIcon className="h-4 w-4 text-black dark:text-white" />
+                                        <PencilIcon className="h-4 w-4 text-black dark:text-white" />
                                     </div>
                                     <div className="flex justify-between items-center mb-2 cursor-pointer hover:bg-gray-100 px-4 py-2 rounded-md">
                                         <p className="text-light-headingText dark:text-dark-headingText text-sm font-semibold">Delete</p>
-                                        <EyeIcon className="h-4 w-4 text-black dark:text-white" />
+                                        <TrashIcon className="h-4 w-4 text-black dark:text-white" />
                                     </div>
                                 </div>
                             )}
