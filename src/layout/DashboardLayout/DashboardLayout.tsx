@@ -148,7 +148,7 @@ export default function DashboardLayout() {
                 </Transition.Root>
 
                 {/* Static sidebar for desktop */}
-                <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+                <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col ">
                     {/* Sidebar component, swap this element with another sidebar if you like */}
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-light-sidebar pb-4 px-2">
                         <div className="flex h-16 shrink-0 items-center gap-4 justify-between" >
@@ -198,7 +198,7 @@ export default function DashboardLayout() {
                     </div>
                 </div>
 
-                <div className="lg:pl-72 bg-light-panel dark:bg-dark-panel">
+                <div className="lg:pl-72 bg-light-panel dark:bg-dark-panel z-20">
                     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 outline-none px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
                         <button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
                             <span className="sr-only">Open sidebar</span>
@@ -208,7 +208,7 @@ export default function DashboardLayout() {
                         {/* Separator */}
                         <div className="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
 
-                        <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+                        <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 bg-light-panel dark:bg-dark-panel">
                             <form className="relative flex flex-1 " action="#" method="GET">
                                 <label htmlFor="search-field" className="sr-only">
                                     Search
@@ -225,7 +225,7 @@ export default function DashboardLayout() {
                                     name="search"
                                 />
                             </form>
-                            <div className="flex items-center gap-x-4 lg:gap-x-6">
+                            <div className="flex items-center gap-x-4 lg:gap-x-6 bg-light-panel dark:bg-dark-panel dark:text-light-panel">
                                 <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                                     <span className="sr-only">View mail</span>
                                     <CalendarDaysIcon className="h-5 w-5" aria-hidden="true" />
@@ -299,7 +299,7 @@ export default function DashboardLayout() {
                         </div>
                     </div>
 
-                    <main className="px-4 sm:px-6 lg:px-8 ">
+                    <main className="px-4 sm:px-6 lg:px-8">
                         <Outlet />
                     </main>
                 </div>

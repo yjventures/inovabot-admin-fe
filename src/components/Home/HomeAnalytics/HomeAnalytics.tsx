@@ -7,7 +7,7 @@ const HomeAnalytics = () => {
 
   const FilterComponent = () => {
     return (
-      <div className="flex justify-between py-2 flex-wrap gap-2 mt-3">
+      <div className="flex justify-between py-2 flex-wrap gap-2 mt-3 z-0">
         <div className='border-2 dark:border-gray-400 rounded-md'>
           {[
             'All Date',
@@ -18,7 +18,7 @@ const HomeAnalytics = () => {
           ].map((filter, index) => (
             <button
               key={index}
-              className={`px-4 bg-gray-100 dark:bg-dark-panel text-gray-500 py-1 rounded-md hover:bg-gray-200`}
+              className={`px-4 bg-gray-100 dark:bg-dark-panel text-gray-500 py-1 rounded-md hover:bg-gray-200 ${index === 0 && 'bg-gray-200'}`}
               onClick={() => { }}
             >
               {filter}
