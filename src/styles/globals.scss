@@ -37,7 +37,7 @@
     --magenta-primary: #9594d5;
     --magenta-dark: #883dcf;
 
-    --orage-light: #fff0ea;
+    --orange-light: #fff0ea;
     --orange-primary: #fff0ea;
     --orange-dark: #db5a27;
 
@@ -101,6 +101,15 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-text-primary;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-text-heading;
   }
 }
