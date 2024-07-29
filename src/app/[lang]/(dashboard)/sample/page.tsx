@@ -8,7 +8,7 @@ export default function SamplePage() {
         Hello this is a Badge
       </Badge>
       <Badge variant='emerald'>Hello this is a Badge</Badge>
-      <Badge variant='cyan' solid>
+      <Badge variant='cyan' solid rounded>
         Hello this is a Badge
       </Badge>
       <Badge variant='magenta'>Hello this is a Badge</Badge>

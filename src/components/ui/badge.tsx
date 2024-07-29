@@ -12,6 +12,10 @@ const badgeVariants = cva('rounded-sm text-xs font px-2 py-0.5 font-semibold', {
       orange: 'bg-orange-light text-orange-dark',
       error: 'bg-error-light text-error'
     },
+    round: {
+      default: 'rounded-sm',
+      full: 'rounded-full'
+    },
     styleType: {
       solid: '',
       default: ''
@@ -27,7 +31,8 @@ const badgeVariants = cva('rounded-sm text-xs font px-2 py-0.5 font-semibold', {
   ],
   defaultVariants: {
     variant: 'emerald',
-    styleType: 'default'
+    styleType: 'default',
+    round: 'default'
   }
 })
 
@@ -35,8 +40,22 @@ interface Props extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof badg
   children: ReactNode
   className?: string
   solid?: boolean
+  rounded?: boolean
 }
 
-export default function Badge({ children, className, variant, solid = false }: Props) {
-  return <p className={cn(badgeVariants({ variant, styleType: solid ? 'solid' : 'default', className }))}>{children}</p>
+export default function Badge({ children, className, variant, solid = false, rounded = false }: Props) {
+  return (
+    <p
+      className={cn(
+        badgeVariants({
+          variant,
+          styleType: solid ? 'solid' : 'default',
+          round: rounded ? 'full' : 'default',
+          className
+        })
+      )}
+    >
+      {children}
+    </p>
+  )
 }
