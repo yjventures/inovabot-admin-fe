@@ -4,13 +4,48 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: #f9f9fc;
+    --foreground: #ffffff;
+    --forground-border: #e0e2e7;
+    --foreground-border-light: #e2e2e2;
+    --text-heading: #1d1f2c;
+    --text-primary: #4a4c56;
+    --text-secondary: #667085;
+    --text-gray-light: #858d9d;
+    --text-gray: #777980;
+    --text-gray-dark: #556987;
     --foreground: 224 71.4% 4.1%;
+    --gray-primary: #f0f1f3;
+
+    --pink-primary: #d594c6;
+
+    --emerald-light: #e9faf7;
+    --emerald-primary: #22caad;
+    --emerald-dark: #1a9882;
+
+    --cyan-light: #eaf8ff;
+    --cyan-primary: #94c9d5;
+    --cyan-dark: #2bb2fe;
+
+    --blue-light: #ebeeff;
+    --blue-primary: #3069e2;
+    --blue-dark: #3250ff;
+
+    --magenta-light: #f4ecfb;
+    --magenta-primary: #9594d5;
+    --magenta-dark: #883dcf;
+
+    --orage-light: #fff0ea;
+    --orange-primary: #fff0ea;
+    --orange-dark: #db5a27;
+
+    --error-light: #feecee;
+    --error: #eb3d4d;
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 220.9 39.3% 11%;
+    --primary: #1329ee;
     --primary-foreground: 210 20% 98%;
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
@@ -32,7 +67,7 @@
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
+    --background: #212121;
     --foreground: 210 20% 98%;
     --card: 224 71.4% 4.1%;
     --card-foreground: 210 20% 98%;
