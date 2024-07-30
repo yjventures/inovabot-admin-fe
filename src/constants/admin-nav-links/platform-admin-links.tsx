@@ -5,7 +5,7 @@ export const platformAdminLinks: Array<AdminLink> = [
   {
     id: 1,
     label: 'Dashboard',
-    href: '/samplesdf',
+    href: '/admin/dashboard',
     hasChildren: false,
     icon: Blocks
   },
@@ -32,7 +32,7 @@ export const platformAdminLinks: Array<AdminLink> = [
     hasChildren: true,
     icon: UserPlus,
     childrenLinks: [
-      { id: 1, label: 'Financial', href: '/admin/analytics/' },
+      { id: 1, label: 'Financial', href: '/admin/analytics' },
       { id: 2, label: 'Analytics', href: '/admin/analytics/analytics' },
       { id: 3, label: 'View All', href: '/admin/analytics/view-all' },
       { id: 4, label: 'Leads', href: '/admin/analytics/leads' }
