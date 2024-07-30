@@ -69,7 +69,7 @@ const NestedLink = ({ link, currentLink }: Props) => {
             )}
           </div>
         </AccordionTrigger>
-        <AccordionContent>
+        <AccordionContent className='pb-0'>
           {link.childrenLinks.map(childLink => (
             <LLink href={childLink.href} key={childLink.id} className='flex items-center h-11 pl-14'>
               <button
