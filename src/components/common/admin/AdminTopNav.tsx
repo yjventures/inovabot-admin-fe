@@ -13,12 +13,12 @@ interface Props {
 
 export default function AdminTopNav({ user, navbarOpen, setnavbarOpen }: Props) {
   return (
-    <nav className='fixed top-0 left-0 lg:left-[230px] w-full lg:w-[calc(100%_-_230px)] h-20 flex items-center justify-end md:justify-between p-7 gap-5 bg-gray50 z-50 border-b-gray50-border'>
+    <nav className='fixed top-0 left-0 lg:left-[264px] w-full lg:w-[calc(100%_-_230px)] h-20 flex items-center justify-end md:justify-between p-7 gap-5 bg-gray50 z-50 border-b-gray50-border'>
       <div className='hidden md:flex items-center gap-2 w-1/2 max-w-96 p-2 bg-gray50-foreground rounded-full border-gray50-border'>
         <label htmlFor='search'>
           <Search />
         </label>
-        <input id='search' className='w-full outline-none bg-gray50-foreground' placeholder='Search' />
+        <input id='search' className='w-full outline-none bg-background' placeholder='Search' />
       </div>
 
       <div className='flex items-center justify-end gap-4 w-auto md:w-full'>
