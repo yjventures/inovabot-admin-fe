@@ -6,6 +6,7 @@ import { AdminLink } from '@/constants/admin-nav-links'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import { useLocale } from '@/hooks/useLocale'
 
 interface Props {
   links: Array<AdminLink>
@@ -13,6 +14,16 @@ interface Props {
 
 export default function AdminLinks({ links }: Props) {
   const pathname = usePathname()
+  const locale = useLocale()
+
+  const isNestedActive = (link: {
+    childrenLinks: {
+      href: string
+    }[]
+  }) => {
+    return link.childrenLinks.map(l => `/${locale}${l.href}`).includes(pathname)
+  }
+
   return (
     <ul className='flex flex-col items-center w-full overflow-x-hidden'>
       {links.map(link =>
@@ -22,7 +33,7 @@ export default function AdminLinks({ links }: Props) {
               <AccordionItem value={String(link.id)} className='border-b-0'>
                 <AccordionTrigger
                   className={cn('py-0 hover:no-underline hover:bg-gray-primary', {
-                    'font-bold bg-gray-primary': pathname.includes(link.childrenLinks[0].href)
+                    'font-bold bg-gray-primary': isNestedActive(link)
                   })}
                 >
                   <div className='relative'>
@@ -35,14 +46,14 @@ export default function AdminLinks({ links }: Props) {
                       <span className='ml-5 mr-2'>
                         <link.icon
                           className={cn('size-5 text-text-gray-light', {
-                            'text-text-primary': pathname.includes(link.childrenLinks[0].href)
+                            'text-text-primary': isNestedActive(link)
                           })}
-                          strokeWidth={pathname.includes(link.childrenLinks[0].href) ? 2 : 1.5}
+                          strokeWidth={isNestedActive(link) ? 2 : 1.5}
                         />
                       </span>
                       {link.label}
                     </div>
-                    {pathname.includes(link.childrenLinks[0].href) && (
+                    {isNestedActive(link) && (
                       <div className='absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-blue-dark to-cyan-dark' />
                     )}
                   </div>

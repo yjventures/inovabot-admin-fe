@@ -15,7 +15,7 @@ export const platformAdminLinks: Array<AdminLink> = [
     hasChildren: true,
     icon: BaggageClaim,
     childrenLinks: [
-      { id: 1, label: 'View All', href: '/sample' },
+      { id: 1, label: 'View All', href: '/admin/companies/view-all' },
       { id: 2, label: 'Analytics', href: '/admin/companies/analytics' }
     ]
   },
