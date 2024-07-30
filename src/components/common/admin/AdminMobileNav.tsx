@@ -20,9 +20,10 @@ interface Props {
   user: IUser
   navbarOpen: boolean
   setnavbarOpen: Dispatch<SetStateAction<boolean>>
+  currentLink?: string
 }
 
-export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen }: Props) {
+export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, currentLink }: Props) {
   const push = usePush()
   const dispatch = useAppDispatch()
 
@@ -62,7 +63,7 @@ export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen }: Prop
 
         <UserInfo user={user} className='flex md:hidden mb-5' darkBg />
 
-        <AdminLinks links={platformAdminLinks} />
+        <AdminLinks links={platformAdminLinks} currentLink={currentLink} />
       </div>
 
       <div className='p-5 w-full'>

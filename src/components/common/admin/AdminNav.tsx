@@ -6,15 +6,19 @@ import AdminTopNav from './AdminTopNav'
 import { IUser } from '@/types/IUser'
 import AdminSideNav from './AdminSideNav'
 
-export default function AdminNav() {
+interface Props {
+  currentLink?: string
+}
+
+export default function AdminNav({ currentLink }: Props) {
   //const { data } = useGetAdminPersonalInfoQuery()
   const data = {} as IUser
   const [navbarOpen, setnavbarOpen] = useState(false)
   return (
     <>
-      <AdminSideNav />
+      <AdminSideNav currentLink={currentLink} />
       <AdminTopNav user={data} navbarOpen={navbarOpen} setnavbarOpen={setnavbarOpen} />
-      <AdminMobileNav user={data} navbarOpen={navbarOpen} setnavbarOpen={setnavbarOpen} />
+      <AdminMobileNav user={data} navbarOpen={navbarOpen} setnavbarOpen={setnavbarOpen} currentLink={currentLink} />
     </>
   )
 }

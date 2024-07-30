@@ -11,7 +11,11 @@ import { platformAdminLinks } from '@/constants/admin-nav-links'
 import logo from '@/assets/images/common/logo.png'
 import { Img } from '@/components/ui/img'
 
-export default function AdminSideNav() {
+interface Props {
+  currentLink?: string
+}
+
+export default function AdminSideNav({ currentLink }: Props) {
   const push = usePush()
   const dispatch = useAppDispatch()
 
@@ -33,7 +37,7 @@ export default function AdminSideNav() {
           <Img src={logo} alt='Inova' className='h-8 w-auto' />
         </LLink>
 
-        <AdminLinks links={platformAdminLinks} />
+        <AdminLinks links={platformAdminLinks} currentLink={currentLink} />
       </div>
 
       <div className='p-5 w-full'>
