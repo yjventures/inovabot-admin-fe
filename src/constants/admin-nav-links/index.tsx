@@ -1,7 +1,11 @@
+import { LucideProps } from 'lucide-react'
+import { ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react'
+
 export interface AdminLinkBase {
   id: number
   label: string
   hasChildren: boolean
+  icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
 }
 
 export interface AdminLinkWithHref extends AdminLinkBase {

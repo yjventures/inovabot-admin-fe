@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <ReduxProvider>
-        <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
+        <body className={cn('min-h-screen font-sans antialiased', fontSans.variable)}>
           <Toaster position='top-center' />
           <main>{children}</main>
           <div id='modal-container' />

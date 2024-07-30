@@ -1,18 +1,21 @@
+import { BaggageClaim, Blocks, MessagesSquare, UserPlus } from 'lucide-react'
 import { AdminLink } from '.'
 
 export const platformAdminLinks: Array<AdminLink> = [
   {
     id: 1,
     label: 'Dashboard',
-    href: '/admin/dashboard',
-    hasChildren: false
+    href: '/samplesdf',
+    hasChildren: false,
+    icon: Blocks
   },
   {
     id: 2,
     label: 'Companies',
     hasChildren: true,
+    icon: BaggageClaim,
     childrenLinks: [
-      { id: 1, label: 'View All', href: '/admin/companies' },
+      { id: 1, label: 'View All', href: '/sample' },
       { id: 2, label: 'Analytics', href: '/admin/companies/analytics' }
     ]
   },
@@ -20,12 +23,14 @@ export const platformAdminLinks: Array<AdminLink> = [
     id: 3,
     label: 'Chat Agents',
     href: '/admin/chat-agents',
-    hasChildren: false
+    hasChildren: false,
+    icon: MessagesSquare
   },
   {
     id: 4,
     label: 'Analytics',
     hasChildren: true,
+    icon: UserPlus,
     childrenLinks: [
       { id: 1, label: 'Financial', href: '/admin/analytics/' },
       { id: 2, label: 'Analytics', href: '/admin/analytics/analytics' },

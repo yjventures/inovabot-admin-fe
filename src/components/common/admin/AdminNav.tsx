@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import AdminMobileNav from './AdminMobileNav'
-import AdminSideNav from './AdminSideNav'
 import AdminTopNav from './AdminTopNav'
 import { IUser } from '@/types/IUser'
+import AdminSideNav from './AdminSideNav'
 
 export default function AdminNav() {
   //const { data } = useGetAdminPersonalInfoQuery()

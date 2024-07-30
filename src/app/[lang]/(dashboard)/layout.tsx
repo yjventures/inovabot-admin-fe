@@ -7,9 +7,9 @@ interface Props {
 
 export default function DashboardLayout({ children }: Props) {
   return (
-    <div>
+    <>
       <AdminNav />
-      <section className='pt-24 pl-7 lg:pl-[258px] pr-7 pb-7'>{children}</section>
-    </div>
+      <section className='pt-24 pl-7 lg:pl-[292px] pr-7 pb-7 bg-background'>{children}</section>
+    </>
   )
 }
