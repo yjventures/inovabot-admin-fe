@@ -16,6 +16,8 @@ export const uploadFile = async (file: File) => {
     if (response?.data?.status) {
       //toast.success('File uploaded successfully!')
       return response?.data?.uploadedUrl
+    } else {
+      console.log({ response })
     }
   } catch (error) {
     console.error('Error uploading file', error)

@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 import { FieldErrors, FieldValues, RegisterOptions, useFormContext, UseFormRegister } from 'react-hook-form'
-import { Label } from './label'
+import { Label } from '../../ui/label'
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   containerClassName?: string

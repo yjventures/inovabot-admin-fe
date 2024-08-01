@@ -4,14 +4,14 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 import { RegisterOptions, useFormContext } from 'react-hook-form'
-import { Label } from './label'
+import { Label } from '../../ui/label'
 import { Eye, EyeOff } from 'lucide-react'
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   containerClassName?: string
   name?: string
-  icon: React.ReactNode
-  hookFormConfig: RegisterOptions
+  icon?: React.ReactNode
+  hookFormConfig?: RegisterOptions
   label: string
   showLabel?: boolean
   labelClassName?: string

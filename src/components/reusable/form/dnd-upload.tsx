@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import Overlay from '@/components/ui/overlay'
 import { cn } from '@/lib/utils'
+import { uploadFile } from '@/utils/files/uploadFile'
 import { ImagePlus } from 'lucide-react'
 import { ChangeEventHandler, DragEventHandler, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 interface Props {
   name: string
@@ -38,29 +40,30 @@ const DnDUpload = ({
   ...rest
 }: Props) => {
   const {
+    register,
     setValue,
+    trigger,
     formState: { errors }
   } = useFormContext()
 
-  const [file, setfile] = useState<File | null>(null)
-
-  const [isUploading, setisUploading] = useState(false)
+  const [file, setFile] = useState<File | null>(null)
+  const [isUploading, setIsUploading] = useState(false)
   const inputBtnRef = useRef<HTMLInputElement | null>(null)
 
   const handleDrop: DragEventHandler<HTMLDivElement> = e => {
     e.preventDefault()
     const files = e.dataTransfer.files
     if (files.length) {
-      setfile(files[0])
-      uploadFile(files[0])
+      setFile(files[0])
+      uploadFileFn(files[0])
     }
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
     const files = e.target.files
     if (files?.length) {
-      setfile(files[0])
-      uploadFile(files[0])
+      setFile(files[0])
+      uploadFileFn(files[0])
     }
   }
 
@@ -70,16 +73,23 @@ const DnDUpload = ({
     }
   }
 
-  const uploadFile = async (file: File) => {
+  const uploadFileFn = async (file: File) => {
     try {
-      setisUploading(true)
+      setIsUploading(true)
       const fileURL = await uploadFile(file)
       if (typeof fileURL === 'string') {
         setValue(name, fileURL, { shouldValidate: true, shouldDirty: true })
+      } else if (fileURL.code === 'ERR_NETWORK') {
+        toast.error('Network Error, try again!')
+      } else {
+        toast.error('Something went wrong, try again!')
       }
-      setisUploading(false)
+      trigger(name) // Manually trigger validation for the field
+      setIsUploading(false)
+      if (inputBtnRef.current) inputBtnRef.current.value = ''
     } catch (error) {
-      setisUploading(false)
+      setIsUploading(false)
+      if (inputBtnRef.current) inputBtnRef.current.value = ''
     }
   }
 
@@ -118,6 +128,8 @@ const DnDUpload = ({
             {buttonLabel || 'Select File'}
           </Button>
         </div>
+
+        <input type='hidden' {...register(name, { required })} />
 
         {required ? (
           <div className='flex justify-start mt-2'>
