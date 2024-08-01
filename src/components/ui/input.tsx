@@ -3,18 +3,16 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { FieldErrors, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form'
+import { RegisterOptions, useFormContext } from 'react-hook-form'
 import { Label } from './label'
 import { Eye, EyeOff } from 'lucide-react'
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   containerClassName?: string
-  name: string
+  name?: string
   icon: React.ReactNode
-  errors: FieldErrors<FieldValues>
-  register: UseFormRegister<FieldValues>
   hookFormConfig: RegisterOptions
-  label?: string
+  label: string
   showLabel?: boolean
   labelClassName?: string
 }
@@ -26,8 +24,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className,
       type,
       icon,
-      errors,
-      register,
       name,
       hookFormConfig,
       label,
@@ -38,13 +34,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
+    const {
+      register,
+      formState: { errors }
+    } = useFormContext()
+    const inputProps = name ? { ...register(name, { required, ...hookFormConfig }), ...props } : { ...props }
+
     const [showPassword, setshowPassword] = React.useState(false)
-    const inputProps = register ? { ...register(name, { required, ...hookFormConfig }), ...props } : { ...props }
 
     return (
       <div className={cn(containerClassName, { 'flex flex-col gap-y-2': label && showLabel })}>
         {label && showLabel && (
-          <Label className={cn('text-text-tartiary', labelClassName)}>
+          <Label className={cn('text-text-primary', labelClassName)}>
             {label}
             {required ? '*' : null}
           </Label>
@@ -86,7 +87,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {required ? (
+        {required && name ? (
           <div className='flex justify-start mt-2'>
             {errors[name] && errors[name]?.type === 'required' ? (
               <span className='text-red-500 text-xs h-5 leading-none !text-left'>{label} is required</span>

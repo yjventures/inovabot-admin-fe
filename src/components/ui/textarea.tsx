@@ -3,12 +3,12 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { FieldErrors, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form'
+import { FieldErrors, FieldValues, RegisterOptions, useFormContext, UseFormRegister } from 'react-hook-form'
 import { Label } from './label'
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   containerClassName?: string
-  name: string
+  name?: string
   icon: React.ReactNode
   errors: FieldErrors<FieldValues>
   register: UseFormRegister<FieldValues>
@@ -20,22 +20,14 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
-    {
-      containerClassName,
-      className,
-      icon,
-      errors,
-      register,
-      name,
-      hookFormConfig,
-      label,
-      labelClassName,
-      showLabel,
-      required,
-      ...props
-    },
+    { containerClassName, className, icon, name, hookFormConfig, label, labelClassName, showLabel, required, ...props },
     ref
   ) => {
+    const {
+      register,
+      formState: { errors }
+    } = useFormContext()
+
     const textareaRef = React.useRef<HTMLTextAreaElement | null>(null)
 
     React.useEffect(() => {
@@ -46,7 +38,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       }
     }, [textareaRef.current?.value])
 
-    const textareaProps = register ? { ...register(name, { required, ...hookFormConfig }), ...props } : { ...props }
+    const textareaProps = name ? { ...register(name, { required, ...hookFormConfig }), ...props } : { ...props }
+
     return (
       <div className={cn(containerClassName, { 'flex flex-col gap-y-2': label && showLabel })}>
         {label && showLabel && (
@@ -83,7 +76,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             </div>
           )}
         </div>
-        {required ? (
+        {required && name ? (
           <>
             {errors[name] && errors[name]?.type === 'required' ? (
               <span className='text-red-500 text-xs h-5 leading-none'>{label} is required</span>
