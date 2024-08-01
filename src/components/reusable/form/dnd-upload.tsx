@@ -6,14 +6,14 @@ import { Label } from '@/components/ui/label'
 import Overlay from '@/components/ui/overlay'
 import { cn } from '@/lib/utils'
 import { uploadFile } from '@/utils/files/uploadFile'
-import { ImagePlus } from 'lucide-react'
-import { ChangeEventHandler, DragEventHandler, useRef, useState } from 'react'
+import { ImagePlus, LucideProps } from 'lucide-react'
+import { ChangeEventHandler, DragEventHandler, ForwardRefExoticComponent, RefAttributes, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 interface Props {
   name: string
-  icon?: React.ReactNode
+  icon?: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
   text?: string
   buttonLabel?: string
   className?: string
@@ -27,7 +27,7 @@ interface Props {
 
 const DnDUpload = ({
   name,
-  icon,
+  icon: Icon,
   text,
   buttonLabel,
   label,
@@ -105,7 +105,7 @@ const DnDUpload = ({
 
         <div
           className={cn(
-            'border-2 rounded-2xl border-dashed p-5 sm:p-10 text-center flex flex-col items-center justify-center bg-gray50',
+            'border-2 rounded-2xl border-dashed p-5 sm:p-10 text-center flex flex-col items-center justify-center bg-background',
             className
           )}
           onDrop={handleDrop}
@@ -116,15 +116,25 @@ const DnDUpload = ({
               <p>{file.name}</p>
             ) : (
               <div className='flex flex-col items-center justify-center gap-4'>
-                <div className='p-3.5 bg-secondary rounded-full'>
-                  {icon ? icon : <ImagePlus className='text-primary' size={20} strokeWidth={2} />}
+                <div className='p-3.5 bg-black rounded-lg'>
+                  {Icon ? (
+                    <Icon className='text-white' size={20} strokeWidth={2} />
+                  ) : (
+                    <ImagePlus className='text-white' size={20} strokeWidth={2} />
+                  )}
                 </div>
-                <p>{text || 'Drag and drop file here, or click the button below to select file'}</p>
+                <p className='text-text-gray-light'>
+                  {text || 'Drag and drop file here, or click the button below to select file'}
+                </p>
               </div>
             )}
           </div>
           <input type='file' ref={inputBtnRef} onChange={handleChange} className='hidden' id='file-upload' {...rest} />
-          <Button onClick={handleButtonClick} variant='secondary' className='h-10 rounded-md'>
+          <Button
+            onClick={handleButtonClick}
+            variant='secondary'
+            className='h-10 bg-magenta-light font-bold hover:bg-magenta-primary hover:text-white'
+          >
             {buttonLabel || 'Select File'}
           </Button>
         </div>

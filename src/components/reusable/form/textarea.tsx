@@ -9,11 +9,9 @@ import { Label } from '../../ui/label'
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   containerClassName?: string
   name?: string
-  icon: React.ReactNode
-  errors: FieldErrors<FieldValues>
-  register: UseFormRegister<FieldValues>
-  hookFormConfig: RegisterOptions
-  label?: string
+  icon?: React.ReactNode
+  hookFormConfig?: RegisterOptions
+  label: string
   showLabel?: boolean
   labelClassName?: string
 }
@@ -51,7 +49,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         <div className='relative'>
           <textarea
             className={cn(
-              'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+              'flex min-h-[80px] w-full rounded-lg border border-foreground-border bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-text-gray-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
               { 'pl-10': icon },
               className
             )}

@@ -32,7 +32,7 @@ const config = {
           primary: 'var(--text-primary)',
           secondary: 'var(--text-secondary)',
           ['gray-light']: 'var(--text-gray-light)',
-          gray: 'var(--text-heading)',
+          gray: 'var(--text-gray)',
           ['gray-dark']: 'var(--text-gray-dark)'
         },
         gray: {
