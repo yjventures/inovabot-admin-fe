@@ -16,7 +16,7 @@ export default function FormExample() {
     <Form methods={methods} onSubmit={methods.handleSubmit(onSubmit)} className='bg-white p-5 rounded-md'>
       <Input name='name' required showLabel placeholder='First Name' />
       <Textarea name='first_name' required showLabel placeholder='First Name' />
-      <DnDUpload name='image' label='Image' required text='Company Logo Light Mode' />
+      <DnDUpload name='image' text='Company Logo Light Mode' />
       <Button type='submit'>Submit</Button>
     </Form>
   )

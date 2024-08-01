@@ -22,7 +22,9 @@ export default function FormFieldError({ required, name, errors, label }: Props)
             <div className='w-full h-5' />
           )}
         </div>
-      ) : null}
+      ) : (
+        <div className='w-full h-5' />
+      )}
     </>
   )
 }
