@@ -13,7 +13,7 @@ export default function FormFieldError({ required, name, errors, label }: Props)
   return (
     <>
       {required && name ? (
-        <div className='flex justify-start mt-2'>
+        <div className='flex justify-start'>
           {errors[name] && errors[name]?.type === 'required' ? (
             <span className='text-red-500 text-xs h-5 leading-none !text-left'>
               {label || formatFieldName(name)} is required

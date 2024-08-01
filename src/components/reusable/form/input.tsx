@@ -47,13 +47,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={cn(containerClassName, { 'flex flex-col gap-y-2': label && showLabel })}>
         {label && showLabel && (
-          <Label className={cn('text-text-gray', labelClassName)}>
+          <Label className={cn('text-text-gray', labelClassName)} htmlFor={name}>
             {label}
             {required ? '*' : null}
           </Label>
         )}
         <div className='relative'>
           <input
+            id={name}
             type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
             className={cn(
               'flex h-10 w-full rounded-lg border border-foreground-border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-background file:text-sm file:font-medium placeholder:text-text-gray-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
