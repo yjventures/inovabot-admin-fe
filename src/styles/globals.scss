@@ -113,3 +113,24 @@
     @apply text-text-heading;
   }
 }
+
+.colorInput {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 65px;
+  height: 68px;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 10%;
+
+  &::-webkit-color-swatch {
+    border-radius: 10%;
+    border: 1px solid gray;
+
+    &::-moz-color-swatch {
+      border-radius: 10%;
+      border: 1px solid gray;
+    }
+  }
+}
