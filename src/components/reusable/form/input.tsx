@@ -6,13 +6,15 @@ import { cn } from '@/lib/utils'
 import { RegisterOptions, useFormContext } from 'react-hook-form'
 import { Label } from '../../ui/label'
 import { Eye, EyeOff } from 'lucide-react'
+import { formatFieldName } from '@/utils/form/formatFieldName'
+import FormFieldError from './form-field-error'
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   containerClassName?: string
   name?: string
   icon?: React.ReactNode
   hookFormConfig?: RegisterOptions
-  label: string
+  label?: string
   showLabel?: boolean
   labelClassName?: string
 }
@@ -87,15 +89,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {required && name ? (
-          <div className='flex justify-start mt-2'>
-            {errors[name] && errors[name]?.type === 'required' ? (
-              <span className='text-red-500 text-xs h-5 leading-none !text-left'>{label} is required</span>
-            ) : (
-              <div className='w-full h-5' />
-            )}
-          </div>
-        ) : null}
+        <FormFieldError name={name} required={required} label={label} errors={errors} />
       </div>
     )
   }

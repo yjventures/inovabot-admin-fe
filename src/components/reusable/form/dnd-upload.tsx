@@ -10,6 +10,7 @@ import { ImagePlus, LucideProps } from 'lucide-react'
 import { ChangeEventHandler, DragEventHandler, ForwardRefExoticComponent, RefAttributes, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import FormFieldError from './form-field-error'
 
 interface Props {
   name: string
@@ -20,7 +21,7 @@ interface Props {
   labelClassName?: string
   containerClassName?: string
   cb?: (arg0: string) => void
-  label: string
+  label?: string
   showLabel?: boolean
   required?: boolean
 }
@@ -141,15 +142,7 @@ const DnDUpload = ({
 
         <input type='hidden' {...register(name, { required })} />
 
-        {required ? (
-          <div className='flex justify-start mt-2'>
-            {errors[name] && errors[name]?.type === 'required' ? (
-              <span className='text-red-500 text-xs h-5 leading-none !text-left'>{label} is required</span>
-            ) : (
-              <div className='w-full h-5' />
-            )}
-          </div>
-        ) : null}
+        <FormFieldError name={name} required={required} label={label} errors={errors} />
       </div>
       <Overlay isOpen={isUploading} animationData={JSON.parse(JSON.stringify(animationData))} />
     </>

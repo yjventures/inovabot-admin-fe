@@ -5,13 +5,15 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { FieldErrors, FieldValues, RegisterOptions, useFormContext, UseFormRegister } from 'react-hook-form'
 import { Label } from '../../ui/label'
+import { formatFieldName } from '@/utils/form/formatFieldName'
+import FormFieldError from './form-field-error'
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   containerClassName?: string
   name?: string
   icon?: React.ReactNode
   hookFormConfig?: RegisterOptions
-  label: string
+  label?: string
   showLabel?: boolean
   labelClassName?: string
 }
@@ -74,15 +76,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             </div>
           )}
         </div>
-        {required && name ? (
-          <>
-            {errors[name] && errors[name]?.type === 'required' ? (
-              <span className='text-red-500 text-xs h-5 leading-none'>{label} is required</span>
-            ) : (
-              <div className='w-full h-5' />
-            )}
-          </>
-        ) : null}
+        <FormFieldError name={name} required={required} label={label} errors={errors} />
       </div>
     )
   }
