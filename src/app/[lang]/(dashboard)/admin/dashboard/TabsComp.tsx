@@ -4,6 +4,7 @@ import Search from '@/components/reusable/tables/search'
 import TablePagination from '@/components/reusable/tables/table-pagination'
 import TableSelector, { TableMode } from '@/components/reusable/tables/table-selector'
 import Toggles from '@/components/reusable/tables/toggles'
+import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 
 const options = [
@@ -42,6 +43,7 @@ export default function TabsComp() {
           totalPages: 50
         }}
       />
+      <Button variant='gradient'>Hello</Button>
     </>
   )
 }
