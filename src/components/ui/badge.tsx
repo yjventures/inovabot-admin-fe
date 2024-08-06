@@ -22,12 +22,12 @@ const badgeVariants = cva('rounded-sm text-xs font px-2 py-0.5 font-semibold', {
     }
   },
   compoundVariants: [
-    { variant: 'emerald', styleType: 'solid', class: 'bg-emerald-dark text-white' },
-    { variant: 'cyan', styleType: 'solid', class: 'bg-cyan-dark text-white' },
-    { variant: 'blue', styleType: 'solid', class: 'bg-blue-dark text-white' },
-    { variant: 'magenta', styleType: 'solid', class: 'bg-magenta-dark text-white' },
-    { variant: 'orange', styleType: 'solid', class: 'bg-orange-dark text-white' },
-    { variant: 'error', styleType: 'solid', class: 'bg-error text-white' }
+    { variant: 'emerald', styleType: 'solid', class: 'bg-emerald-dark text-foreground' },
+    { variant: 'cyan', styleType: 'solid', class: 'bg-cyan-dark text-foreground' },
+    { variant: 'blue', styleType: 'solid', class: 'bg-blue-dark text-foreground' },
+    { variant: 'magenta', styleType: 'solid', class: 'bg-magenta-dark text-foreground' },
+    { variant: 'orange', styleType: 'solid', class: 'bg-orange-dark text-foreground' },
+    { variant: 'error', styleType: 'solid', class: 'bg-error text-foreground' }
   ],
   defaultVariants: {
     variant: 'emerald',

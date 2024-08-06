@@ -113,9 +113,9 @@ const DnDUpload = ({
               <div className='flex flex-col items-center justify-center gap-4'>
                 <div className='p-3.5 bg-black rounded-lg'>
                   {Icon ? (
-                    <Icon className='text-white' size={20} strokeWidth={2} />
+                    <Icon className='text-foreground' size={20} strokeWidth={2} />
                   ) : (
-                    <ImagePlus className='text-white' size={20} strokeWidth={2} />
+                    <ImagePlus className='text-foreground' size={20} strokeWidth={2} />
                   )}
                 </div>
                 <p className='text-text-gray-light'>
@@ -128,7 +128,7 @@ const DnDUpload = ({
           <Button
             onClick={handleButtonClick}
             variant='secondary'
-            className='h-10 bg-magenta-light font-bold hover:bg-magenta-primary hover:text-white'
+            className='h-10 bg-magenta-light font-bold hover:bg-magenta-primary hover:text-foreground'
           >
             {buttonLabel || 'Select File'}
           </Button>

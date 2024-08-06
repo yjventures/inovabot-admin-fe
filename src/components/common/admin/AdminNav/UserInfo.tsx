@@ -19,13 +19,13 @@ export default function UserInfo({ user, className, darkBg }: Props) {
       ) : (
         <Img src={avatar} alt='User' className='w-8 h-8 object-cover border rounded-full' />
       )}
-      <div className={cn('flex flex-col', { 'text-white': darkBg })}>
+      <div className={cn('flex flex-col', { 'text-foreground': darkBg })}>
         <p className='text-sm'>{user?.name}</p>
         <p className='text-xs text-text-primary-muted'>
           {role ? role?.slice(0, 1)?.toUpperCase() + role?.slice(1) : null}
         </p>
       </div>
-      <ChevronDown className={cn('w-4.5 h-4.5 text-secondary-foreground', { 'text-white': darkBg })} />
+      <ChevronDown className={cn('w-4.5 h-4.5 text-secondary-foreground', { 'text-foreground': darkBg })} />
     </div>
   )
 }

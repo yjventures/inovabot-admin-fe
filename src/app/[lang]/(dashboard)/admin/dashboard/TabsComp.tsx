@@ -1,6 +1,7 @@
 'use client'
 
 import Search from '@/components/reusable/tables/search'
+import TablePagination from '@/components/reusable/tables/table-pagination'
 import TableSelector, { TableMode } from '@/components/reusable/tables/table-selector'
 import Toggles from '@/components/reusable/tables/toggles'
 import { useState } from 'react'
@@ -18,11 +19,29 @@ export default function TabsComp() {
   const [searchValue, setsearchValue] = useState('')
   const [mode, setmode] = useState<TableMode>('list')
 
+  const [params, setparams] = useState({
+    page: 1,
+    limit: 10
+  })
+
   return (
     <>
-      <Toggles options={options} activeTab={activeTab} setactiveTab={setactiveTab} />
-      <Search searchValue={searchValue} setsearchValue={setsearchValue} placeholder='Search' />
-      <TableSelector mode={mode} setmode={setmode} />
+      <div className='flex flex-wrap items-center justify-between py-10 gap-x-3 gap-y-2'>
+        <Toggles options={options} activeTab={activeTab} setactiveTab={setactiveTab} />
+        <div className='flex flex-wrap items-center justify-between py-10 gap-x-3 gap-y-2'>
+          <Search searchValue={searchValue} setsearchValue={setsearchValue} placeholder='Search' />
+          <TableSelector mode={mode} setmode={setmode} />
+        </div>
+      </div>
+      <TablePagination
+        params={params}
+        setparams={setparams}
+        metadata={{
+          totalDocuments: 500,
+          currentPage: 20,
+          totalPages: 50
+        }}
+      />
     </>
   )
 }

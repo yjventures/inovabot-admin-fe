@@ -32,7 +32,7 @@ export default function Overlay({ isOpen, animationData, text }: Props) {
     ? createPortal(
         <div
           className={cn(
-            'w-full min-h-screen flex items-center justify-center fixed left-0 top-0 backdrop-blur-md z-[100] bg-white/5'
+            'w-full min-h-screen flex items-center justify-center fixed left-0 top-0 backdrop-blur-md z-[100] bg-foreground/5'
           )}
         >
           <div className='max-w-md'>

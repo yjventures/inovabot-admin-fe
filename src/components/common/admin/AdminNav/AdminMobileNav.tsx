@@ -42,7 +42,7 @@ export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, curren
   return (
     <nav
       className={cn(
-        'fixed top-0 right-0 bg-white w-[264px] h-screen flex flex-col items-center justify-between transition-all duration-500 z-50 overflow-y-auto border-l border-r-gray-primary',
+        'fixed top-0 right-0 bg-foreground w-[264px] h-screen flex flex-col items-center justify-between transition-all duration-500 z-50 overflow-y-auto border-l border-r-gray-primary',
         {
           '-right-[264px]': !navbarOpen
         }
