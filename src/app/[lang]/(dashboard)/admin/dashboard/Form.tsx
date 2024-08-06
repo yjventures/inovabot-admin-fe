@@ -2,7 +2,7 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/reusable/form/select'
 
-import { useController, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import Form from '@/components/reusable/form/form'
 import DnDUpload from '@/components/reusable/form/dnd-upload'
 import { Input } from '@/components/reusable/form/input'
@@ -19,7 +19,7 @@ export default function FormExample() {
     <Form methods={methods} onSubmit={methods.handleSubmit(onSubmit)} className='bg-white p-5 rounded-md'>
       <Input name='name' required label='Name' placeholder='First Name' />
       <Textarea name='first_name' required placeholder='First Name' label='Company Name' />
-      <DnDUpload name='image' text='Company Logo Light Mode' />
+      <DnDUpload name='image' text='Company Logo Light Mode' label='Company Logo' />
 
       <Select name='theme' required label='Theme'>
         <SelectTrigger className='max-w-sm'>

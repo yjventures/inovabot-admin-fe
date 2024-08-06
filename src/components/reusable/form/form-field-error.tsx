@@ -25,7 +25,7 @@ export default function FormFieldError({ required, name, errors, label, errorCla
           )}
         </div>
       ) : (
-        <div className='w-full h-5' />
+        <div className='w-full h-6' />
       )}
     </>
   )

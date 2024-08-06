@@ -3,9 +3,7 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { FieldErrors, FieldValues, RegisterOptions, useFormContext, UseFormRegister } from 'react-hook-form'
-import { Label } from '../../ui/label'
-import { formatFieldName } from '@/utils/form/formatFieldName'
+import { RegisterOptions, useFormContext } from 'react-hook-form'
 import FormFieldError from './form-field-error'
 import FormLabel from './form-label'
 
@@ -47,6 +45,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               { 'pl-10': icon },
               className
             )}
+            id={name}
             ref={el => {
               if (typeof ref === 'function') {
                 ref(el)
