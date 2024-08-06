@@ -11,6 +11,7 @@ import { ChangeEventHandler, DragEventHandler, ForwardRefExoticComponent, RefAtt
 import { useFormContext } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormFieldError from './form-field-error'
+import FormLabel from './form-label'
 
 interface Props {
   name: string
@@ -22,7 +23,6 @@ interface Props {
   containerClassName?: string
   cb?: (arg0: string) => void
   label?: string
-  showLabel?: boolean
   required?: boolean
 }
 
@@ -32,7 +32,6 @@ const DnDUpload = ({
   text,
   buttonLabel,
   label,
-  showLabel = false,
   required = false,
   className,
   labelClassName,
@@ -96,13 +95,8 @@ const DnDUpload = ({
 
   return (
     <>
-      <div className={cn(containerClassName, { 'flex flex-col gap-y-2': label && showLabel })}>
-        {label && showLabel && (
-          <Label className={cn('text-text-primary', labelClassName)}>
-            {label}
-            {required ? '*' : null}
-          </Label>
-        )}
+      <div className={cn(containerClassName)}>
+        <FormLabel label={label} labelClassName={labelClassName} name={name} required={required} />
 
         <div
           className={cn(

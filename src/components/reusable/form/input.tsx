@@ -8,6 +8,7 @@ import { Label } from '../../ui/label'
 import { Eye, EyeOff } from 'lucide-react'
 import { formatFieldName } from '@/utils/form/formatFieldName'
 import FormFieldError from './form-field-error'
+import FormLabel from './form-label'
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   containerClassName?: string
@@ -15,25 +16,12 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   icon?: React.ReactNode
   hookFormConfig?: RegisterOptions
   label?: string
-  showLabel?: boolean
   labelClassName?: string
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    {
-      containerClassName,
-      className,
-      type,
-      icon,
-      name,
-      hookFormConfig,
-      label,
-      showLabel,
-      labelClassName,
-      required,
-      ...props
-    },
+    { containerClassName, className, type, icon, name, hookFormConfig, label, labelClassName, required, ...props },
     ref
   ) => {
     const {
@@ -45,13 +33,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const [showPassword, setshowPassword] = React.useState(false)
 
     return (
-      <div className={cn(containerClassName, { 'flex flex-col gap-y-2': label && showLabel })}>
-        {label && showLabel && (
-          <Label className={cn('text-text-gray', labelClassName)} htmlFor={name}>
-            {label}
-            {required ? '*' : null}
-          </Label>
-        )}
+      <div className={cn(containerClassName)}>
+        <FormLabel label={label} labelClassName={labelClassName} name={name} required={required} />
         <div className='relative'>
           <input
             id={name}

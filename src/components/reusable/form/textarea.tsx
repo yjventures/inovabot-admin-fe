@@ -7,6 +7,7 @@ import { FieldErrors, FieldValues, RegisterOptions, useFormContext, UseFormRegis
 import { Label } from '../../ui/label'
 import { formatFieldName } from '@/utils/form/formatFieldName'
 import FormFieldError from './form-field-error'
+import FormLabel from './form-label'
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   containerClassName?: string
@@ -14,15 +15,11 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   icon?: React.ReactNode
   hookFormConfig?: RegisterOptions
   label?: string
-  showLabel?: boolean
   labelClassName?: string
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  (
-    { containerClassName, className, icon, name, hookFormConfig, label, labelClassName, showLabel, required, ...props },
-    ref
-  ) => {
+  ({ containerClassName, className, icon, name, hookFormConfig, label, labelClassName, required, ...props }, ref) => {
     const {
       register,
       formState: { errors }
@@ -41,13 +38,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const textareaProps = name ? { ...register(name, { required, ...hookFormConfig }), ...props } : { ...props }
 
     return (
-      <div className={cn(containerClassName, { 'flex flex-col gap-y-2': label && showLabel })}>
-        {label && showLabel && (
-          <Label className={cn('text-text-tartiary', labelClassName)}>
-            {label}
-            {required ? '*' : null}
-          </Label>
-        )}
+      <div className={cn(containerClassName)}>
+        <FormLabel label={label} labelClassName={labelClassName} name={name} required={required} />
         <div className='relative'>
           <textarea
             className={cn(
