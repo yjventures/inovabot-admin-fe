@@ -17,15 +17,15 @@ export default function FormFieldError({ required, name, errors, label, errorCla
       {required && name ? (
         <div className={cn('flex justify-start mt-1', errorClassName)}>
           {errors[name] && errors[name]?.type === 'required' ? (
-            <span className='text-red-500 text-xs h-5 leading-none !text-left'>
+            <span className='text-red-500 text-xs h-3 leading-none !text-left'>
               {label || formatFieldName(name)} is required
             </span>
           ) : (
-            <div className='w-full h-5' />
+            <div className='w-full h-3' />
           )}
         </div>
       ) : (
-        <div className='w-full h-6' />
+        <div className='w-full h-4' />
       )}
     </>
   )

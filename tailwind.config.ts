@@ -36,7 +36,8 @@ const config = {
           ['gray-dark']: 'var(--text-gray-dark)'
         },
         gray: {
-          primary: 'var(--gray-primary)'
+          primary: 'var(--gray-primary)',
+          secondary: 'var(--gray-secondary)'
         },
         pink: {
           primary: 'var(--pink-primary)'

@@ -1,7 +1,7 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.fixAll.tslint": "explicit",
+    "source.fixAll.tslint": "all",
     "source.organizeImports": "explicit"
   }
 }

@@ -19,7 +19,7 @@ export default function FormExample() {
     <Form methods={methods} onSubmit={methods.handleSubmit(onSubmit)} className='bg-white p-5 rounded-md'>
       <Input name='name' required label='Name' placeholder='First Name' />
       <Textarea name='first_name' required placeholder='First Name' label='Company Name' />
-      <DnDUpload name='image' text='Company Logo Light Mode' label='Company Logo' />
+      <DnDUpload name='image' text='Company Logo Light Mode' label='Company Logo' required />
 
       <Select name='theme' required label='Theme'>
         <SelectTrigger className='max-w-sm'>
