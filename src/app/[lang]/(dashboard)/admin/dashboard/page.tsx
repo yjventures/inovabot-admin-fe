@@ -1,12 +1,16 @@
 import BotCard from '@/components/reusable/cards/bot-card'
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import CompanyCard from '@/components/reusable/cards/company-card'
+import StatisticsCard from '@/components/reusable/cards/statistics-card'
 import TemplateCard from '@/components/reusable/cards/template-card'
+import { FileClock } from 'lucide-react'
 import React from 'react'
+import FormExample from './Form'
 
 export default function DashboardPage() {
   return (
     <div>
+      <FormExample />
       <CardGrid>
         {Array.from({ length: 10 }, (_, index) => (
           <CompanyCard
@@ -36,6 +40,12 @@ export default function DashboardPage() {
       <div className='mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {Array.from({ length: 10 }, (_, index) => (
           <TemplateCard key={index} name='Template Name' tag='tag' description='Template Description' />
+        ))}
+      </div>
+
+      <div className='mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+        {Array.from({ length: 10 }, (_, index) => (
+          <StatisticsCard key={index} icon={FileClock} title='Title' number='100' />
         ))}
       </div>
     </div>
