@@ -4,6 +4,7 @@ import '@/styles/globals.scss'
 import { cn } from '@/lib/utils'
 import { Toaster } from 'react-hot-toast'
 import ReduxProvider from '@/lib/redux/redux-provider'
+import { ThemeProvider } from '@/lib/theme/ThemeProvider'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -22,11 +23,13 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <ReduxProvider>
-        <body className={cn('min-h-screen font-sans antialiased', fontSans.variable)}>
-          <Toaster position='top-center' />
-          <main>{children}</main>
-          <div id='modal-container' />
-        </body>
+        <ThemeProvider attribute='class' defaultTheme='light' enableSystem disableTransitionOnChange>
+          <body className={cn('min-h-screen font-sans antialiased', fontSans.variable)}>
+            <Toaster position='top-center' />
+            <main>{children}</main>
+            <div id='modal-container' />
+          </body>
+        </ThemeProvider>
       </ReduxProvider>
     </html>
   )

@@ -8,6 +8,7 @@ import companyPlaceholder from '@/assets/images/common/dashboard/company-placeho
 import CardCeparatorBorder from './commonn/card-separator-border'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import ThreeDots from '@/components/ui/three-dots'
+import CardPopover from './commonn/card-popover'
 
 interface Props {
   logo?: string
@@ -22,6 +23,8 @@ interface Props {
 export default function CompanyCard({ logo, name, web_url, bots, recurring, last_subscribed, createdAt }: Props) {
   return (
     <CardWrapper>
+      <CardPopover>Hello</CardPopover>
+
       <div className='flex flex-col items-center justify-center gap-y-2'>
         <div className='size-12'>
           {logo ? (
@@ -40,20 +43,10 @@ export default function CompanyCard({ logo, name, web_url, bots, recurring, last
       </div>
 
       <CardCeparatorBorder />
-
       <CardBetween left='Bots' right={bots.toString()} />
       <CardBetween left='Recurring' right={recurring} />
       <CardBetween left='Last Subscribed' right={formateDate(last_subscribed)} />
-      <CardBetween left='Created At' right={formateDate(createdAt)} />
-
-      <Popover>
-        <PopoverTrigger>
-          <ThreeDots className='absolute right-2 top-3' />
-        </PopoverTrigger>
-        <PopoverContent>
-          <div>hello</div>
-        </PopoverContent>
-      </Popover>
+      <CardBetween left='Created' right={formateDate(createdAt)} />
     </CardWrapper>
   )
 }
