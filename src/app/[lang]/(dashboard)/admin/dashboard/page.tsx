@@ -1,6 +1,7 @@
 import BotCard from '@/components/reusable/cards/bot-card'
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import CompanyCard from '@/components/reusable/cards/company-card'
+import TemplateCard from '@/components/reusable/cards/template-card'
 import React from 'react'
 
 export default function DashboardPage() {
@@ -31,6 +32,12 @@ export default function DashboardPage() {
           />
         ))}
       </CardGrid>
+
+      <div className='mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        {Array.from({ length: 10 }, (_, index) => (
+          <TemplateCard key={index} name='Template Name' tag='tag' description='Template Description' />
+        ))}
+      </div>
     </div>
   )
 }
