@@ -21,7 +21,8 @@ const buttonVariants = cva(
         pink: 'bg-pink-primary text-foreground hover:bg-pink-primary/90',
         cyan: 'bg-cyan-primary text-foreground hover:bg-cyan-primary/90',
         magenta: 'bg-magenta-primary text-foreground hover:bg-magenta-primary/90',
-        orange: 'bg-orange-primary text-foreground hover:bg-orange-primary/90'
+        orange: 'bg-orange-primary text-foreground hover:bg-orange-primary/90',
+        unstyled: 'text-text-primary'
       },
       size: {
         default: 'h-10 px-4 py-2',
