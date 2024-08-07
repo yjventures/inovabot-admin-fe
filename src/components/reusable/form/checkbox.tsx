@@ -6,23 +6,20 @@ import { Check } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { Label } from '@/components/ui/label'
-import { RegisterOptions, useFormContext } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 
 interface Props {
   containerClassName?: string
   label?: string
   labelClassName?: string
   name?: string
-  hookFormConfig?: RegisterOptions
 }
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & Props
->(({ className, label, labelClassName, name, containerClassName, onCheckedChange, hookFormConfig, ...props }, ref) => {
-  const { watch, setValue } = useFormContext()
-
-  const value = name ? watch(name) : undefined
+>(({ className, label, labelClassName, name, containerClassName, onCheckedChange, ...props }, ref) => {
+  const { setValue } = useFormContext()
 
   return (
     <div className={cn('flex flex-wrap items-center gap-x-2', containerClassName)}>
