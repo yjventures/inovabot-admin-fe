@@ -17,7 +17,11 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         black: 'bg-text-heading text-foreground hover:bg-text-heading/90',
         gradient:
-          'bg-gradient-to-r from-blue-dark to-cyan-dark text-foreground hover:from-cyan-dark hover:to-blue-dark transition-all'
+          'bg-gradient-to-r from-blue-dark to-cyan-dark text-foreground hover:from-cyan-dark hover:to-blue-dark transition-all',
+        pink: 'bg-pink-primary text-foreground hover:bg-pink-primary/90',
+        cyan: 'bg-cyan-primary text-foreground hover:bg-cyan-primary/90',
+        magenta: 'bg-magenta-primary text-foreground hover:bg-magenta-primary/90',
+        orange: 'bg-orange-primary text-foreground hover:bg-orange-primary/90'
       },
       size: {
         default: 'h-10 px-4 py-2',
