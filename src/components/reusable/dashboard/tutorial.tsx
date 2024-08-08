@@ -3,14 +3,6 @@
 import React, { HTMLAttributes } from 'react'
 import tutorialBg from '@/assets/images/common/dashboard/tutorial-bg.png'
 import { cn } from '@/lib/utils'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
 import YoutubeEmbed from '@/components/ui/youtube-embed'
 import LLink from '@/components/ui/llink'
 import { Button } from '@/components/ui/button'
