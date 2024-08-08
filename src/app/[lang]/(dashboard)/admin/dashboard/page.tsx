@@ -6,6 +6,7 @@ import TemplateCard from '@/components/reusable/cards/template-card'
 import { FileClock } from 'lucide-react'
 import React from 'react'
 import FormExample from './Form'
+import Tutorial from '@/components/reusable/dashboard/tutorial'
 
 export default function DashboardPage() {
   return (
@@ -48,6 +49,14 @@ export default function DashboardPage() {
           <StatisticsCard key={index} icon={FileClock} title='Title' number='100' />
         ))}
       </div>
+
+      <Tutorial
+        videoId='oPVgo3jOUAc'
+        title='Tutorial Title'
+        description='Tutorial Description'
+        ctaLabel='Tutorial CTA'
+        ctaHref='/'
+      />
     </div>
   )
 }

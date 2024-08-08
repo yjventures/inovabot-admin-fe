@@ -22,7 +22,7 @@ const Checkbox = React.forwardRef<
   const { setValue } = useFormContext()
 
   return (
-    <div className={cn('flex flex-wrap items-center gap-x-2', containerClassName)}>
+    <div className={cn('flex flex-wrap items-center gap-x-2 mb-4', containerClassName)}>
       <CheckboxPrimitive.Root
         id={name}
         ref={ref}
