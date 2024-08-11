@@ -6,8 +6,6 @@ import CardBetween from './commonn/card-between'
 import { formateDate } from '@/utils/date/formateDate'
 import companyPlaceholder from '@/assets/images/common/dashboard/company-placeholder.png'
 import CardCeparatorBorder from './commonn/card-separator-border'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import ThreeDots from '@/components/ui/three-dots'
 import CardPopover from './commonn/card-popover'
 
 interface Props {
