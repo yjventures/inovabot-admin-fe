@@ -2,9 +2,8 @@ import { cn } from '@/lib/utils'
 import React from 'react'
 import companyPlaceholder from '@/assets/images/common/dashboard/company-placeholder.png'
 import { Img } from '@/components/ui/img'
-import Typography from '@/components/ui/typography'
 import Badge from './badge'
-import { Flag, Share, Share2, ShowerHead } from 'lucide-react'
+import { Flag, Share2, ShowerHead } from 'lucide-react'
 import { formateDate } from '@/utils/date/formateDate'
 
 interface Props {
@@ -18,6 +17,7 @@ interface Props {
   expires_at: string
   description: string
   gradientClassName?: string
+  className?: string
 }
 
 export default function CompanyIntoCard({
@@ -30,10 +30,11 @@ export default function CompanyIntoCard({
   createdAt,
   expires_at,
   description,
-  gradientClassName
+  gradientClassName,
+  className
 }: Props) {
   return (
-    <section className='p-2 bg-foreground rounded-lg border border-border-primary'>
+    <section className={cn('p-2 bg-foreground rounded-lg border border-border-primary', className)}>
       <div
         className={cn(
           'w-full h-24 bg-gradient-to-b from-cyan-dark to-emerald-primary flex items-end justify-end relative rounded-lg',
