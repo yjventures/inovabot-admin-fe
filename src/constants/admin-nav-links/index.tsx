@@ -1,5 +1,5 @@
 import { LucideProps } from 'lucide-react'
-import { ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react'
+import { ForwardRefExoticComponent, RefAttributes } from 'react'
 
 export interface AdminLinkBase {
   id: number
