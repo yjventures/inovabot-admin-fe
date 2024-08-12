@@ -1,3 +1,4 @@
+import RecentCompanies from '@/components/pages/admin/companies'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
@@ -22,6 +23,7 @@ export default function CompaniesPage() {
           </>
         }
       />
+      <RecentCompanies />
     </div>
   )
 }

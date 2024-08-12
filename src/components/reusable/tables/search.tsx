@@ -17,11 +17,13 @@ export default function Search({ searchValue, setsearchValue, inputClassName, cl
   const debouncedSearch = useDebounce(value, 500)
 
   useEffect(() => {
-    setsearchValue(debouncedSearch)
-  }, [debouncedSearch, setsearchValue])
+    if (debouncedSearch !== searchValue && debouncedSearch !== '') {
+      setsearchValue(debouncedSearch)
+    }
+  }, [debouncedSearch, searchValue, setsearchValue])
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('relative w-full ', className)}>
       <input
         className={cn(
           'flex h-10 w-full rounded-full border border-foreground-border bg-foreground px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-background file:text-sm file:font-medium placeholder:text-text-gray-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-16 pr-8',
