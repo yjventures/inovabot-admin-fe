@@ -10,9 +10,9 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export default function DashboardHeading({ title, extra, className, ...props }: Props) {
   return (
-    <div className={cn('flex flex-wrap items-center justify-between gap-x-5 gap-y-3', className)} {...props}>
+    <div className={cn('flex flex-wrap items-center justify-between gap-x-5 gap-y-3 mb-8', className)} {...props}>
       <Typography variant='h4'>{title}</Typography>
-      {extra}
+      <div className='flex flex-wrap items-center gap-x-5'>{extra}</div>
     </div>
   )
 }

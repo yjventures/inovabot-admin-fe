@@ -6,11 +6,11 @@ export interface AdminLinkBase {
   label: string
   hasChildren: boolean
   icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
+  href: string
 }
 
 export interface AdminLinkWithHref extends AdminLinkBase {
   hasChildren: false
-  href: string
 }
 
 export interface AdminLinkWithChildren extends AdminLinkBase {

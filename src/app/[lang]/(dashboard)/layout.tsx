@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }: Props) {
   return (
     <>
       <AdminNav currentLink={currentNavLink} />
-      <section className='pt-24 pl-7 lg:pl-[292px] pr-7 pb-7 bg-background'>{children}</section>
+      <section className='pt-24 pl-7 lg:pl-[292px] pr-7 pb-7 bg-background min-h-screen'>{children}</section>
     </>
   )
 }

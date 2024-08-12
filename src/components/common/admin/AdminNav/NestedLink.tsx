@@ -46,11 +46,12 @@ const NestedLink = ({ link, currentLink }: Props) => {
       <AccordionItem value={String(link.id)} className='border-b-0'>
         <AccordionTrigger
           className={cn('py-0 hover:no-underline hover:bg-gray-primary', {
-            'font-bold bg-gray-primary': isNestedActive(link)
+            'font-bold bg-gray-primary': isNestedActive(link) || pathname.includes(link.href)
           })}
         >
-          <div className='relative'>
-            <div
+          <div className='relative' onClick={e => e.stopPropagation()}>
+            <LLink
+              href={link.href}
               key={link.id}
               className={cn('text-gray-light text-left text-sm text-text-primary h-12 flex items-center w-full')}
             >
@@ -59,12 +60,12 @@ const NestedLink = ({ link, currentLink }: Props) => {
                   className={cn('size-5 text-text-gray-light', {
                     'text-text-primary': isNestedActive(link)
                   })}
-                  strokeWidth={isNestedActive(link) ? 2 : 1.5}
+                  strokeWidth={isNestedActive(link) || pathname.includes(link.href) ? 2 : 1.5}
                 />
               </span>
               {link.label}
-            </div>
-            {isNestedActive(link) && (
+            </LLink>
+            {(isNestedActive(link) || pathname.includes(link.href)) && (
               <div className='absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-blue-dark to-cyan-dark' />
             )}
           </div>

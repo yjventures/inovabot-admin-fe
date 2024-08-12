@@ -14,6 +14,7 @@ export const platformAdminLinks: Array<AdminLink> = [
     label: 'Companies',
     hasChildren: true,
     icon: BaggageClaim,
+    href: '/admin/companies',
     childrenLinks: [
       { id: 1, label: 'View All', href: '/admin/companies/view-all' },
       { id: 2, label: 'Analytics', href: '/admin/companies/analytics' }
@@ -31,6 +32,7 @@ export const platformAdminLinks: Array<AdminLink> = [
     label: 'Analytics',
     hasChildren: true,
     icon: UserPlus,
+    href: '/admin/analytics',
     childrenLinks: [
       { id: 1, label: 'Financial', href: '/admin/analytics' },
       { id: 2, label: 'Analytics', href: '/admin/analytics/analytics' },
