@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export default function TableSearchSelector({ params, setparams, mode, setmode, className, ...props }: Props) {
   return (
     <div
-      className={cn('flex flex-col sm:flex-row items-end sm:items-center justify-between gap-x-5 gap-y-3', className)}
+      className={cn('flex flex-col sm:flex-row items-end sm:items-center justify-between gap-x-5 gap-y-3 mb-6', className)}
       {...props}
     >
       <Search

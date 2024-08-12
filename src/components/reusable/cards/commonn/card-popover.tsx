@@ -12,7 +12,7 @@ export default function CardPopover({ children, className, ...props }: Props) {
   return (
     <Popover {...props}>
       <PopoverTrigger>
-        <ThreeDots className='fixed right-2 top-3' />
+        <ThreeDots className='absolute right-2 top-3' />
       </PopoverTrigger>
       <PopoverContent>{children}</PopoverContent>
     </Popover>

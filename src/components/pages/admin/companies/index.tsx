@@ -1,10 +1,13 @@
 'use client'
 
-import Search from '@/components/reusable/tables/search'
+import CardGrid from '@/components/reusable/cards/commonn/card-grid'
+import CompanyCard, { type CompanyCardProps } from '@/components/reusable/cards/company-card'
 import TableSearchSelector from '@/components/reusable/tables/table-search-selector'
-import TableSelector, { TableMode } from '@/components/reusable/tables/table-selector'
+import { TableMode } from '@/components/reusable/tables/table-selector'
 import { useGetCompaniesQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
+import { WithId } from '@/types/common/IResponse'
+import { ICompany } from '@/types/ICompany'
 import { useState } from 'react'
 
 export default function RecentCompanies() {
@@ -17,10 +20,17 @@ export default function RecentCompanies() {
   })
   const { data, isLoading, isError } = useGetCompaniesQuery(params)
   const [mode, setmode] = useState<TableMode>('grid')
-  console.log(data?.data)
   return (
     <div>
       <TableSearchSelector params={params} setparams={setparams} mode={mode} setmode={setmode} />
+
+      {mode == 'grid' ? (
+        <CardGrid>
+          {data?.data.map((company: WithId<ICompany>) => (
+            <CompanyCard key={company._id} company={company} />
+          ))}
+        </CardGrid>
+      ) : null}
     </div>
   )
 }
