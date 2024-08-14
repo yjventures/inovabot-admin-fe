@@ -10,18 +10,31 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   mode: TableMode
   setmode: Dispatch<SetStateAction<TableMode>>
   className?: string
+  placeholder?: string
 }
 
-export default function TableSearchSelector({ params, setparams, mode, setmode, className, ...props }: Props) {
+export default function TableSearchSelector({
+  params,
+  setparams,
+  mode,
+  setmode,
+  className,
+  placeholder,
+  ...props
+}: Props) {
   return (
     <div
-      className={cn('flex flex-col sm:flex-row items-end sm:items-center justify-between gap-x-5 gap-y-3 mb-6', className)}
+      className={cn(
+        'flex flex-col sm:flex-row items-end sm:items-center justify-between gap-x-5 gap-y-3 mb-6',
+        className
+      )}
       {...props}
     >
       <Search
         searchValue={params.search}
         setsearchValue={val => setparams({ ...params, search: val })}
         className='w-full sm:w-[calc(100%-100px)]'
+        placeholder={placeholder || 'Search'}
       />
       <TableSelector mode={mode} setmode={setmode} />
     </div>

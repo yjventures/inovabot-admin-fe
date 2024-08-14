@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export default function TableSkeleton({ className, ...props }: Props) {
   return (
-    <div className={cn('flex flex-col gap-2', className)} {...props}>
+    <div className={cn('flex flex-col gap-3', className)} {...props}>
       {Array.from({ length: 10 }, (_, index) => (
         <Skeleton key={index} className='h-14 w-full' />
       ))}

@@ -8,7 +8,7 @@ const rootApi = '/companies'
 
 const companiesApi = api.injectEndpoints({
   endpoints: build => ({
-    getCompanies: build.query<IResponseWithMeta<WithId<ICompany>[]>, IParams>({
+    getCompanies: build.query<IResponseWithMeta<Array<WithId<ICompany>>>, IParams>({
       query: params => ({
         url: apiURL(rootApi),
         params
