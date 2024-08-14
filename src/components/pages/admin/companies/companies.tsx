@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { formateDate } from '@/utils/date/formateDate'
 import { MessageSquareMore, PencilLine, Trash2 } from 'lucide-react'
 import { TableMode } from '@/components/reusable/tables/table-selector'
+import Intro from '@/components/reusable/common/intro'
 
 interface Props {
   mode: TableMode
@@ -54,8 +55,10 @@ export default function Companies({ mode, isLoading, isSuccess, data }: Props) {
             </TableHeader>
             <TableBody>
               {data?.data.map((company: WithId<ICompany>) => (
-                <TableRow key={company._id}>
-                  <TableCell>{company.name}</TableCell>
+                <TableRow key={company?._id}>
+                  <TableCell>
+                    <Intro imgSrc={company?.logo} title={company?.name} description={company?.web_url} hasLink />
+                  </TableCell>
                   <TableCell>{formateDate(company.createdAt, true)}</TableCell>
                   <TableCell>{company.bots}</TableCell>
                   <TableCell className='text-right'>${company.payment_amount}</TableCell>
