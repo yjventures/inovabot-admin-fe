@@ -1,10 +1,5 @@
 function methodURL(method: 'get-all' | 'get' | 'create' | 'update' | 'delete'): string {
-  if (method === 'get-all') return '/get-all'
-  if (method === 'get') return '/get'
-  if (method === 'create') return '/create'
-  if (method === 'update') return '/update'
-  if (method === 'delete') return '/delete'
-  return ''
+  return `/${method}`
 }
 
 export const apiURL = (
