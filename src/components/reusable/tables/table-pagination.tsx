@@ -10,24 +10,17 @@ import {
   PaginationNext,
   PaginationPrevious
 } from '@/components/ui/pagination'
-
-interface PaginateParams {
-  page: number
-  limit: number
-}
+import { IParams } from '@/types/common/IParams'
+import { IMetadata } from '@/types/common/IResponse'
 
 interface Props {
-  metadata: {
-    totalDocuments: number
-    currentPage: number
-    totalPages: number
-  }
-  params: PaginateParams
-  setparams: Dispatch<SetStateAction<PaginateParams>>
+  metadata: IMetadata
+  params: IParams
+  setparams: Dispatch<SetStateAction<IParams>>
 }
 
 export default function TablePagination({ metadata, params, setparams }: Props) {
-  const { totalDocuments, currentPage, totalPages } = metadata
+  const { totalDocuments, currentPage, totalPages } = { ...metadata }
 
   const generatePageNumbers = () => {
     const pages = []

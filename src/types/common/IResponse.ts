@@ -10,9 +10,9 @@ export interface IResponseWithMeta<T> {
 }
 
 export interface IMetadata {
-  page: number
-  limit: number
-  total: number
+  currentPage: number
+  totalPages: number
+  totalDocuments: number
 }
 
 export type WithId<T> = T & {

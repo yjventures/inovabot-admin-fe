@@ -4,12 +4,12 @@ import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
 
 export const metadata = {
-  title: 'Companies'
+  title: 'Companies | Inova'
 }
 
 export default function CompaniesPage() {
   return (
-    <div>
+    <>
       <DashboardHeading
         title='Recent Companies'
         extra={
@@ -24,6 +24,6 @@ export default function CompaniesPage() {
         }
       />
       <RecentCompanies />
-    </div>
+    </>
   )
 }
