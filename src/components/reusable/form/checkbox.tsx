@@ -10,7 +10,7 @@ interface Props {
   label?: string
   labelClassName?: string
   name?: string
-  onCheckedChange?: (checked: CheckboxPrimitive.CheckedState) => void
+  onCheckedChange?: (checked: boolean | 'indeterminate') => void
   id?: string
 }
 
@@ -19,6 +19,15 @@ const Checkbox = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & Props
 >(({ className, label, labelClassName, name, containerClassName, onCheckedChange, id, ...props }, ref) => {
   const formContext = useFormContext<UseFormReturn>()
+
+  const handleCheckedChange = (checked: boolean | 'indeterminate') => {
+    if (onCheckedChange) {
+      onCheckedChange(checked)
+    }
+    if (name && formContext) {
+      formContext.setValue(name, checked)
+    }
+  }
 
   return (
     <div className={cn('flex flex-wrap items-center gap-x-2 mb-4', containerClassName)}>
@@ -29,10 +38,7 @@ const Checkbox = React.forwardRef<
           'peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',
           className
         )}
-        onCheckedChange={checked => {
-          if (onCheckedChange) onCheckedChange(checked)
-          if (name && formContext) formContext.setValue(name, checked)
-        }}
+        onCheckedChange={handleCheckedChange}
         {...props}
       >
         <CheckboxPrimitive.Indicator className={cn('flex items-center justify-center text-current')}>
