@@ -14,10 +14,14 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   hookFormConfig?: RegisterOptions
   label?: string
   labelClassName?: string
+  id?: string
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ containerClassName, className, icon, name, hookFormConfig, label, labelClassName, required, ...props }, ref) => {
+  (
+    { containerClassName, className, icon, name, hookFormConfig, label, labelClassName, required, id, ...props },
+    ref
+  ) => {
     const {
       register,
       formState: { errors }
@@ -37,7 +41,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     return (
       <div className={cn(containerClassName)}>
-        <FormLabel label={label} labelClassName={labelClassName} name={name} required={required} />
+        <FormLabel label={label} labelClassName={labelClassName} name={id || name} required={required} />
         <div className='relative'>
           <textarea
             className={cn(
@@ -45,7 +49,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               { 'pl-10': icon },
               className
             )}
-            id={name}
+            id={id || name}
             ref={el => {
               if (typeof ref === 'function') {
                 ref(el)

@@ -24,6 +24,7 @@ interface Props {
   cb?: (arg0: string) => void
   label?: string
   required?: boolean
+  id?: stringq
 }
 
 const DnDUpload = ({
@@ -36,6 +37,7 @@ const DnDUpload = ({
   className,
   labelClassName,
   containerClassName,
+  id,
   cb = () => {},
   ...rest
 }: Props) => {
@@ -96,11 +98,12 @@ const DnDUpload = ({
   return (
     <>
       <div className={cn(containerClassName)}>
-        <FormLabel label={label} labelClassName={labelClassName} name={name} required={required} />
+        <FormLabel label={label} labelClassName={labelClassName} name={id || name} required={required} />
 
         <div
+          id={id || name}
           className={cn(
-            'border-2 rounded-2xl border-dashed p-5 sm:p-10 text-center flex flex-col items-center justify-center bg-background',
+            'border-2 rounded-2xl border-dashed p-5 sm:p-10 text-center flex flex-col items-center justify-center bg-background focus:border-4',
             className
           )}
           onDrop={handleDrop}

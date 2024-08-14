@@ -17,7 +17,7 @@ export const platformAdminLinks: Array<AdminLink> = [
     href: '/admin/companies',
     childrenLinks: [
       { id: 1, label: 'View All', href: '/admin/companies/view-all' },
-      { id: 2, label: 'Analytics', href: '/admin/companies/analytics' }
+      { id: 2, label: 'Create', href: '/admin/companies/create' }
     ]
   },
   {

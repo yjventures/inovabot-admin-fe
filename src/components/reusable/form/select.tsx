@@ -143,6 +143,7 @@ interface Props {
   required?: boolean
   label?: string
   labelClassName?: string
+  id?: string
 }
 
 const Select = ({
@@ -153,6 +154,7 @@ const Select = ({
   label,
   labelClassName,
   containerClassName,
+  id,
   ...props
 }: Props) => {
   const {
@@ -164,8 +166,8 @@ const Select = ({
   } = useController({ name, control: control, defaultValue, rules: { required } })
   return (
     <div className={containerClassName}>
-      <FormLabel label={label} labelClassName={labelClassName} name={name} required={required} />
-      <RawSelect value={value} onValueChange={onChange} {...props}>
+      <FormLabel label={label} labelClassName={labelClassName} name={id || name} required={required} />
+      <RawSelect value={value} onValueChange={onChange} {...props} id={id || name}>
         {children}
       </RawSelect>
       <FormFieldError label={label} errors={errors} name={name} required={required} />
