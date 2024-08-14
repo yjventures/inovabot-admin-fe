@@ -22,7 +22,14 @@ export default function RecentCompanies() {
         placeholder='Search company by name...'
       />
 
-      <Companies mode={mode} isLoading={isLoading} isSuccess={isSuccess} data={data} />
+      <Companies
+        mode={mode}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        data={data}
+        params={params}
+        setparams={setparams}
+      />
     </div>
   )
 }

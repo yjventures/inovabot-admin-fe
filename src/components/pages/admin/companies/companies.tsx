@@ -4,21 +4,25 @@ import TableSkeleton from '@/components/reusable/tables/table-skeleton'
 import { Skeleton } from '@/components/ui/skeleton'
 import { IResponseWithMeta, WithId } from '@/types/common/IResponse'
 import { ICompany } from '@/types/ICompany'
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { formateDate } from '@/utils/date/formateDate'
 import { MessageSquareMore, PencilLine, Trash2 } from 'lucide-react'
 import { TableMode } from '@/components/reusable/tables/table-selector'
 import Intro from '@/components/reusable/common/intro'
+import { IParams } from '@/types/common/IParams'
+import TableSorter from '@/components/reusable/tables/table-sorter'
 
 interface Props {
   mode: TableMode
   isLoading: boolean
   isSuccess: boolean
   data?: IResponseWithMeta<WithId<ICompany>[]>
+  params: IParams
+  setparams: Dispatch<SetStateAction<IParams>>
 }
 
-export default function Companies({ mode, isLoading, isSuccess, data }: Props) {
+export default function Companies({ mode, isLoading, isSuccess, data, params, setparams }: Props) {
   return (
     <>
       {isLoading ? (
@@ -44,12 +48,32 @@ export default function Companies({ mode, isLoading, isSuccess, data }: Props) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Company Name</TableHead>
-                <TableHead>Created</TableHead>
-                <TableHead>Bots</TableHead>
+                <TableHead>
+                  <TableSorter params={params} setparams={setparams} sortField='name'>
+                    Company Name
+                  </TableSorter>
+                </TableHead>
+                <TableHead>
+                  <TableSorter params={params} setparams={setparams} sortField='createdAt'>
+                    Created
+                  </TableSorter>
+                </TableHead>
+                <TableHead>
+                  <TableSorter params={params} setparams={setparams} sortField='bots'>
+                    Bots
+                  </TableSorter>
+                </TableHead>
                 <TableHead className='text-right'>Payment</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Payment on</TableHead>
+                <TableHead>
+                  <TableSorter params={params} setparams={setparams} sortField='status'>
+                    Status
+                  </TableSorter>
+                </TableHead>
+                <TableHead>
+                  <TableSorter params={params} setparams={setparams} sortField='last_subscribed'>
+                    Payment on
+                  </TableSorter>
+                </TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
