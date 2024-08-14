@@ -6,15 +6,10 @@ import { useGetCompaniesQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
 import { useState } from 'react'
 import Companies from './companies'
+import { initParams } from '@/constants/form/init-params'
 
 export default function RecentCompanies() {
-  const [params, setparams] = useState<IParams>({
-    page: 1,
-    limit: 10,
-    sortBy: 'createdAt',
-    sortOrder: 'desc',
-    search: ''
-  })
+  const [params, setparams] = useState<IParams>(initParams({}))
   const { data, isLoading, isSuccess } = useGetCompaniesQuery(params)
   const [mode, setmode] = useState<TableMode>('grid')
   return (
