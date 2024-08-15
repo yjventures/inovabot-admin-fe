@@ -70,7 +70,7 @@ export default function TablePagination({ metadata, params, setparams }: Props) 
 
   const pageNumbers = generatePageNumbers()
 
-  return (
+  return totalDocuments ? (
     <div className='w-full flex flex-wrap items-center justify-between gap-2 p-3 bg-foreground'>
       <p className='text-sm font-medium'>
         Showing {Math.max((currentPage - 1) * params.limit + 1, 1)} -{' '}
@@ -110,5 +110,5 @@ export default function TablePagination({ metadata, params, setparams }: Props) 
         </PaginationContent>
       </Pagination>
     </div>
-  )
+  ) : null
 }

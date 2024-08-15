@@ -2,7 +2,7 @@ import api from '@/redux/api'
 import { apiURL } from '../utils'
 import { ICompany } from '@/types/ICompany'
 import { IParams } from './../../types/common/IParams'
-import { IResponseWithMeta, WithId } from '@/types/common/IResponse'
+import { IResponse, IResponseWithMeta, WithId } from '@/types/common/IResponse'
 
 const rootApi = '/companies'
 
@@ -15,7 +15,7 @@ const companiesApi = api.injectEndpoints({
       }),
       providesTags: ['companies']
     }),
-    createCompany: build.mutation<Response<WithId<ICompany>>, ICompany>({
+    createCompany: build.mutation<IResponse<WithId<ICompany>>, ICompany>({
       query: body => ({
         url: apiURL(rootApi, 'create'),
         method: 'POST',
