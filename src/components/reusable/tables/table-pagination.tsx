@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, HTMLAttributes, SetStateAction } from 'react'
 import {
   Pagination,
   PaginationButton,
@@ -12,27 +12,29 @@ import {
 } from '@/components/ui/pagination'
 import { IParams } from '@/types/common/IParams'
 import { IMetadata } from '@/types/common/IResponse'
+import { cn } from '@/lib/utils'
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   metadata: IMetadata
   params: IParams
   setparams: Dispatch<SetStateAction<IParams>>
+  className?: string
 }
 
-export default function TablePagination({ metadata, params, setparams }: Props) {
-  const { totalDocuments, currentPage, totalPages } = { ...metadata }
+export default function TablePagination({ metadata, params, setparams, className }: Props) {
+  const { totalDocuments, currentPage, totalPage } = { ...metadata }
 
   const generatePageNumbers = () => {
     const pages = []
-    if (totalPages <= 5) {
-      for (let i = 1; i <= totalPages; i++) {
+    if (totalPage <= 5) {
+      for (let i = 1; i <= totalPage; i++) {
         pages.push(i)
       }
-    } else if (totalPages >= 10) {
+    } else if (totalPage >= 10) {
       if (currentPage <= 3) {
-        pages.push(1, 2, 3, 'ellipsis', totalPages - 2, totalPages - 1, totalPages)
-      } else if (currentPage >= totalPages - 2) {
-        pages.push(1, 2, 3, 'ellipsis', totalPages - 2, totalPages - 1, totalPages)
+        pages.push(1, 2, 3, 'ellipsis', totalPage - 2, totalPage - 1, totalPage)
+      } else if (currentPage >= totalPage - 2) {
+        pages.push(1, 2, 3, 'ellipsis', totalPage - 2, totalPage - 1, totalPage)
       } else {
         pages.push(
           1,
@@ -42,15 +44,15 @@ export default function TablePagination({ metadata, params, setparams }: Props) 
           currentPage,
           currentPage + 1,
           'ellipsis',
-          totalPages - 1,
-          totalPages
+          totalPage - 1,
+          totalPage
         )
       }
     } else {
       if (currentPage <= 3) {
-        pages.push(1, 2, 3, 'ellipsis', totalPages - 2, totalPages - 1, totalPages)
-      } else if (currentPage >= totalPages - 2) {
-        pages.push(1, 'ellipsis', totalPages - 3, totalPages - 2, totalPages - 1, totalPages)
+        pages.push(1, 2, 3, 'ellipsis', totalPage - 2, totalPage - 1, totalPage)
+      } else if (currentPage >= totalPage - 2) {
+        pages.push(1, 'ellipsis', totalPage - 3, totalPage - 2, totalPage - 1, totalPage)
       } else {
         pages.push(
           1,
@@ -59,9 +61,9 @@ export default function TablePagination({ metadata, params, setparams }: Props) 
           currentPage,
           currentPage + 1,
           'ellipsis',
-          totalPages - 2,
-          totalPages - 1,
-          totalPages
+          totalPage - 2,
+          totalPage - 1,
+          totalPage
         )
       }
     }
@@ -71,7 +73,7 @@ export default function TablePagination({ metadata, params, setparams }: Props) 
   const pageNumbers = generatePageNumbers()
 
   return totalDocuments ? (
-    <div className='w-full flex flex-wrap items-center justify-between gap-2 p-3 bg-foreground'>
+    <div className={cn('w-full flex flex-wrap items-center justify-between gap-2 p-3 bg-foreground mt-6', className)}>
       <p className='text-sm font-medium'>
         Showing {Math.max((currentPage - 1) * params.limit + 1, 1)} -{' '}
         {Math.min(currentPage * params.limit, totalDocuments)} of {totalDocuments}
@@ -103,7 +105,7 @@ export default function TablePagination({ metadata, params, setparams }: Props) 
           )}
           <PaginationItem>
             <PaginationNext
-              disabled={currentPage === totalPages}
+              disabled={currentPage === totalPage}
               onClick={() => setparams({ ...params, page: currentPage + 1 })}
             />
           </PaginationItem>

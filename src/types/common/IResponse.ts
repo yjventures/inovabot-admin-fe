@@ -11,7 +11,7 @@ export interface IResponseWithMeta<T> {
 
 export interface IMetadata {
   currentPage: number
-  totalPages: number
+  totalPage: number
   totalDocuments: number
 }
 
