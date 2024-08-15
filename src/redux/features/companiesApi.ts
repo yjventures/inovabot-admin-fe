@@ -21,8 +21,32 @@ const companiesApi = api.injectEndpoints({
         method: 'POST',
         body
       })
+    }),
+    getCompany: build.query<IResponse<WithId<ICompany>>, string>({
+      query: id => ({
+        url: apiURL(rootApi, 'get', id)
+      })
+    }),
+    updateCompany: build.mutation<IResponse<WithId<ICompany>>, { id: string; body: Partial<ICompany> }>({
+      query: ({ id, body }) => ({
+        url: apiURL(rootApi, 'update', id),
+        method: 'PUT',
+        body
+      })
+    }),
+    deleteCompany: build.mutation<IResponse<WithId<ICompany>>, string>({
+      query: id => ({
+        url: apiURL(rootApi, 'delete', id),
+        method: 'DELETE'
+      })
     })
   })
 })
 
-export const { useGetCompaniesQuery } = companiesApi
+export const {
+  useGetCompaniesQuery,
+  useCreateCompanyMutation,
+  useGetCompanyQuery,
+  useUpdateCompanyMutation,
+  useDeleteCompanyMutation
+} = companiesApi
