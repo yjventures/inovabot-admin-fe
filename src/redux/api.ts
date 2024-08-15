@@ -21,7 +21,7 @@ const baseQueryWithReauth = async (args: FetchArgs, api: BaseQueryApi, extraOpti
   let result = await baseQuery(args, api, extraOptions)
 
   if (result?.error?.status === 401) {
-    const refreshResult = await axios.post(`${API_URL}/auth/login`, { refreshToken })
+    const refreshResult = await axios.post(`${API_URL}/auth/login`, { refreshToken, type: 'refresh' })
 
     if (refreshResult?.data) {
       const newAccessToken = refreshResult?.data?.user?.accessToken
