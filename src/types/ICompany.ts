@@ -1,4 +1,5 @@
 export interface ICompany {
+  email: string
   user_id: string
   name: string
   description: string

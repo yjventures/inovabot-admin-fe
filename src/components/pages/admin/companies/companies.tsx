@@ -152,7 +152,7 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
       <ConfirmationPrompt
         open={open}
         onOpenChange={setopen}
-        isLoading={isLoading}
+        isLoading={isDeleteLoading}
         title='Are you sure to delete this company?'
         cb={() => deleteCompany(deleteId!)}
       />
