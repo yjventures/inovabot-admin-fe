@@ -8,6 +8,8 @@ import ChatPreview from './ChatPreview'
 import Form from '@/components/reusable/form/form'
 import { IBot } from '@/types/IBot'
 import Appearance from './Appearance'
+import LLMSettings from './LLMSettings'
+import Advanced from './Advanced'
 
 export default function CreateBotForm() {
   const methods = useForm<IBot>()
@@ -34,6 +36,8 @@ export default function CreateBotForm() {
       <div className='flex gap-x-5'>
         <div className='w-1/2 bg-foreground rounded-xl p-4'>
           <Appearance />
+          <LLMSettings />
+          <Advanced />
         </div>
         <div className='w-1/2'>
           <ChatPreview />

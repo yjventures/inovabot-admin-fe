@@ -10,7 +10,7 @@ import FormFieldError from './form-field-error'
 import { Label } from '../../ui/label'
 import FormLabel from './form-label'
 
-const RawSelect = SelectPrimitive.Root
+const RawSelect: React.FC<SelectPrimitive.SelectProps & { id?: string }> = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
 
