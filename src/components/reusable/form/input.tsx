@@ -4,9 +4,7 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 import { RegisterOptions, useFormContext } from 'react-hook-form'
-import { Label } from '../../ui/label'
 import { Eye, EyeOff } from 'lucide-react'
-import { formatFieldName } from '@/utils/form/formatFieldName'
 import FormFieldError from './form-field-error'
 import FormLabel from './form-label'
 
