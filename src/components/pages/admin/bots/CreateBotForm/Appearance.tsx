@@ -28,8 +28,8 @@ export default function Appearance() {
       <Input name='name' label='Assistant Name' placeholder='Assistant name here...' required />
 
       <div className='grid grid-cols-3 gap-x-3'>
-        <ColorInput name='primary_color' label='Primary Color' required defaultValue='#3256ff' />
-        <ColorInput name='secondary_color' label='Secondary Color' required defaultValue='#FFFFFF' />
+        <ColorInput name='primary_color' label='Primary Color' required defaultValue='#9eb0ff' />
+        <ColorInput name='secondary_color' label='Secondary Color' required defaultValue='#e1e1f9' />
         <ColorInput name='font_color' label='Font Color' required defaultValue='#000000' />
       </div>
     </SingleAccordion>

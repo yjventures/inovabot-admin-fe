@@ -4,12 +4,12 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import { Button } from '@/components/ui/button'
 import { PlusSquare } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import ChatPreview from './ChatPreview'
 import Form from '@/components/reusable/form/form'
 import { IBot } from '@/types/IBot'
 import Appearance from './Appearance'
 import LLMSettings from './LLMSettings'
 import Advanced from './Advanced'
+import ChatPreview from '../common/ChatPreview'
 
 export default function CreateBotForm() {
   const methods = useForm<IBot>()
