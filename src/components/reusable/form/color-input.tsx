@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 import { InputHTMLAttributes } from 'react'
 import { useFormContext } from 'react-hook-form'
 import FormFieldError from './form-field-error'
+import styles from '@/styles/components/reusable/form/colorInput.module.scss'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string
@@ -23,7 +24,13 @@ export default function ColorInput({ name, label, id, className, required, conta
         className={cn('flex gap-2 items-center rounded-lg py-1.5 px-2 bg-text-heading text-foreground', className)}
         htmlFor={id || name}
       >
-        <input type='color' className='colorInput' id={id || name} {...register(name, { required })} {...props} />
+        <input
+          type='color'
+          className={styles.colorInput}
+          id={id || name}
+          {...register(name, { required })}
+          {...props}
+        />
         <p className='text-sm font-medium'>{label}</p>
       </label>
       <FormFieldError name={name} required={required} label={label} errors={errors} />
