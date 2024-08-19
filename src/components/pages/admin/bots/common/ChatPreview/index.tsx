@@ -3,11 +3,9 @@
 import Intro from '@/components/reusable/common/intro'
 import { useTheme } from 'next-themes'
 import { useFormContext } from 'react-hook-form'
-import CardWrapper from '@/components/reusable/cards/commonn/card-wrapper'
 import { Input } from '@/components/reusable/form/input'
 import { Paperclip, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import ChatAvatar from './ChatAvatar'
 import LeftChat from './LeftChat'
 import RightChat from './RightChat'
 
