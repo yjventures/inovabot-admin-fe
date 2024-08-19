@@ -29,7 +29,7 @@ export default function UpdateCompanyForm() {
   const methods = useForm()
   const { handleSubmit, reset, setValue } = methods
   const onSubmit = (data: any) => {
-    UpdateCompany({ id: id as string, payload: data })
+    UpdateCompany({ id: id as string, body: data })
   }
 
   const discardForm = () => {

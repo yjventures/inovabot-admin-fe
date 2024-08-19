@@ -40,7 +40,7 @@ export default function TabsComp() {
         metadata={{
           totalDocuments: 500,
           currentPage: 20,
-          totalPages: 50
+          totalPage: 50
         }}
       />
       <Button variant='gradient'>Hello</Button>

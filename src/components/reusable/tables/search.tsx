@@ -23,10 +23,10 @@ export default function Search({ searchValue, setsearchValue, inputClassName, cl
   }, [debouncedSearch, searchValue, setsearchValue])
 
   return (
-    <div className={cn('relative w-full ', className)}>
+    <div className={cn('relative w-full h-10', className)}>
       <input
         className={cn(
-          'flex h-10 w-full rounded-full border border-foreground-border bg-foreground px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-background file:text-sm file:font-medium placeholder:text-text-gray-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-16 pr-8',
+          'flex h-full w-full rounded-full border border-foreground-border bg-foreground px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-background file:text-sm file:font-medium placeholder:text-text-gray-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-16 pr-8',
           inputClassName
         )}
         value={value}

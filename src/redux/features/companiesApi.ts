@@ -29,11 +29,11 @@ const companiesApi = api.injectEndpoints({
       }),
       providesTags: ['company']
     }),
-    updateCompany: build.mutation<IResponse<WithId<ICompany>>, { id: string; payload: Partial<ICompany> }>({
-      query: ({ id, payload }) => ({
+    updateCompany: build.mutation<IResponse<WithId<ICompany>>, { id: string; body: Partial<ICompany> }>({
+      query: ({ id, body }) => ({
         url: apiURL(rootApi, 'update', id),
         method: 'PUT',
-        body: payload
+        body
       }),
       invalidatesTags: ['company', 'companies']
     }),

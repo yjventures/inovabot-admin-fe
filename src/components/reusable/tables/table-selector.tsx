@@ -16,7 +16,7 @@ interface Props {
 
 export default function TableSelector({ onChange = () => {}, mode, setmode, className }: Props) {
   return (
-    <div className={cn('flex flex-wrap gap-3 items-center', className)}>
+    <div className={cn('flex gap-3 items-center', className)}>
       <GridIcon
         className={cn('cursor-pointer text-text-gray-light', { 'text-text-primary': mode === 'grid' })}
         onClick={() => {

@@ -23,9 +23,10 @@ export const platformAdminLinks: Array<AdminLink> = [
   {
     id: 3,
     label: 'Chat Agents',
-    href: '/admin/chat-agents',
-    hasChildren: false,
-    icon: MessagesSquare
+    href: '/admin/bots',
+    hasChildren: true,
+    icon: MessagesSquare,
+    childrenLinks: [{ id: 1, label: 'Create', href: '/admin/bots/create' }]
   },
   {
     id: 4,
