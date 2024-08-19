@@ -119,18 +119,18 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 65px;
-  height: 68px;
+  width: 30px;
+  height: 33px;
   background-color: transparent;
   cursor: pointer;
-  border-radius: 10%;
+  border-radius: 9999px;
 
   &::-webkit-color-swatch {
-    border-radius: 10%;
+    border-radius: 9999px;
     border: 1px solid gray;
 
     &::-moz-color-swatch {
-      border-radius: 10%;
+      border-radius: 9999px;
       border: 1px solid gray;
     }
   }
