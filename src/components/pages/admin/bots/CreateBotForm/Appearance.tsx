@@ -22,7 +22,7 @@ export default function Appearance() {
         {darkLogoVal ? (
           <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('logo_dark', '')} />
         ) : (
-          <DnDUpload name='logo_dark' text='Company Logo Light Mode' />
+          <DnDUpload name='logo_dark' text='Dark Mode Logo' />
         )}
       </div>
       <Input name='name' label='Assistant Name' placeholder='Assistant name here...' required />
