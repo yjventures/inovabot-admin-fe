@@ -8,12 +8,20 @@ import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
 import usePush from '@/hooks/usePush'
+import { useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { PlusSquare } from 'lucide-react'
+import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function CreateCompanyForm() {
+export default function UpdateCompanyForm() {
+  const { id } = useParams()
   const push = usePush()
+
+  const { data } = useGetCompanyQuery(id as string)
+
+  console.log(data)
+
   const methods = useForm()
   const { handleSubmit, reset } = methods
   const onSubmit = (data: any) => {
@@ -24,9 +32,6 @@ export default function CreateCompanyForm() {
     reset()
     push('/admin/companies')
   }
-
-  const [needSubscription, setNeedSubscription] = useState<boolean>(true)
-
   return (
     <div className='bg-foreground rounded-xl px-4 py-6'>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -57,13 +62,6 @@ export default function CreateCompanyForm() {
         <Input name='address' type='text' required label='Company Address' placeholder='Enter company address' />
         <Textarea name='description' required label='Short Description' placeholder='Enter company short description' />
       </Form>
-
-      <Checkbox
-        checked={needSubscription}
-        onCheckedChange={e => setNeedSubscription(e as boolean)}
-        label='Need Subscription?'
-        id='need-subscription'
-      />
     </div>
   )
 }

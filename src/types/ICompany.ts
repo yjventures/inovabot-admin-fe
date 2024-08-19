@@ -3,6 +3,7 @@ export interface ICompany {
   name: string
   description: string
   logo?: string
+  logo_dark?: string
   industry: string
   web_url: string
   payment_status: boolean
@@ -17,4 +18,5 @@ export interface ICompany {
   updatedAt: string
   bots: number
   recurring: string
+  active: boolean
 }
