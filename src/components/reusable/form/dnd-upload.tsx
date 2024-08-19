@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label'
 import Overlay from '@/components/ui/overlay'
 import { cn } from '@/lib/utils'
 import { uploadFile } from '@/utils/files/uploadFile'
-import { ImagePlus, LucideProps } from 'lucide-react'
+import { ImageIcon, LucideProps } from 'lucide-react'
 import { ChangeEventHandler, DragEventHandler, ForwardRefExoticComponent, RefAttributes, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -24,7 +24,7 @@ interface Props {
   cb?: (arg0: string) => void
   label?: string
   required?: boolean
-  id?: stringq
+  id?: string
 }
 
 const DnDUpload = ({
@@ -79,6 +79,7 @@ const DnDUpload = ({
     try {
       setIsUploading(true)
       const fileURL = await uploadFile(file)
+      console.log(fileURL)
       if (typeof fileURL === 'string') {
         setValue(name, fileURL, { shouldValidate: true, shouldDirty: true })
       } else if (fileURL.code === 'ERR_NETWORK') {
@@ -118,7 +119,7 @@ const DnDUpload = ({
                   {Icon ? (
                     <Icon className='text-foreground' size={20} strokeWidth={2} />
                   ) : (
-                    <ImagePlus className='text-foreground' size={20} strokeWidth={2} />
+                    <ImageIcon className='text-foreground' size={20} strokeWidth={2} />
                   )}
                 </div>
                 <p className='text-text-gray-light'>
