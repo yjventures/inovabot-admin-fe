@@ -46,13 +46,13 @@ export default function CompanyCard({ company }: CompanyCardProps) {
           {active ? (
             <CardPopoverContent
               text='Deactivate'
-              icon={<ToggleRight className='text-red-500' />}
+              icon={<ToggleLeft className='text-red-500' />}
               onClick={() => UpdateCompany({ id: company._id, payload: { active: false } })}
             />
           ) : (
             <CardPopoverContent
               text='Activate'
-              icon={<ToggleLeft className='text-green-500' />}
+              icon={<ToggleRight className='text-green-500' />}
               onClick={() => UpdateCompany({ id: company._id, payload: { active: true } })}
             />
           )}

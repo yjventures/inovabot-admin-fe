@@ -1,17 +1,25 @@
+'use client'
+
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import CompanyCard from '@/components/reusable/cards/company-card'
 import TableSkeleton from '@/components/reusable/tables/table-skeleton'
 import { Skeleton } from '@/components/ui/skeleton'
 import { IResponseWithMeta, WithId } from '@/types/common/IResponse'
 import { ICompany } from '@/types/ICompany'
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { formateDate } from '@/utils/date/formateDate'
-import { MessageSquareMore, PencilLine, Trash2 } from 'lucide-react'
+import { Eye, MessageSquareMore, PencilLine, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react'
 import { TableMode } from '@/components/reusable/tables/table-selector'
 import Intro from '@/components/reusable/common/intro'
 import { IParams } from '@/types/common/IParams'
 import TableSorter from '@/components/reusable/tables/table-sorter'
+import TableActions from '@/components/reusable/tables/table-actions'
+import LLink from '@/components/ui/llink'
+import { useDeleteCompanyMutation, useUpdateCompanyMutation } from '@/redux/features/companiesApi'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import toast from 'react-hot-toast'
+import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
 
 interface Props {
   mode: TableMode
@@ -23,6 +31,25 @@ interface Props {
 }
 
 export default function Companies({ mode, isLoading, isSuccess, data, params, setparams }: Props) {
+  const [UpdateCompany, { isSuccess: isUpdateSuccess, isError, error }] = useUpdateCompanyMutation()
+
+  const [deleteId, setdeleteId] = useState<string | undefined>(undefined)
+  const [open, setopen] = useState<boolean>(false)
+  const [
+    deleteCompany,
+    { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }
+  ] = useDeleteCompanyMutation()
+
+  useEffect(() => {
+    if (isUpdateSuccess) toast.success('Company updated successfully')
+    if (isError) toast.error(rtkErrorMessage(error))
+  }, [isUpdateSuccess, isError, error])
+
+  useEffect(() => {
+    if (isDeleteSuccess) toast.success('Company deleted successfully')
+    if (isDeleteError) toast.error(rtkErrorMessage(deleteError))
+  }, [isDeleteSuccess, isDeleteError, deleteError])
+
   return (
     <>
       {isLoading ? (
@@ -89,11 +116,32 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
                   <TableCell>{company.user_id}</TableCell>
                   <TableCell>{formateDate(company.last_subscribed, true)}</TableCell>
                   <TableCell>
-                    <div className='flex gap-2 [&>svg]:cursor-pointer [&>svg]:size-[18px]'>
-                      <MessageSquareMore className='text-text-gray-light' />
-                      <PencilLine className='text-blue-primary' />
-                      <Trash2 className='text-error' />
-                    </div>
+                    <TableActions>
+                      {company.active ? (
+                        <ToggleLeft
+                          className='text-red-500'
+                          onClick={() => UpdateCompany({ id: company._id, payload: { active: false } })}
+                        />
+                      ) : (
+                        <ToggleRight
+                          className='text-green-500'
+                          onClick={() => UpdateCompany({ id: company._id, payload: { active: true } })}
+                        />
+                      )}
+                      <LLink href={`/admin/companies/${company._id}`}>
+                        <Eye className='text-text-primary' />
+                      </LLink>
+                      <LLink href={`/admin/companies/update/${company._id}`}>
+                        <PencilLine className='text-blue-primary' />
+                      </LLink>
+                      <Trash2
+                        className='text-error'
+                        onClick={() => {
+                          setdeleteId(company._id)
+                          setopen(true)
+                        }}
+                      />
+                    </TableActions>
                   </TableCell>
                 </TableRow>
               ))}
@@ -101,6 +149,13 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
           </Table>
         )
       ) : null}
+      <ConfirmationPrompt
+        open={open}
+        onOpenChange={setopen}
+        isLoading={isLoading}
+        title='Are you sure to delete this company?'
+        cb={() => deleteCompany(deleteId!)}
+      />
     </>
   )
 }
