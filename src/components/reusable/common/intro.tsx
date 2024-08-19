@@ -26,7 +26,7 @@ export default function Intro({ imgSrc, title, description, className, hasLink, 
       <div className='space-y-1'>
         <p className='text-sm font-semibold'>{title}</p>
         {hasLink ? (
-          <a href={description} target='_blank' className='text-blue-primary text-xs'>
+          <a href={description} target='_blank' className='text-blue-primary text-xs font-semibold'>
             {description}
           </a>
         ) : (
