@@ -10,7 +10,7 @@ import { useParams } from 'next/navigation'
 export default function CompanyDetails() {
   const { id } = useParams()
   const { data } = useGetCompanyQuery(id as string)
-  const { email, logo, logo_dark, name, web_url, address, description } = { ...data?.compnay }
+  const { email, logo, logo_dark, name, web_url, address, description, createdAt, expires_at } = { ...data?.data }
   return (
     <div>
       <DashboardHeading title='Company Details' />
@@ -23,13 +23,13 @@ export default function CompanyDetails() {
         className='mb-10'
       />
       <CompanyIntoCard
-        name='Company Name'
+        name={name!}
         payment_status='paid'
-        createdAt='2024-06-12T00:00:00.000Z'
-        expires_at='2024-06-12T00:00:00.000Z'
-        description='Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, exercitationem nostrum. Voluptate architecto vel perspiciatis cum, natus eum, dicta accusantium voluptas saepe mollitia delectus soluta hic impedit repellat veritatis at et! Iusto modi soluta reprehenderit inventore fugiat assumenda officia veritatis?'
-        address='Dhaka, Bangladesh'
-        web_url='https://www.company.com'
+        createdAt={createdAt!}
+        expires_at={expires_at!}
+        description={description!}
+        address={address}
+        web_url={web_url}
         topCTASection={
           <div className='flex flex-wrap gap-x-3 gap-2'>
             <Button>Button</Button>
