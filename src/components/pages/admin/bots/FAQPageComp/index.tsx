@@ -9,7 +9,7 @@ import { IParams } from '@/types/common/IParams'
 import { Eye, FileQuestion, PencilLine, Trash2 } from 'lucide-react'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { dummyFAQ } from './UpdateBotForm/FAQ'
+import { dummyFAQ } from '../UpdateBotForm/FAQ'
 import TableActions from '@/components/reusable/tables/table-actions'
 
 export default function FAQPageComp() {
