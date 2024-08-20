@@ -13,6 +13,11 @@ import usePush from '@/hooks/usePush'
 import Typography from '@/components/ui/typography'
 import KnowledgeBase from './KnowledgeBase'
 import FAQ from './FAQ'
+import FormWrapper from '@/components/reusable/form/form-wrapper'
+import Appearance from '../CreateBotForm/Appearance'
+import LLMSettings from '../CreateBotForm/LLMSettings'
+import Advanced from '../CreateBotForm/Advanced'
+import EmbeddedWidgets from './EmbeddedWidgets'
 
 export default function UpdateBotForm() {
   const push = usePush()
@@ -57,10 +62,25 @@ export default function UpdateBotForm() {
         Chatbot Preview
       </Typography>
 
-      <div className='space-y-8'>
+      <div className='space-y-6'>
         <ChatPreview />
         <KnowledgeBase />
         <FAQ />
+
+        <div className='flex justify-between gap-6'>
+          <div className='space-y-6 w-1/2'>
+            <FormWrapper>
+              <Appearance />
+            </FormWrapper>
+            <FormWrapper>
+              <LLMSettings />
+            </FormWrapper>
+          </div>
+          <FormWrapper className='w-1/2'>
+            <Advanced />
+          </FormWrapper>
+        </div>
+        <EmbeddedWidgets />
       </div>
     </Form>
   )
