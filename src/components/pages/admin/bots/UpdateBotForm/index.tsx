@@ -12,6 +12,7 @@ import { PencilLine } from 'lucide-react'
 import usePush from '@/hooks/usePush'
 import Typography from '@/components/ui/typography'
 import KnowledgeBase from './KnowledgeBase'
+import FAQ from './FAQ'
 
 export default function UpdateBotForm() {
   const push = usePush()
@@ -59,6 +60,7 @@ export default function UpdateBotForm() {
       <div className='space-y-8'>
         <ChatPreview />
         <KnowledgeBase />
+        <FAQ />
       </div>
     </Form>
   )
