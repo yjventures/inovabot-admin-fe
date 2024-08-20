@@ -9,6 +9,7 @@ import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import LLink from '@/components/ui/llink'
 
 const dummyFAQ = [
   {
@@ -51,7 +52,15 @@ export default function FAQ() {
 
   return (
     <FormWrapper>
-      <DashboardHeading title='FAQ' variant='h4' extra={<Button variant='black'>View All</Button>} />
+      <DashboardHeading
+        title='FAQ'
+        variant='h4'
+        extra={
+          <LLink href={`/admin/bots/update/${id}/faq`}>
+            <Button variant='black'>View All</Button>
+          </LLink>
+        }
+      />
       <Input
         value={faq.question}
         onChange={e => setfaq({ ...faq, question: e.target.value })}

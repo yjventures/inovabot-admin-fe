@@ -12,7 +12,7 @@ import { initParams } from '@/constants/form/init-params'
 import { IParams } from '@/types/common/IParams'
 import TablePagination, { type PaginationProps } from '@/components/reusable/tables/table-pagination'
 
-export default function KnowledgeBaseComp() {
+export default function KnowledgeBasePageComp() {
   const [params, setparams] = useState<IParams>(initParams({}))
   const [searchValue, setsearchValue] = useState<string>('')
   return (

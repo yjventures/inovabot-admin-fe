@@ -5,6 +5,7 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import DnDMultiUpload from '@/components/reusable/form/dnd-multi-upload'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import { Button } from '@/components/ui/button'
+import LLink from '@/components/ui/llink'
 import { useParams } from 'next/navigation'
 import React from 'react'
 
@@ -19,12 +20,20 @@ export default function KnowledgeBase() {
   const { id } = useParams()
   return (
     <FormWrapper>
-      <DashboardHeading title='Knowledge Base' variant='h4' extra={<Button variant='black'>View All</Button>} />
+      <DashboardHeading
+        title='Knowledge Base'
+        variant='h4'
+        extra={
+          <LLink href={`/admin/bots/update/${id}/knowledge-base`}>
+            <Button variant='black'>View All</Button>
+          </LLink>
+        }
+      />
 
       <div className='flex gap-x-5 gap-y-3 justify-between'>
         <DnDMultiUpload bot_id={id as string} accept='.pdf,.doc,.docx,.txt,.md' containerClassName='max-w-md w-2/5' />
 
-        <div className='flex flex-wrap gap-3 w-3/5'>
+        <div className='grid grid-cols-2 gap-3 w-3/5'>
           {dummyFilesData.map(file => (
             <FileCard key={file.id} filename={file.name} fileUrl={file.fileUrl} />
           ))}
