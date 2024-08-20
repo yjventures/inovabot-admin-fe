@@ -24,9 +24,7 @@ export default function UpdateCompanyForm() {
 
   const { data, isSuccess: isFetchSuccess } = useGetCompanyQuery(id as string)
 
-  const { email, logo, logo_dark, name, web_url, address, description } = { ...data?.data }
-
-  const [updateCompany, { isSuccess, isError, error }] = useUpdateCompanyMutation()
+  const [updateCompany, { isSuccess, isError, error, isLoading }] = useUpdateCompanyMutation()
 
   const methods = useForm()
   const { handleSubmit, reset, setValue, watch } = methods
@@ -44,18 +42,15 @@ export default function UpdateCompanyForm() {
 
   useEffect(() => {
     if (isFetchSuccess) {
-      setValue('email', email)
-      setValue('logo', logo)
-      setValue('logo_dark', logo_dark)
-      setValue('name', name)
-      setValue('web_url', web_url)
-      setValue('address', address)
-      setValue('description', description)
+      reset(data?.data)
     }
-  }, [address, description, isFetchSuccess, logo, logo_dark, name, setValue, web_url, email])
+  }, [reset, data, isFetchSuccess])
 
   useEffect(() => {
-    if (isSuccess) toast.success('Company updated successfully')
+    if (isSuccess) {
+      toast.success('Company updated successfully')
+      push('/admin/companies')
+    }
     if (isError) toast.error(rtkErrorMessage(error))
   }, [isSuccess, isError, error])
 
@@ -63,12 +58,12 @@ export default function UpdateCompanyForm() {
     <div className='bg-foreground rounded-xl px-4 py-6'>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <div className='flex justify-between items-center gap-x-4 g gap-y-2 flex-wrap'>
-          <Typography variant='h4'>Update Compnay Information</Typography>
+          <Typography variant='h4'>Update Company Information</Typography>
           <div className='flex items-center gap-x-4 gap-y-2'>
             <Button variant='destructive' onClick={discardForm}>
               Discard
             </Button>
-            <Button type='submit' icon={<PencilLine />} variant='gradient'>
+            <Button type='submit' icon={<PencilLine />} variant='gradient' isLoading={isLoading}>
               Update Compnay
             </Button>
           </div>
@@ -79,7 +74,6 @@ export default function UpdateCompanyForm() {
           required
           label='Primary contact Email'
           placeholder='Enter primary contact email'
-          defaultValue={email}
         />
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
           {logoVal ? (
@@ -93,30 +87,10 @@ export default function UpdateCompanyForm() {
             <DnDUpload name='logo' text='Company Logo Light Mode' />
           )}
         </div>
-        <Input name='name' required label='Company Name' placeholder='Enter company name' defaultValue={name} />
-        <Input
-          name='web_url'
-          type='url'
-          required
-          label='Company Website'
-          placeholder='Enter company website'
-          defaultValue={web_url}
-        />
-        <Input
-          name='address'
-          type='text'
-          required
-          label='Company Address'
-          placeholder='Enter company address'
-          defaultValue={address}
-        />
-        <Textarea
-          name='description'
-          required
-          label='Short Description'
-          placeholder='Enter company short description'
-          defaultValue={description}
-        />
+        <Input name='name' required label='Company Name' placeholder='Enter company name' />
+        <Input name='web_url' type='url' required label='Company Website' placeholder='Enter company website' />
+        <Input name='address' type='text' required label='Company Address' placeholder='Enter company address' />
+        <Textarea name='description' required label='Short Description' placeholder='Enter company short description' />
       </Form>
     </div>
   )
