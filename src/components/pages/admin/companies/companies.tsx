@@ -120,12 +120,12 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
                       {company.active ? (
                         <ToggleLeft
                           className='text-red-500'
-                          onClick={() => UpdateCompany({ id: company._id, payload: { active: false } })}
+                          onClick={() => UpdateCompany({ id: company._id, body: { active: false } })}
                         />
                       ) : (
                         <ToggleRight
                           className='text-green-500'
-                          onClick={() => UpdateCompany({ id: company._id, payload: { active: true } })}
+                          onClick={() => UpdateCompany({ id: company._id, body: { active: true } })}
                         />
                       )}
                       <LLink href={`/admin/companies/${company._id}`}>

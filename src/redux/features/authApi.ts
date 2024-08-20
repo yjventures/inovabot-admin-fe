@@ -3,10 +3,10 @@ import api from '@/redux/api'
 const authApi = api.injectEndpoints({
   endpoints: build => ({
     login: build.mutation({
-      query: payload => ({
+      query: body => ({
         url: '/auth/login',
         method: 'POST',
-        body: { ...payload, type: 'email' }
+        body: { ...body, type: 'email' }
       })
     })
   })
