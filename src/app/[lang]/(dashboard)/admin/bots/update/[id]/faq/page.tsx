@@ -1,5 +1,9 @@
-import React from 'react'
+import FAQPageComp from '@/components/pages/admin/bots/FAQPageComp'
+
+export const metadata = {
+  title: 'FAQ'
+}
 
 export default function FAQPage() {
-  return <div>FAQPage</div>
+  return <FAQPageComp />
 }

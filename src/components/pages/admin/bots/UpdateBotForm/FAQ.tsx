@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import LLink from '@/components/ui/llink'
 
-const dummyFAQ = [
+export const dummyFAQ = [
   {
     question: 'What is this chatbot for?',
     answer:
