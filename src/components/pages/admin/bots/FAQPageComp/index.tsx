@@ -6,17 +6,26 @@ import TablePagination, { PaginationProps } from '@/components/reusable/tables/t
 import { Button } from '@/components/ui/button'
 import { initParams } from '@/constants/form/init-params'
 import { IParams } from '@/types/common/IParams'
-import { Eye, FileQuestion, PencilLine, Trash2 } from 'lucide-react'
+import { FileQuestion, Trash2 } from 'lucide-react'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { dummyFAQ } from '../UpdateBotForm/FAQ'
 import TableActions from '@/components/reusable/tables/table-actions'
 import FAQDetailsModal from './FAQDetailsModal'
 import FAQUpdateModal from './FAQUpdateModal'
+import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
 
 export default function FAQPageComp() {
   const [params, setparams] = useState<IParams>(initParams({}))
   const [searchValue, setsearchValue] = useState<string>('')
+
+  const [open, setopen] = useState<boolean>(false)
+  const [deleteId, setdeleteId] = useState<string | undefined>(undefined)
+  const deleteFAQFn = () => {
+    console.log(deleteId)
+    // TODO: delete the faq from the database
+  }
+
   return (
     <div>
       <DashboardHeading
@@ -54,7 +63,13 @@ export default function FAQPageComp() {
                   <TableActions>
                     <FAQDetailsModal faq={faq} />
                     <FAQUpdateModal faq={faq} />
-                    <Trash2 className='text-destructive' />
+                    <Trash2
+                      className='text-destructive'
+                      onClick={() => {
+                        setopen(true)
+                        setdeleteId(faq._id)
+                      }}
+                    />
                   </TableActions>
                 </TableCell>
               </TableRow>
@@ -67,6 +82,8 @@ export default function FAQPageComp() {
         setparams={setparams as Dispatch<SetStateAction<PaginationProps>>}
         metadata={{ totalDocuments: 100, currentPage: 1, totalPage: 10 }}
       />
+
+      <ConfirmationPrompt open={open} onOpenChange={setopen} cb={deleteFAQFn} />
     </div>
   )
 }

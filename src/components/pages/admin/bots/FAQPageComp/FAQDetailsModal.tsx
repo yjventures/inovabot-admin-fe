@@ -7,12 +7,10 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Eye } from 'lucide-react'
+import { IFAQ } from '../UpdateBotForm/FAQ'
 
 interface Props {
-  faq: {
-    question: string
-    answer: string
-  }
+  faq: IFAQ
 }
 
 export default function FAQDetailsModal({ faq }: Props) {
