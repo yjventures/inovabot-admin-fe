@@ -1,6 +1,6 @@
 'use client'
 
-import FileCard from '@/components/reusable/cards/file-card'
+import FileCard, { IFile } from '@/components/reusable/cards/file-card'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import DnDMultiUpload from '@/components/reusable/form/dnd-multi-upload'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
@@ -9,11 +9,31 @@ import LLink from '@/components/ui/llink'
 import { useParams } from 'next/navigation'
 import React from 'react'
 
-export const dummyFilesData = [
-  { id: 1, name: 'file1.pdf', fileUrl: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg' },
-  { id: 2, name: 'file2.pdf', fileUrl: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg' },
-  { id: 3, name: 'file3.pdf', fileUrl: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg' },
-  { id: 4, name: 'file4.pdf', fileUrl: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg' }
+export const dummyFilesData: IFile[] = [
+  {
+    _id: '1',
+    name: 'file1.pdf',
+    size: '100KB',
+    url: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg'
+  },
+  {
+    _id: '2',
+    name: 'file2.pdf',
+    size: '100KB',
+    url: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg'
+  },
+  {
+    _id: '3',
+    name: 'file3.pdf',
+    size: '100KB',
+    url: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg'
+  },
+  {
+    _id: '4',
+    name: 'file4.pdf',
+    size: '100KB',
+    url: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg'
+  }
 ]
 
 export default function KnowledgeBase() {
@@ -35,7 +55,7 @@ export default function KnowledgeBase() {
 
         <div className='grid grid-cols-2 gap-3 w-3/5'>
           {dummyFilesData.map(file => (
-            <FileCard key={file.id} filename={file.name} fileUrl={file.fileUrl} />
+            <FileCard key={file._id} file={file} />
           ))}
         </div>
       </div>

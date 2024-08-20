@@ -39,7 +39,7 @@ export default function KnowledgeBasePageComp() {
           .concat(dummyFilesData)
           .concat(dummyFilesData)
           .map(file => (
-            <FileCard key={file.id} filename={file.name} fileUrl={file.fileUrl} variant='vertical' />
+            <FileCard key={file._id} file={file} variant='vertical' />
           ))}
       </CardGrid>
       <TablePagination
