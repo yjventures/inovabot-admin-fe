@@ -5,7 +5,9 @@ import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import Search from '@/components/reusable/tables/search'
 import TableSelector, { TableMode } from '@/components/reusable/tables/table-selector'
 import { Button } from '@/components/ui/button'
+import { initParams } from '@/constants/form/init-params'
 import { cn } from '@/lib/utils'
+import { useGetBotsQuery } from '@/redux/features/botsApi'
 import { useState } from 'react'
 
 export default function AllBots() {
@@ -13,6 +15,9 @@ export default function AllBots() {
   const [tab, settab] = useState<string>('All')
   const [value, setvalue] = useState<string>('')
   const [mode, setmode] = useState<TableMode>('grid')
+
+  const { data } = useGetBotsQuery(initParams({}))
+  console.log(data)
 
   return (
     <div className='mt-10'>
