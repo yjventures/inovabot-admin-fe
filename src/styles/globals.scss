@@ -114,3 +114,21 @@
     @apply text-text-heading;
   }
 }
+
+.gradient-btn {
+  color: white;
+  background-size: 200% 100%;
+  background-image: linear-gradient(to right, var(--blue-dark), var(--cyan-dark), var(--blue-dark));
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+
+  &:hover {
+    background-position: 100% 0;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+}
