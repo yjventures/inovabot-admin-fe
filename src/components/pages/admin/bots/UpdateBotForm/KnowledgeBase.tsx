@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { useParams } from 'next/navigation'
 import React from 'react'
 
-const dummyFilesData = [
+export const dummyFilesData = [
   { id: 1, name: 'file1.pdf', fileUrl: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg' },
   { id: 2, name: 'file2.pdf', fileUrl: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg' },
   { id: 3, name: 'file3.pdf', fileUrl: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg' },

@@ -14,7 +14,7 @@ import { IParams } from '@/types/common/IParams'
 import { IMetadata } from '@/types/common/IResponse'
 import { cn } from '@/lib/utils'
 
-interface PaginationProps {
+export interface PaginationProps {
   page: number
   limit: number
 }

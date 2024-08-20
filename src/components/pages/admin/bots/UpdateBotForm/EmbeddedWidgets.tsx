@@ -1,8 +1,6 @@
-import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import SingleAccordion from '@/components/reusable/form/single-accordion'
 import { Textarea } from '@/components/reusable/form/textarea'
-import { Button } from '@/components/ui/button'
 import React from 'react'
 
 export default function EmbeddedWidgets() {
