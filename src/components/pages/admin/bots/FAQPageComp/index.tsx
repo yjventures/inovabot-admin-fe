@@ -11,6 +11,8 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { dummyFAQ } from '../UpdateBotForm/FAQ'
 import TableActions from '@/components/reusable/tables/table-actions'
+import FAQDetailsModal from './FAQDetailsModal'
+import FAQUpdateModal from './FAQUpdateModal'
 
 export default function FAQPageComp() {
   const [params, setparams] = useState<IParams>(initParams({}))
@@ -50,8 +52,8 @@ export default function FAQPageComp() {
                 <TableCell className='font-medium text-sm'>{faq.question}</TableCell>
                 <TableCell>
                   <TableActions>
-                    <Eye />
-                    <PencilLine className='text-blue-primary' />
+                    <FAQDetailsModal faq={faq} />
+                    <FAQUpdateModal faq={faq} />
                     <Trash2 className='text-destructive' />
                   </TableActions>
                 </TableCell>
