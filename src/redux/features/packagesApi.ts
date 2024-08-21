@@ -23,13 +23,13 @@ const packagesApi = api.injectEndpoints({
       }),
       invalidatesTags: ['packages']
     }),
-    getPackage: build.query<IResponse<WithId<IPackage>>, string>({
+    getPackage: build.query({
       query: id => ({
         url: apiURL(rootApi, 'get', id)
       }),
       providesTags: ['package']
     }),
-    updatePackage: build.mutation<IResponse<WithId<IPackage>>, { id: string; body: Partial<IPackage> }>({
+    updatePackage: build.mutation({
       query: ({ id, body }) => ({
         url: apiURL(rootApi, 'update', id),
         method: 'PUT',

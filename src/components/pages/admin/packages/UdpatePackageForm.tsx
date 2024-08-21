@@ -9,18 +9,22 @@ import { Input } from '@/components/reusable/form/input'
 import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
 import usePush from '@/hooks/usePush'
-import { PlusSquare } from 'lucide-react'
+import { PencilLine, PlusSquare } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { frequencies } from './AllPackages'
-import { useCreatePackageMutation } from '@/redux/features/packagesApi'
+import { useGetPackageQuery, useUpdatePackageMutation } from '@/redux/features/packagesApi'
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { useParams } from 'next/navigation'
 
-export default function CreatePackageForm() {
+export default function UdpatePackageForm() {
+  const { id } = useParams()
   const push = usePush()
   const methods = useForm()
-  const { handleSubmit, watch, reset } = methods
+  const { handleSubmit, watch, reset, setValue } = methods
+
+  const { data, isSuccess: isFetchingSuccess } = useGetPackageQuery(id as string)
 
   const name = watch('name')
   const description = watch('description')
@@ -32,6 +36,25 @@ export default function CreatePackageForm() {
   const custom_domain = watch('custom_domain')
   const total_file_storage = watch('total_file_storage')
   const bot_limit = watch('bot_limit')
+
+  console.log(embed_widgets)
+
+  useEffect(() => {
+    if (isFetchingSuccess) {
+      reset(data?.package)
+      setValue('monthly_price', data?.package?.price?.monthly?.price)
+      setValue('yearly_price', data?.package?.price?.yearly?.price)
+      data?.package?.features?.map((feat: any) => {
+        // FIXME: this valeu is not updating, also, onchange, they are not updating
+        if (feat.type === 'Boolean') {
+          console.log(feat.keyword, feat.value)
+          setValue(feat.keyword, feat.value === 'Yes')
+        } else {
+          setValue(feat.keyword, feat.value)
+        }
+      })
+    }
+  }, [data, reset, isFetchingSuccess, setValue])
 
   const packageDetails = {
     name,
@@ -91,15 +114,15 @@ export default function CreatePackageForm() {
     push('/admin/packages')
   }
 
-  const [createPkg, { isLoading, isSuccess, isError, error }] = useCreatePackageMutation()
+  const [updatePkg, { isLoading, isSuccess, isError, error }] = useUpdatePackageMutation()
 
   const onsubmit = () => {
-    createPkg(packageDetails)
+    updatePkg({ id, body: packageDetails })
   }
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('Package created successfully!')
+      toast.success('Package updated successfully!')
       push('/admin/packages')
     }
     if (isError) {
@@ -120,8 +143,8 @@ export default function CreatePackageForm() {
               <Button variant='black' onClick={discardChanges}>
                 Discard
               </Button>
-              <Button variant='gradient' icon={<PlusSquare />} type='submit' isLoading={isLoading}>
-                Add Package
+              <Button variant='gradient' icon={<PencilLine />} type='submit' isLoading={isLoading}>
+                Udpate Package
               </Button>
             </>
           }
