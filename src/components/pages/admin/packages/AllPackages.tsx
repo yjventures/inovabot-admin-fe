@@ -12,16 +12,16 @@ import { useGetPackagesQuery } from '@/redux/features/packagesApi'
 import { IParams } from '@/types/common/IParams'
 import { Dispatch, SetStateAction, useState } from 'react'
 
+export const frequencies = [
+  { value: 'monthly', priceSuffix: '/month' },
+  { value: 'yearly', priceSuffix: '/year' }
+]
+
 export default function AllPackages() {
   const [params, setparams] = useState<IParams>(initParams({}))
   const [search, setSearch] = useState<string>('')
 
   const { data, isLoading, isSuccess } = useGetPackagesQuery(params)
-
-  const frequencies = [
-    { value: 'monthly', priceSuffix: '/month' },
-    { value: 'yearly', priceSuffix: '/year' }
-  ]
 
   const [frequency, setFrequency] = useState(frequencies[0])
 

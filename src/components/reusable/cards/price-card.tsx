@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
 import { CheckIcon, PencilLine, Trash2 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
@@ -9,10 +8,12 @@ import { useDeletePackageMutation } from '@/redux/features/packagesApi'
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import ConfirmationPrompt from '../dashboard/confirmation-prompt'
+import { cn } from '@/lib/utils'
 
 interface Props {
   tier: any
   frequency: any
+  className?: string
 }
 
 interface Feature {
@@ -24,15 +25,17 @@ interface Feature {
 function transformFeatures(features: Feature[]) {
   return features.reduce((acc: string[], feature: Feature) => {
     if (feature.type === 'String') {
-      acc.push(`${feature.name}: ${feature.value}`)
+      acc.push(`${feature.name}: ${feature.value || 'N/A'}`)
     } else if (feature.type === 'Boolean' && feature.value) {
       acc.push(feature.name)
+    } else if (feature.type === 'Number') {
+      acc.push(`${feature.name}: ${feature.value || 0}`)
     }
     return acc
   }, [])
 }
 
-export default function PriceCard({ tier, frequency }: Props) {
+export default function PriceCard({ tier, frequency, className }: Props) {
   const features = transformFeatures(tier?.features)
 
   const [open, setopen] = useState<boolean>(false)
@@ -45,7 +48,7 @@ export default function PriceCard({ tier, frequency }: Props) {
 
   return (
     <>
-      <CardWrapper key={tier?.id} className='pt-6 pb-8 text-center'>
+      <CardWrapper key={tier?.id} className={cn('pt-6 pb-8 text-center', className)}>
         <CardPopover>
           <CardPopoverContent
             text='Delete'
@@ -57,13 +60,15 @@ export default function PriceCard({ tier, frequency }: Props) {
           </LLink>
         </CardPopover>
 
-        <Typography variant='h4'>{tier?.name}</Typography>
-        <p className='mt-4 text-sm leading-6 text-text-secondary'>{tier?.description}</p>
+        <Typography variant='h4'>{tier?.name || 'Start writing the name'}</Typography>
+        <p className='mt-4 text-sm leading-6 text-text-secondary'>
+          {tier?.description || 'Start writing the description'}
+        </p>
         <div className='flex items-center justify-center'>
           <p className='mt-6 flex items-baseline gap-x-1'>
             <span className='mb-auto text-xl font-bold -translate-y-2 text-text'>$</span>
             <span className='text-5xl font-bold tracking-tight text-text-heading'>
-              {tier?.price[frequency.value].price}
+              {tier?.price[frequency.value].price || 0}
             </span>
             <span className='text-sm font-semibold leading-6 text-text-secondary'>{frequency.priceSuffix}</span>
           </p>
@@ -85,6 +90,7 @@ export default function PriceCard({ tier, frequency }: Props) {
         onOpenChange={setopen}
         title='Are you sure you want to delete this package?'
         cb={() => deletePkg(tier?._id)}
+        isLoading={isLoading}
       />
     </>
   )

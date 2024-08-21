@@ -15,7 +15,7 @@ const packagesApi = api.injectEndpoints({
       }),
       providesTags: ['packages']
     }),
-    createPackage: build.mutation<IResponse<WithId<IPackage>>, IPackage>({
+    createPackage: build.mutation({
       query: body => ({
         url: apiURL(rootApi, 'create'),
         method: 'POST',
