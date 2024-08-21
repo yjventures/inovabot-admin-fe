@@ -55,4 +55,10 @@ const packagesApi = api.injectEndpoints({
   })
 })
 
-export const {} = packagesApi
+export const {
+  useGetPackagesQuery,
+  useGetPackageQuery,
+  useCreatePackageMutation,
+  useUpdatePackageMutation,
+  useDeletePackageMutation
+} = packagesApi

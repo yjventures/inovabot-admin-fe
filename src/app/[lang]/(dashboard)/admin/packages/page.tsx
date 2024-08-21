@@ -1,3 +1,4 @@
+import AllPackages from '@/components/pages/admin/packages/AllPackages'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Tutorial from '@/components/reusable/dashboard/tutorial'
 import { Button } from '@/components/ui/button'
@@ -29,6 +30,8 @@ export default function AllPackagesPage() {
         ctaHref='/'
         className='mb-10'
       />
+
+      <AllPackages />
     </div>
   )
 }
