@@ -43,14 +43,6 @@ const packagesApi = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: ['packages']
-    }),
-    uploadKnowledgeBase: build.mutation({
-      query: body => ({
-        url: `${rootApi}/upload`,
-        method: 'POST',
-        body
-      }),
-      invalidatesTags: ['package', 'packages']
     })
   })
 })
