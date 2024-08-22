@@ -43,6 +43,13 @@ const companiesApi = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: ['companies']
+    }),
+    sendCompanyInvitation: build.mutation({
+      query: body => ({
+        url: '/invitation/invite-company-admin',
+        method: 'POST',
+        body
+      })
     })
   })
 })
@@ -52,5 +59,6 @@ export const {
   useCreateCompanyMutation,
   useGetCompanyQuery,
   useUpdateCompanyMutation,
-  useDeleteCompanyMutation
+  useDeleteCompanyMutation,
+  useSendCompanyInvitationMutation
 } = companiesApi
