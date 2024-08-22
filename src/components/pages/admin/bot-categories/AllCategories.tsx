@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import FormWrapper from '@/components/reusable/form/form-wrapper'
 
 export default function AllCategories() {
   const { data, isSuccess, isLoading } = useGetCategoriesQuery({})
@@ -29,36 +30,39 @@ export default function AllCategories() {
     <>
       <DashboardHeading title='Bot Categories' extra={<CreateCategoryModal />} />
 
-      <DashboardHeading title='All Categories' variant='h4' />
+      <FormWrapper>
+        <DashboardHeading title='All Categories' variant='h4' />
 
-      {isLoading ? (
-        <div className='flex flex-wrap gap-x-4 gap-y-3'>
-          {Array.from({ length: 10 }).map((_, i) => (
-            <Skeleton key={i} className='h-10 w-32 rounded-full' />
-          ))}
-        </div>
-      ) : null}
+        {isLoading ? (
+          <div className='flex flex-wrap gap-x-4 gap-y-3'>
+            {Array.from({ length: 10 }).map((_, i) => (
+              <Skeleton key={i} className='h-10 w-32 rounded-full' />
+            ))}
+          </div>
+        ) : null}
 
-      {isSuccess ? (
-        <div className='flex flex-wrap gap-x-4 gap-y-3'>
-          {data?.categories?.map(cat => (
-            <p
-              key={cat._id}
-              className='border border-text-light bg-foreground px-4 py-2 rounded-full flex items-center gap-x-2 hover:bg-gray-primary text-sm font-semibold'
-            >
-              {cat.title}
-              <UpdateCategoryModal id={cat._id} />
-              <Trash2
-                className='size-5 cursor-pointer text-destructive'
-                onClick={() => {
-                  setopen(true)
-                  setdeleteId(cat._id)
-                }}
-              />
-            </p>
-          ))}
-        </div>
-      ) : null}
+        {isSuccess ? (
+          <div className='flex flex-wrap gap-x-4 gap-y-3'>
+            {data?.categories?.map(cat => (
+              <p
+                key={cat._id}
+                className='border border-text-light bg-foreground px-4 py-2 rounded-full flex items-center gap-x-2 hover:bg-gray-primary text-sm font-semibold'
+              >
+                {cat.title}
+                <UpdateCategoryModal id={cat._id} />
+                <Trash2
+                  className='size-5 cursor-pointer text-destructive'
+                  onClick={() => {
+                    setopen(true)
+                    setdeleteId(cat._id)
+                  }}
+                />
+              </p>
+            ))}
+          </div>
+        ) : null}
+      </FormWrapper>
+
       <ConfirmationPrompt
         open={open}
         onOpenChange={setopen}

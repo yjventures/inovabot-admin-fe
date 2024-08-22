@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export default function FormWrapper({ className, children, ...props }: Props) {
   return (
-    <div className={cn('bg-foreground rounded-xl p-4', className)} {...props}>
+    <div className={cn('bg-foreground rounded-xl p-4 shadow-sm', className)} {...props}>
       {children}
     </div>
   )
