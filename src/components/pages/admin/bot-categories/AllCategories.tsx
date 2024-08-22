@@ -1,22 +1,36 @@
 'use client'
 
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
-import Form from '@/components/reusable/form/form'
-import { Button } from '@/components/ui/button'
-import { useForm } from 'react-hook-form'
-import { PencilLine, PlusSquare, Trash2 } from 'lucide-react'
-import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
+import { Trash2 } from 'lucide-react'
+import { useDeleteCategoryMutation, useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { Skeleton } from '@/components/ui/skeleton'
 import CreateCategoryModal from './CreateCategoryModal'
 import UpdateCategoryModal from './UpdateCategoryModal'
+import { useEffect, useState } from 'react'
+import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
+import toast from 'react-hot-toast'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
 
 export default function AllCategories() {
   const { data, isSuccess, isLoading } = useGetCategoriesQuery({})
+
+  const [open, setopen] = useState<boolean>(false)
+  const [deleteId, setdeleteId] = useState<string | undefined>(undefined)
+
+  const [deleteCat, { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess, isError, error }] =
+    useDeleteCategoryMutation()
+
+  useEffect(() => {
+    if (isDeleteSuccess) toast.success('Category deleted successfully')
+    if (isError) toast.error(rtkErrorMessage(error))
+  }, [isDeleteSuccess, isError, error])
+
   return (
     <>
       <DashboardHeading title='Bot Categories' extra={<CreateCategoryModal />} />
 
       <DashboardHeading title='All Categories' variant='h4' />
+
       {isLoading ? (
         <div className='flex flex-wrap gap-x-4 gap-y-3'>
           {Array.from({ length: 10 }).map((_, i) => (
@@ -24,6 +38,7 @@ export default function AllCategories() {
           ))}
         </div>
       ) : null}
+
       {isSuccess ? (
         <div className='flex flex-wrap gap-x-4 gap-y-3'>
           {data?.categories?.map(cat => (
@@ -33,11 +48,24 @@ export default function AllCategories() {
             >
               {cat.title}
               <UpdateCategoryModal id={cat._id} />
-              <Trash2 className='size-5 cursor-pointer text-destructive' />
+              <Trash2
+                className='size-5 cursor-pointer text-destructive'
+                onClick={() => {
+                  setopen(true)
+                  setdeleteId(cat._id)
+                }}
+              />
             </p>
           ))}
         </div>
       ) : null}
+      <ConfirmationPrompt
+        open={open}
+        onOpenChange={setopen}
+        title='Are you sure to delete this category?'
+        cb={() => deleteCat(deleteId!)}
+        isLoading={isDeleteLoading}
+      />
     </>
   )
 }
