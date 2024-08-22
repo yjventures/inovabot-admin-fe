@@ -5,11 +5,11 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Search from '@/components/reusable/tables/search'
 import { Button } from '@/components/ui/button'
 import { FilePlus } from 'lucide-react'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { useState } from 'react'
 import FileCard from '@/components/reusable/cards/file-card'
 import { initParams } from '@/constants/form/init-params'
 import { IParams } from '@/types/common/IParams'
-import TablePagination, { type PaginationProps } from '@/components/reusable/tables/table-pagination'
+import TablePagination from '@/components/reusable/tables/table-pagination'
 import { dummyFilesData } from '../UpdateBotForm/KnowledgeBase'
 
 export default function KnowledgeBasePageComp() {

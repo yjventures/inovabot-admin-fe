@@ -3,14 +3,13 @@
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import PriceCard from '@/components/reusable/cards/price-card'
 import Search from '@/components/reusable/tables/search'
-import TablePagination, { PaginationProps } from '@/components/reusable/tables/table-pagination'
+import TablePagination from '@/components/reusable/tables/table-pagination'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Switch } from '@/components/ui/switch'
-import Typography from '@/components/ui/typography'
 import { initParams } from '@/constants/form/init-params'
 import { useGetPackagesQuery } from '@/redux/features/packagesApi'
 import { IParams } from '@/types/common/IParams'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 
 export const frequencies = [
   { value: 'monthly', priceSuffix: '/month' },

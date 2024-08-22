@@ -4,10 +4,10 @@ import TableSearchSelector from '@/components/reusable/tables/table-search-selec
 import { TableMode } from '@/components/reusable/tables/table-selector'
 import { useGetCompaniesQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { initParams } from '@/constants/form/init-params'
 import Companies from '../companies'
-import TablePagination, { PaginationProps } from '@/components/reusable/tables/table-pagination'
+import TablePagination from '@/components/reusable/tables/table-pagination'
 
 export default function ViewAllCompanies() {
   const [params, setparams] = useState<IParams>(initParams({}))
@@ -33,7 +33,7 @@ export default function ViewAllCompanies() {
         setparams={setparams}
       />
 
-      <TablePagination params={params} setparams={setparams} metadata={data.metadata} />
+      <TablePagination params={params} setparams={setparams} metadata={data?.metadata!} />
     </div>
   )
 }
