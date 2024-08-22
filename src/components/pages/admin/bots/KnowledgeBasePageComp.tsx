@@ -10,7 +10,7 @@ import FileCard from '@/components/reusable/cards/file-card'
 import { initParams } from '@/constants/form/init-params'
 import { IParams } from '@/types/common/IParams'
 import TablePagination from '@/components/reusable/tables/table-pagination'
-import { dummyFilesData } from '../UpdateBotForm/KnowledgeBase'
+import { dummyFilesData } from './UpdateBotForm/KnowledgeBase'
 
 export default function KnowledgeBasePageComp() {
   const [params, setparams] = useState<IParams>(initParams({}))

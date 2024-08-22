@@ -1,4 +1,4 @@
-import UpdateCompanyForm from '@/components/pages/admin/companies/update/UpdateCompanyForm'
+import UpdateCompanyForm from '@/components/pages/admin/companies/UpdateCompanyForm'
 
 export const metadata = {
   title: 'Update Company | Inova'

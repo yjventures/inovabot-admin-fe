@@ -1,4 +1,4 @@
-import CreateCompanyForm from '@/components/pages/admin/companies/create/CreateCompanyForm'
+import CreateCompanyForm from '@/components/pages/admin/companies/CreateCompanyForm'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 
 export const metadata = {

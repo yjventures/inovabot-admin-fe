@@ -1,4 +1,4 @@
-import RecentCompanies from '@/components/pages/admin/companies'
+import RecentCompanies from '@/components/pages/admin/companies/RecentCompanies'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'

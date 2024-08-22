@@ -1,7 +1,7 @@
-import ViewAllCompanies from '@/components/pages/admin/companies/view-all'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
+import ViewAllCompanies from '@/components/pages/admin/companies/ViewAllCompanies'
 
 export const metadata = {
   title: 'All Companies | Inova'

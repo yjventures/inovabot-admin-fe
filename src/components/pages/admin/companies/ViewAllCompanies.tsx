@@ -6,8 +6,8 @@ import { useGetCompaniesQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
 import { useState } from 'react'
 import { initParams } from '@/constants/form/init-params'
-import Companies from '../companies'
 import TablePagination from '@/components/reusable/tables/table-pagination'
+import Companies from './Companies'
 
 export default function ViewAllCompanies() {
   const [params, setparams] = useState<IParams>(initParams({}))
