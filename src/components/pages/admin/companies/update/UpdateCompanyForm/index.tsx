@@ -52,7 +52,7 @@ export default function UpdateCompanyForm() {
       push('/admin/companies')
     }
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isSuccess, isError, error])
+  }, [isSuccess, isError, error, push])
 
   return (
     <div className='bg-foreground rounded-xl px-4 py-6'>

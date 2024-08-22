@@ -42,7 +42,7 @@ export default function LoginForm() {
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isSuccess, isError, error])
+  }, [isSuccess, isError, error, push, data])
 
   return (
     <div className='flex flex-col min-h-screen justify-center items-center'>
