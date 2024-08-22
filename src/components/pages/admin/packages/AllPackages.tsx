@@ -37,14 +37,12 @@ export default function AllPackages() {
         <p className='text-text text-sm sm:text-xl'>Billed Anually</p>
       </div>
 
-      {isSuccess ? (
-        <CardGrid total={4}>
-          {isLoading
-            ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className='rounded-lg w-full h-96' />)
-            : null}
-          {isSuccess ? data?.data?.map(tier => <PriceCard key={tier._id} tier={tier} frequency={frequency} />) : null}
-        </CardGrid>
-      ) : null}
+      <CardGrid total={4}>
+        {isLoading
+          ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className='rounded-lg w-full h-96' />)
+          : null}
+        {isSuccess ? data?.data?.map(tier => <PriceCard key={tier._id} tier={tier} frequency={frequency} />) : null}
+      </CardGrid>
 
       <TablePagination metadata={data?.metadata!} setparams={setparams} params={params} />
     </div>

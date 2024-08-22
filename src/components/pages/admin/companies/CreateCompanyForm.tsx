@@ -1,5 +1,6 @@
 'use client'
 
+import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import { Checkbox } from '@/components/reusable/form/checkbox'
 import DnDUpload from '@/components/reusable/form/dnd-upload'
 import Form from '@/components/reusable/form/form'
@@ -7,17 +8,37 @@ import { Input } from '@/components/reusable/form/input'
 import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
+import { initParams } from '@/constants/form/init-params'
 import usePush from '@/hooks/usePush'
+import { useCreateCompanyMutation } from '@/redux/features/companiesApi'
+import { useGetPackagesQuery } from '@/redux/features/packagesApi'
 import { PlusSquare } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { frequencies } from '../packages/AllPackages'
+import { Switch } from '@/components/ui/switch'
+import { Skeleton } from '@/components/ui/skeleton'
+import PriceCard from '@/components/reusable/cards/price-card'
+import toast from 'react-hot-toast'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import ImagePreviewer from '@/components/reusable/form/image-previewer'
 
 export default function CreateCompanyForm() {
   const push = usePush()
   const methods = useForm()
-  const { handleSubmit, reset } = methods
+  const { handleSubmit, reset, watch, setValue } = methods
+
+  const logoVal = watch('logo')
+  const darkLogoVal = watch('logo_dark')
+
+  const [needSubscription, setNeedSubscription] = useState<boolean>(true)
+  const [subscriptionId, setsubscriptionId] = useState<string | null>(null)
+
+  const [createCompany, { isLoading: isCreateLoading, isSuccess: isCreateSuccess, isError, error, data: createData }] =
+    useCreateCompanyMutation()
+
   const onSubmit = (data: any) => {
-    console.log(data)
+    createCompany({ active_subscription: subscriptionId, ...data })
   }
 
   const discardForm = () => {
@@ -25,7 +46,20 @@ export default function CreateCompanyForm() {
     push('/admin/companies')
   }
 
-  const [needSubscription, setNeedSubscription] = useState<boolean>(true)
+  const [frequency, setFrequency] = useState(frequencies[0])
+  const { data, isLoading, isSuccess } = useGetPackagesQuery(initParams({}))
+
+  useEffect(() => {
+    if (isCreateSuccess) {
+      toast.success('Company created successfully')
+      push(`/admin/companies/invite?companyId=${createData?.company?._id}`)
+    }
+
+    if (isError) {
+      toast.error(rtkErrorMessage(error))
+      reset()
+    }
+  }, [isCreateSuccess, isError, error, reset, push, createData])
 
   return (
     <div className='bg-foreground rounded-xl px-4 py-6'>
@@ -36,7 +70,7 @@ export default function CreateCompanyForm() {
             <Button variant='destructive' onClick={discardForm}>
               Discard
             </Button>
-            <Button type='submit' icon={<PlusSquare />} variant='gradient'>
+            <Button type='submit' icon={<PlusSquare />} variant='gradient' isLoading={isCreateLoading}>
               Save Compnay
             </Button>
           </div>
@@ -49,8 +83,17 @@ export default function CreateCompanyForm() {
           placeholder='Enter primary contact email'
         />
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          <DnDUpload name='logo' label='Company Logo Light Mode' />
-          <DnDUpload name='logo_dark' label='Company Logo Dark Mode' />
+          {logoVal ? (
+            <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo', '')} />
+          ) : (
+            <DnDUpload name='logo' label='Company Logo Light Mode' required />
+          )}
+
+          {darkLogoVal ? (
+            <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('logo_dark', '')} />
+          ) : (
+            <DnDUpload name='logo_dark' label='Company Logo Dark Mode' />
+          )}
         </div>
         <Input name='name' required label='Company Name' placeholder='Enter company name' />
         <Input name='website' type='url' required label='Company Website' placeholder='Enter company website' />
@@ -64,6 +107,43 @@ export default function CreateCompanyForm() {
         label='Need Subscription?'
         id='need-subscription'
       />
+
+      {needSubscription ? (
+        <>
+          <div className='flex items-center justify-center my-10'>
+            <p className='text-sm sm:text-xl'>Billed Monthly</p>
+            <Switch
+              className='mx-2'
+              onCheckedChange={e => (e ? setFrequency(frequencies[1]) : setFrequency(frequencies[0]))}
+            />
+            <p className='text-text text-sm sm:text-xl'>Billed Anually</p>
+          </div>
+          <CardGrid total={4}>
+            {isLoading
+              ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className='rounded-lg w-full h-96' />)
+              : null}
+            {isSuccess
+              ? data?.data?.map(tier => (
+                  <PriceCard
+                    key={tier._id}
+                    tier={tier}
+                    frequency={frequency}
+                    className='border-dashed'
+                    showPopover={false}
+                    child={
+                      <Button
+                        onClick={() => setsubscriptionId(tier._id)}
+                        variant={subscriptionId === tier._id ? 'gradient' : 'outline'}
+                      >
+                        {subscriptionId === tier._id ? 'Selected' : 'Select Subscription'}
+                      </Button>
+                    }
+                  />
+                ))
+              : null}
+          </CardGrid>
+        </>
+      ) : null}
     </div>
   )
 }

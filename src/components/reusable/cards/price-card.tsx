@@ -1,6 +1,6 @@
 import Typography from '@/components/ui/typography'
 import { CheckIcon, PencilLine, Trash2 } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import CardWrapper from './commonn/card-wrapper'
 import CardPopover, { CardPopoverContent } from './commonn/card-popover'
 import LLink from '@/components/ui/llink'
@@ -14,6 +14,8 @@ interface Props {
   tier: any
   frequency: any
   className?: string
+  showPopover?: boolean
+  child?: ReactNode
 }
 
 interface Feature {
@@ -35,7 +37,7 @@ function transformFeatures(features: Feature[]) {
   }, [])
 }
 
-export default function PriceCard({ tier, frequency, className }: Props) {
+export default function PriceCard({ tier, frequency, className, showPopover = true, child }: Props) {
   const features = transformFeatures(tier?.features)
 
   const [open, setopen] = useState<boolean>(false)
@@ -49,16 +51,18 @@ export default function PriceCard({ tier, frequency, className }: Props) {
   return (
     <>
       <CardWrapper key={tier?.id} className={cn('pt-6 pb-8 text-center', className)}>
-        <CardPopover>
-          <LLink href={`/admin/packages/update/${tier?._id}`}>
-            <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
-          </LLink>
-          <CardPopoverContent
-            text='Delete'
-            icon={<Trash2 className='text-destructive' />}
-            onClick={() => setopen(true)}
-          />
-        </CardPopover>
+        {showPopover ? (
+          <CardPopover>
+            <LLink href={`/admin/packages/update/${tier?._id}`}>
+              <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
+            </LLink>
+            <CardPopoverContent
+              text='Delete'
+              icon={<Trash2 className='text-destructive' />}
+              onClick={() => setopen(true)}
+            />
+          </CardPopover>
+        ) : null}
 
         <Typography variant='h4'>{tier?.name || 'Start writing the name'}</Typography>
         <p className='mt-4 text-sm leading-6 text-text-secondary'>
@@ -73,6 +77,8 @@ export default function PriceCard({ tier, frequency, className }: Props) {
             <span className='text-sm font-semibold leading-6 text-text-secondary'>{frequency.priceSuffix}</span>
           </p>
         </div>
+
+        {child ? <div className='mt-4'>{child}</div> : null}
 
         <ul role='list' className='mt-8 space-y-3 text-sm leading-6 text-text-secondary'>
           {features.map((feature: string) => (

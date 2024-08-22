@@ -15,7 +15,7 @@ const companiesApi = api.injectEndpoints({
       }),
       providesTags: ['companies']
     }),
-    createCompany: build.mutation<IResponse<WithId<ICompany>>, ICompany>({
+    createCompany: build.mutation<{ company: WithId<ICompany> }, ICompany>({
       query: body => ({
         url: apiURL(rootApi, 'create'),
         method: 'POST',
