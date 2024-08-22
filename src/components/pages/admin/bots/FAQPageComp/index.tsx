@@ -79,7 +79,7 @@ export default function FAQPageComp() {
 
       <TablePagination
         params={params}
-        setparams={setparams as Dispatch<SetStateAction<PaginationProps>>}
+        setparams={setparams}
         metadata={{ totalDocuments: 100, currentPage: 1, totalPage: 10 }}
       />
 

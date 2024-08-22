@@ -14,15 +14,10 @@ import { IParams } from '@/types/common/IParams'
 import { IMetadata } from '@/types/common/IResponse'
 import { cn } from '@/lib/utils'
 
-export interface PaginationProps {
-  page: number
-  limit: number
-}
-
 interface Props extends HTMLAttributes<HTMLDivElement> {
   metadata: IMetadata
-  params: PaginationProps
-  setparams: Dispatch<SetStateAction<PaginationProps>>
+  params: IParams
+  setparams: Dispatch<SetStateAction<IParams>>
   className?: string
 }
 

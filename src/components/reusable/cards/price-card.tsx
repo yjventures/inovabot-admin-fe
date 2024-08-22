@@ -50,14 +50,14 @@ export default function PriceCard({ tier, frequency, className }: Props) {
     <>
       <CardWrapper key={tier?.id} className={cn('pt-6 pb-8 text-center', className)}>
         <CardPopover>
+          <LLink href={`/admin/packages/update/${tier?._id}`}>
+            <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
+          </LLink>
           <CardPopoverContent
             text='Delete'
             icon={<Trash2 className='text-destructive' />}
             onClick={() => setopen(true)}
           />
-          <LLink href={`/admin/packages/update/${tier?._id}`}>
-            <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
-          </LLink>
         </CardPopover>
 
         <Typography variant='h4'>{tier?.name || 'Start writing the name'}</Typography>

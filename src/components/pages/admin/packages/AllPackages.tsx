@@ -47,11 +47,7 @@ export default function AllPackages() {
         </CardGrid>
       ) : null}
 
-      <TablePagination
-        metadata={data?.metadata!}
-        setparams={setparams as Dispatch<SetStateAction<PaginationProps>>}
-        params={params}
-      />
+      <TablePagination metadata={data?.metadata!} setparams={setparams} params={params} />
     </div>
   )
 }

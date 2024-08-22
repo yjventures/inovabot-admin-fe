@@ -105,7 +105,7 @@ export default function CreatePackageForm() {
     if (isError) {
       toast.error(rtkErrorMessage(error))
     }
-  }, [isSuccess, isError, error])
+  }, [isSuccess, isError, error, push])
 
   const [showYearly, setshowYearly] = useState<boolean>(false)
 
