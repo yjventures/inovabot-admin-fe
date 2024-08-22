@@ -8,6 +8,7 @@ import { PencilLine, PlusSquare, Trash2 } from 'lucide-react'
 import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { Skeleton } from '@/components/ui/skeleton'
 import CreateCategoryModal from './CreateCategoryModal'
+import UpdateCategoryModal from './UpdateCategoryModal'
 
 export default function AllCategories() {
   const { data, isSuccess, isLoading } = useGetCategoriesQuery({})
@@ -15,7 +16,7 @@ export default function AllCategories() {
     <>
       <DashboardHeading title='Bot Categories' extra={<CreateCategoryModal />} />
 
-      <DashboardHeading title='All Categories' />
+      <DashboardHeading title='All Categories' variant='h4' />
       {isLoading ? (
         <div className='flex flex-wrap gap-x-4 gap-y-3'>
           {Array.from({ length: 10 }).map((_, i) => (
@@ -31,7 +32,7 @@ export default function AllCategories() {
               className='border border-text-light bg-foreground px-4 py-2 rounded-full flex items-center gap-x-2 hover:bg-gray-primary text-sm font-semibold'
             >
               {cat.title}
-              <PencilLine className='size-5 cursor-pointer text-blue-primary' />
+              <UpdateCategoryModal id={cat._id} />
               <Trash2 className='size-5 cursor-pointer text-destructive' />
             </p>
           ))}

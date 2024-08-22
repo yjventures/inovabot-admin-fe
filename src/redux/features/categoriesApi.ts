@@ -1,7 +1,7 @@
 import api from '@/redux/api'
 import { apiURL } from '../utils'
 import { ICategory } from '@/types/ICategory'
-import { WithId } from '@/types/common/IResponse'
+import { IResponse, WithId } from '@/types/common/IResponse'
 
 const rootApi = '/categories'
 
@@ -21,7 +21,7 @@ const categoriesApi = api.injectEndpoints({
       }),
       invalidatesTags: ['categories']
     }),
-    getCategory: build.query({
+    getCategory: build.query<IResponse<ICategory>, string>({
       query: id => ({
         url: apiURL(rootApi, 'get', id)
       }),
