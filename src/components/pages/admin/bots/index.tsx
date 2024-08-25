@@ -8,7 +8,7 @@ import TableSelector, { TableMode } from '@/components/reusable/tables/table-sel
 import { Button } from '@/components/ui/button'
 import { initParams } from '@/constants/form/init-params'
 import { cn } from '@/lib/utils'
-import { useGetBotsQuery } from '@/redux/features/botsApi'
+import { useDeleteBotMutation, useGetBotsQuery } from '@/redux/features/botsApi'
 import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { useGetComanyListQuery, useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/reusable/form/select'
@@ -27,7 +27,6 @@ export default function AllBots() {
   const [open, setOpen] = useState(false)
   const [company_id, setcompany_id] = useState('')
 
-  const [tab, settab] = useState<string>('All')
   const [value, setvalue] = useState<string>('')
   const [mode, setmode] = useState<TableMode>('grid')
 
@@ -38,7 +37,7 @@ export default function AllBots() {
   const [skip, setskip] = useState<boolean>(true)
   const { data: companyData } = useGetCompanyQuery(company_id, { skip })
 
-  const { email, logo, logo_dark, name, web_url, address, description, createdAt, expires_at } = {
+  const { logo, name, web_url, address, description, createdAt, expires_at } = {
     ...companyData?.data
   }
 
@@ -48,16 +47,10 @@ export default function AllBots() {
     }
   }, [company_id])
 
-  console.log(companyData?.data)
+  type Params = IParams & { company_id: string; category: string }
+  const params: Params = { ...initParams({}), company_id, search: value, category }
 
-  type Params = IParams & { company_id: string }
-  const params: Params = { ...initParams({}), company_id, search: value }
-
-  const { data: botsData } = useGetBotsQuery(params)
-
-  console.log(botsData)
-
-  //console.log(data)
+  const { data: botsData, isSuccess } = useGetBotsQuery(params)
 
   return (
     <div className='mt-10'>
@@ -114,7 +107,7 @@ export default function AllBots() {
       <div className='flex gap-x-4 items-center justify-between mt-6'>
         {isCategorySuccess ? (
           <div className='flex flex-wrap gap-x-3'>
-            {categoriesData?.categories?.map(cat => (
+            {[{ _id: '1', title: 'All' }, ...categoriesData?.categories]?.map(cat => (
               <Button
                 key={cat._id}
                 variant='outline'
@@ -132,17 +125,20 @@ export default function AllBots() {
         </div>
       </div>
 
-      <CardGrid className='mt-5'>
-        {Array.from({ length: 10 }, (_, index) => (
-          <BotCard
-            key={index}
-            name='Company Name'
-            assistant_id='234oh23o423o4323o24j23'
-            model='gpt-4o'
-            createdAt='2024-06-12T00:00:00.000Z'
-          />
-        ))}
-      </CardGrid>
+      {isSuccess ? (
+        <CardGrid className='mt-5'>
+          {botsData?.data?.map(bot => (
+            <BotCard
+              _id={bot?._id!}
+              key={bot._id}
+              name={bot.name!}
+              category={bot.category!}
+              model={bot.model!}
+              createdAt={String(bot.createdAt!)}
+            />
+          ))}
+        </CardGrid>
+      ) : null}
     </div>
   )
 }
