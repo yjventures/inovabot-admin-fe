@@ -96,7 +96,7 @@ export default function CreateCompanyForm() {
           )}
         </div>
         <Input name='name' required label='Company Name' placeholder='Enter company name' />
-        <Input name='website' type='url' required label='Company Website' placeholder='Enter company website' />
+        <Input name='web_url' type='url' required label='Company Website' placeholder='Enter company website' />
         <Input name='address' type='text' required label='Company Address' placeholder='Enter company address' />
         <Textarea name='description' required label='Short Description' placeholder='Enter company short description' />
       </Form>
