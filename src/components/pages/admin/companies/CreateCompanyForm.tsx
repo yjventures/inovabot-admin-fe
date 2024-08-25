@@ -38,6 +38,7 @@ export default function CreateCompanyForm() {
     useCreateCompanyMutation()
 
   const onSubmit = (data: any) => {
+    console.log(data)
     createCompany({ active_subscription: subscriptionId, ...data })
   }
 

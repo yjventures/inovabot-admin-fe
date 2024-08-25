@@ -15,6 +15,11 @@ const companiesApi = api.injectEndpoints({
       }),
       providesTags: ['companies']
     }),
+    getComanyList: build.query<IResponse<WithId<{ name: string }>[]>, {}>({
+      query: () => ({
+        url: '/companies/get-list'
+      })
+    }),
     createCompany: build.mutation<{ company: WithId<ICompany> }, ICompany>({
       query: body => ({
         url: apiURL(rootApi, 'create'),
@@ -60,5 +65,6 @@ export const {
   useGetCompanyQuery,
   useUpdateCompanyMutation,
   useDeleteCompanyMutation,
-  useSendCompanyInvitationMutation
+  useSendCompanyInvitationMutation,
+  useGetComanyListQuery
 } = companiesApi

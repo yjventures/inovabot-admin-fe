@@ -41,7 +41,7 @@ export default function CompanyIntoCard({
           gradientClassName
         )}
       >
-        <div className='mb-4 mr-4'>{topCTASection}</div>
+        <div className='mb-4 mr-4 z-10'>{topCTASection}</div>
       </div>
 
       <div className='flex flex-wrap sm:flex-nowrap gap-x-3 mt-0 sm:-mt-16 z-10 isolate p-2 sm:p-4'>
