@@ -35,4 +35,5 @@ export interface IBot {
   user_avatar?: string
   createdAt?: Date
   updatedAt?: Date
+  category?: string
 }

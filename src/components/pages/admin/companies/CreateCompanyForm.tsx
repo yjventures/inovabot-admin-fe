@@ -22,6 +22,7 @@ import PriceCard from '@/components/reusable/cards/price-card'
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import ImagePreviewer from '@/components/reusable/form/image-previewer'
+import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 
 export default function CreateCompanyForm() {
   const push = usePush()

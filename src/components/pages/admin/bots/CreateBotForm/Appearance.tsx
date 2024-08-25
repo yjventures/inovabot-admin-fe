@@ -16,7 +16,7 @@ export default function Appearance() {
         {logoVal ? (
           <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo_light', '')} />
         ) : (
-          <DnDUpload name='logo_light' text='Light Mode Logo*' required />
+          <DnDUpload name='logo_light' text='Light Mode Logo' />
         )}
 
         {darkLogoVal ? (

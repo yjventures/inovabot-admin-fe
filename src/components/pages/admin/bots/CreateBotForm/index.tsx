@@ -20,19 +20,24 @@ import { useCreateBotMutation } from '@/redux/features/botsApi'
 import toast from 'react-hot-toast'
 import usePush from '@/hooks/usePush'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 
 export default function CreateBotForm() {
   const push = usePush()
   const [open, setOpen] = useState<boolean>(false)
+  const [catOpen, setcatOpen] = useState<boolean>(false)
   const [company_id, setcompany_id] = useState('')
   const { data: companyListData } = useGetComanyListQuery({})
   const methods = useForm<IBot>()
   const { handleSubmit } = methods
 
+  const [category, setcategory] = useState<string | undefined>(undefined)
+  const { data: categoriesListData } = useGetCategoriesQuery({})
+
   const [createBot, { isLoading, isSuccess, isError, error }] = useCreateBotMutation()
 
   const onSubmit = (data: IBot) => {
-    createBot({ ...data, company_id })
+    createBot({ ...data, company_id, category })
   }
 
   useEffect(() => {
@@ -84,6 +89,40 @@ export default function CreateBotForm() {
                       >
                         <Check className={cn('mr-2 h-4 w-4', company_id === com?._id ? 'opacity-100' : 'opacity-0')} />
                         {com?.name}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+
+          <Popover open={catOpen} onOpenChange={setcatOpen}>
+            <PopoverTrigger asChild>
+              <Button variant='outline' role='combobox' aria-expanded={catOpen} className='w-[200px] justify-between'>
+                {category
+                  ? categoriesListData?.categories?.find(com => com.title === category)?.title
+                  : 'Select Category...'}
+                <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className='w-[200px] p-0'>
+              <Command>
+                <CommandInput placeholder='Search Compnay...' />
+                <CommandList>
+                  <CommandEmpty>No category found.</CommandEmpty>
+                  <CommandGroup>
+                    {categoriesListData?.categories?.map(com => (
+                      <CommandItem
+                        key={com?._id}
+                        value={com?.title}
+                        onSelect={currentValue => {
+                          setcategory(currentValue === category ? '' : currentValue)
+                          setcatOpen(false)
+                        }}
+                      >
+                        <Check className={cn('mr-2 h-4 w-4', category === com?.title ? 'opacity-100' : 'opacity-0')} />
+                        {com?.title}
                       </CommandItem>
                     ))}
                   </CommandGroup>
