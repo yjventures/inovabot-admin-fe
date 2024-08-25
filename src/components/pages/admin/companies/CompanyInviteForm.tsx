@@ -5,12 +5,13 @@ import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import { Input } from '@/components/reusable/form/input'
 import { Button } from '@/components/ui/button'
+import Typography from '@/components/ui/typography'
 import usePush from '@/hooks/usePush'
 import { useSendCompanyInvitationMutation } from '@/redux/features/companiesApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { Send } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -29,6 +30,8 @@ export default function CompanyInviteForm() {
   const params = useSearchParams()
   const company_id = params.has('companyId') && params.get('companyId')
 
+  const [showEmailCheck, setshowEmailCheck] = useState<boolean>(false)
+
   useEffect(() => {
     if (company_id) setValue('company_id', company_id)
   }, [setValue, company_id])
@@ -41,14 +44,20 @@ export default function CompanyInviteForm() {
 
   useEffect(() => {
     if (isSuccess) {
+      setshowEmailCheck(true)
       toast.success('Invitation sent successfully')
-      push('/admin/companies')
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
   }, [isSuccess, isError, error, push])
 
-  return (
+  return showEmailCheck ? (
+    <div className='flex items-center justify-center min-h-screen'>
+      <FormWrapper>
+        <Typography variant='h3'>Check your email</Typography>
+      </FormWrapper>
+    </div>
+  ) : (
     <FormWrapper>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <DashboardHeading title='User information' variant='h4' />

@@ -17,7 +17,7 @@ export const frequencies = [
 ]
 
 export default function AllPackages() {
-  const [params, setparams] = useState<IParams>(initParams({}))
+  const [params, setparams] = useState<IParams>(initParams({ limit: 4 }))
   const [search, setSearch] = useState<string>('')
 
   const { data, isLoading, isSuccess } = useGetPackagesQuery(params)
