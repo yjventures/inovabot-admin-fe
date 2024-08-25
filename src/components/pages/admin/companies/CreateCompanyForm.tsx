@@ -47,7 +47,7 @@ export default function CreateCompanyForm() {
   }
 
   const [frequency, setFrequency] = useState(frequencies[0])
-  const { data, isLoading, isSuccess } = useGetPackagesQuery(initParams({}))
+  const { data, isLoading, isSuccess } = useGetPackagesQuery(initParams({ limit: 100 }))
 
   useEffect(() => {
     if (isCreateSuccess) {

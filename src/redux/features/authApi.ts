@@ -8,8 +8,22 @@ const authApi = api.injectEndpoints({
         method: 'POST',
         body: { ...body, type: 'email' }
       })
+    }),
+    checkTempPassword: build.mutation({
+      query: body => ({
+        url: '/invitation/check-password',
+        method: 'POST',
+        body
+      })
+    }),
+    resetPassword: build.mutation({
+      query: body => ({
+        url: '/password-manager/reset-password',
+        method: 'POST',
+        body
+      })
     })
   })
 })
 
-export const { useLoginMutation } = authApi
+export const { useLoginMutation, useCheckTempPasswordMutation, useResetPasswordMutation } = authApi

@@ -119,12 +119,12 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
                     <TableActions>
                       {company.active ? (
                         <ToggleLeft
-                          className='text-red-500'
+                          className='text-red-500 cursor-pointer'
                           onClick={() => UpdateCompany({ id: company._id, body: { active: false } })}
                         />
                       ) : (
                         <ToggleRight
-                          className='text-green-500'
+                          className='text-green-500 cursor-pointer'
                           onClick={() => UpdateCompany({ id: company._id, body: { active: true } })}
                         />
                       )}
