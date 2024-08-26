@@ -74,9 +74,9 @@ export default function AllBots() {
               </PopoverTrigger>
               <PopoverContent className='w-[200px] p-0'>
                 <Command>
-                  <CommandInput placeholder='Search framework...' />
+                  <CommandInput placeholder='Search company...' />
                   <CommandList>
-                    <CommandEmpty>No framework found.</CommandEmpty>
+                    <CommandEmpty>No company found.</CommandEmpty>
                     <CommandGroup>
                       {companyListData?.data?.map(com => (
                         <CommandItem

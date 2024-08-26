@@ -18,6 +18,7 @@ import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import ConfirmationPrompt from '../dashboard/confirmation-prompt'
 import { formatValue } from '@/utils/misc/formatValue'
+import { useLogo } from '@/hooks/useLogo'
 
 export interface CompanyCardProps {
   company: WithId<ICompany>
@@ -25,7 +26,7 @@ export interface CompanyCardProps {
 
 export default function CompanyCard({ company }: CompanyCardProps) {
   const [open, setopen] = useState<boolean>(false)
-  const { logo, name, web_url, bots, recurring_type, last_subscribed, createdAt, active } = { ...company }
+  const { logo, logo_dark, name, web_url, bots, recurring_type, last_subscribed, createdAt, active } = { ...company }
   const [UpdateCompany, { isSuccess, isError, error }] = useUpdateCompanyMutation()
   const [deleteCompany, { isLoading, isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }] =
     useDeleteCompanyMutation()
@@ -40,7 +41,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
     if (isDeleteError) toast.error(rtkErrorMessage(deleteError))
   }, [isDeleteSuccess, isDeleteError, deleteError])
 
-  console.log(recurring_type)
+  const logoSrc = useLogo(logo!, logo_dark!)
 
   return (
     <>
@@ -73,8 +74,8 @@ export default function CompanyCard({ company }: CompanyCardProps) {
         </CardPopover>
         <div className='flex flex-col items-center justify-center gap-y-2'>
           <div className='size-12 rounded-lg overflow-hidden'>
-            {logo ? (
-              <Img src={logo} alt={name} className='size-full aspect-square object-cover' />
+            {logoSrc ? (
+              <Img src={logoSrc} alt={name} className='size-full aspect-square object-cover' />
             ) : (
               <Img src={companyPlaceholder} alt={name} className='size-full aspect-square object-cover' />
             )}

@@ -15,6 +15,7 @@ import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import ConfirmationPrompt from '../dashboard/confirmation-prompt'
 import { PencilLine, Trash2 } from 'lucide-react'
 import LLink from '@/components/ui/llink'
+import { useLogo } from '@/hooks/useLogo'
 
 interface Props {
   _id: string
@@ -27,8 +28,7 @@ interface Props {
 }
 
 export default function BotCard({ logo_light, logo_dark, name, category, model, createdAt, _id }: Props) {
-  const { theme } = useTheme()
-  const imgSrc = theme === 'light' ? logo_light : logo_dark || logo_light
+  const imgSrc = useLogo(logo_light!, logo_dark!)
 
   const [deleteBot, { isSuccess, isError, error }] = useDeleteBotMutation()
   const [open, setopen] = useState<boolean>(false)

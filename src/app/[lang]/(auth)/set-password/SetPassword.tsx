@@ -8,7 +8,7 @@ import usePush from '@/hooks/usePush'
 import { useResetPasswordMutation } from '@/redux/features/authApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { ChevronRight } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -24,7 +24,7 @@ export default function SetPassword() {
   useEffect(() => {
     if (isSuccess) {
       toast.success('Password updated successfully')
-      push('/login')
+      redirect('http://localhost:3001/en/login')
     }
 
     if (isError) toast.error(rtkErrorMessage(error))

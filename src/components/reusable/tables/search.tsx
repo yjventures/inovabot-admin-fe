@@ -17,10 +17,16 @@ export default function Search({ searchValue, setsearchValue, inputClassName, cl
   const debouncedSearch = useDebounce(value, 500)
 
   useEffect(() => {
-    if (debouncedSearch !== searchValue && debouncedSearch !== '') {
+    if (debouncedSearch !== searchValue) {
       setsearchValue(debouncedSearch)
     }
   }, [debouncedSearch, searchValue, setsearchValue])
+
+  useEffect(() => {
+    if (searchValue === '') {
+      setValue('')
+    }
+  }, [searchValue])
 
   return (
     <div className={cn('relative w-full h-10', className)}>

@@ -21,6 +21,7 @@ import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import toast from 'react-hot-toast'
 import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
 import Badge from '@/components/reusable/cards/badge'
+import { useLogo } from '@/hooks/useLogo'
 
 interface Props {
   mode: TableMode
@@ -106,52 +107,58 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data?.data.map((company: WithId<ICompany>) => (
-                <TableRow key={company?._id}>
-                  <TableCell>
-                    <Intro imgSrc={company?.logo} title={company?.name} description={company?.web_url} hasLink />
-                  </TableCell>
-                  <TableCell>{formateDate(company.createdAt, true)}</TableCell>
-                  <TableCell>{company.bots}</TableCell>
-                  <TableCell className='text-right'>${company.payment_amount}</TableCell>
-                  <TableCell>
-                    {company.active ? (
-                      <Badge variant='emerald'>Active</Badge>
-                    ) : (
-                      <Badge variant='error'>Deactivated</Badge>
-                    )}
-                  </TableCell>
-                  <TableCell>{company.last_subscribed ? formateDate(company.last_subscribed, true) : 'N/A'}</TableCell>
-                  <TableCell>
-                    <TableActions>
+              {data?.data.map((company: WithId<ICompany>) => {
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                const logoSrc = useLogo(company?.logo!, company?.logo_dark!)
+                return (
+                  <TableRow key={company?._id}>
+                    <TableCell>
+                      <Intro imgSrc={logoSrc} title={company?.name} description={company?.web_url} hasLink />
+                    </TableCell>
+                    <TableCell>{formateDate(company.createdAt, true)}</TableCell>
+                    <TableCell>{company.bots}</TableCell>
+                    <TableCell className='text-right'>${company.payment_amount}</TableCell>
+                    <TableCell>
                       {company.active ? (
-                        <ToggleLeft
-                          className='text-red-500 cursor-pointer'
-                          onClick={() => UpdateCompany({ id: company._id, body: { active: false } })}
-                        />
+                        <Badge variant='emerald'>Active</Badge>
                       ) : (
-                        <ToggleRight
-                          className='text-green-500 cursor-pointer'
-                          onClick={() => UpdateCompany({ id: company._id, body: { active: true } })}
-                        />
+                        <Badge variant='error'>Deactivated</Badge>
                       )}
-                      <LLink href={`/admin/companies/${company._id}`}>
-                        <Eye className='text-text-primary' />
-                      </LLink>
-                      <LLink href={`/admin/companies/update/${company._id}`}>
-                        <PencilLine className='text-blue-primary' />
-                      </LLink>
-                      <Trash2
-                        className='text-error'
-                        onClick={() => {
-                          setdeleteId(company._id)
-                          setopen(true)
-                        }}
-                      />
-                    </TableActions>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    </TableCell>
+                    <TableCell>
+                      {company.last_subscribed ? formateDate(company.last_subscribed, true) : 'N/A'}
+                    </TableCell>
+                    <TableCell>
+                      <TableActions>
+                        {company.active ? (
+                          <ToggleLeft
+                            className='text-red-500 cursor-pointer'
+                            onClick={() => UpdateCompany({ id: company._id, body: { active: false } })}
+                          />
+                        ) : (
+                          <ToggleRight
+                            className='text-green-500 cursor-pointer'
+                            onClick={() => UpdateCompany({ id: company._id, body: { active: true } })}
+                          />
+                        )}
+                        <LLink href={`/admin/companies/${company._id}`}>
+                          <Eye className='text-text-primary' />
+                        </LLink>
+                        <LLink href={`/admin/companies/update/${company._id}`}>
+                          <PencilLine className='text-blue-primary' />
+                        </LLink>
+                        <Trash2
+                          className='text-error'
+                          onClick={() => {
+                            setdeleteId(company._id)
+                            setopen(true)
+                          }}
+                        />
+                      </TableActions>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         )
