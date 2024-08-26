@@ -5,10 +5,13 @@ import { Input } from '@/components/reusable/form/input'
 import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { useUpdateFAQMutation } from '@/redux/features/faqApi'
+import { WithId } from '@/types/common/IResponse'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { PencilLine } from 'lucide-react'
-import { useParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 interface IFAQ {
   question: string
@@ -16,12 +19,13 @@ interface IFAQ {
 }
 
 interface Props {
-  faq: IFAQ
+  faq: WithId<IFAQ>
 }
 
 export default function FAQUpdateModal({ faq }: Props) {
-  const { id } = useParams()
   const methods = useForm<IFAQ>()
+
+  const [open, setopen] = useState<boolean>(false)
 
   const { reset, handleSubmit } = methods
 
@@ -29,12 +33,25 @@ export default function FAQUpdateModal({ faq }: Props) {
     if (faq) reset(faq)
   }, [reset, faq])
 
+  const [updateFAQ, { isSuccess, isError, error }] = useUpdateFAQMutation()
+
   const onSubmit = (data: IFAQ) => {
-    console.log(data)
-    //TODO: when api will be ready, save the faq to the database with the bot id
+    updateFAQ({ id: faq._id, body: data })
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('FAQ updated successfully!')
+      setopen(false)
+    }
+    if (isError) {
+      toast.error(rtkErrorMessage(error))
+      setopen(false)
+    }
+  }, [isSuccess, isError, error])
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setopen}>
       <DialogTrigger>
         <PencilLine className='text-blue-primary' />
       </DialogTrigger>

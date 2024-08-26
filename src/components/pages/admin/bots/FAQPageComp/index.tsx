@@ -1,30 +1,40 @@
 'use client'
 
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
-import Search from '@/components/reusable/tables/search'
-import TablePagination from '@/components/reusable/tables/table-pagination'
 import { Button } from '@/components/ui/button'
-import { initParams } from '@/constants/form/init-params'
-import { IParams } from '@/types/common/IParams'
-import { FileQuestion, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { FileQuestion, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { dummyFAQ } from '../UpdateBotForm/FAQ'
 import TableActions from '@/components/reusable/tables/table-actions'
 import FAQDetailsModal from './FAQDetailsModal'
 import FAQUpdateModal from './FAQUpdateModal'
 import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
+import { useDeleteFAQMutation, useGetFAQsQuery, useUpdateFAQMutation } from '@/redux/features/faqApi'
+import toast from 'react-hot-toast'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
 
 export default function FAQPageComp() {
-  const [params, setparams] = useState<IParams>(initParams({}))
-  const [searchValue, setsearchValue] = useState<string>('')
+  const { data } = useGetFAQsQuery({})
+  const [updateFAQ, { isSuccess, isError, error }] = useUpdateFAQMutation()
 
   const [open, setopen] = useState<boolean>(false)
   const [deleteId, setdeleteId] = useState<string | undefined>(undefined)
+
+  const [deleteFAQ, { isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }] = useDeleteFAQMutation()
+
   const deleteFAQFn = () => {
-    console.log(deleteId)
-    // TODO: delete the faq from the database
+    deleteFAQ(deleteId!)
   }
+
+  useEffect(() => {
+    if (isSuccess) toast.success('FAQ updated successfully!')
+    if (isError) toast.error(rtkErrorMessage(error))
+  }, [isSuccess, isError, error])
+
+  useEffect(() => {
+    if (isDeleteSuccess) toast.success('FAQ deleted successfully!')
+    if (isDeleteError) toast.error(rtkErrorMessage(deleteError))
+  }, [isDeleteSuccess, isDeleteError, deleteError])
 
   return (
     <div>
@@ -37,14 +47,6 @@ export default function FAQPageComp() {
         }
       />
 
-      <Search
-        searchValue={searchValue}
-        setsearchValue={setsearchValue}
-        placeholder='Search Files'
-        inputClassName='rounded-lg'
-        className='max-w-lg mb-6'
-      />
-
       <Table>
         <TableHeader>
           <TableRow>
@@ -53,35 +55,37 @@ export default function FAQPageComp() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {dummyFAQ
-            .concat(dummyFAQ)
-            .concat(dummyFAQ)
-            .map((faq, index) => (
-              <TableRow key={index}>
-                <TableCell className='font-medium text-sm'>{faq.question}</TableCell>
-                <TableCell>
-                  <TableActions>
-                    <FAQDetailsModal faq={faq} />
-                    <FAQUpdateModal faq={faq} />
-                    <Trash2
-                      className='text-destructive'
-                      onClick={() => {
-                        setopen(true)
-                        setdeleteId(faq._id)
-                      }}
+          {data?.data?.map((faq, index) => (
+            <TableRow key={index}>
+              <TableCell className='font-medium text-sm'>{faq.question}</TableCell>
+              <TableCell>
+                <TableActions>
+                  <FAQDetailsModal faq={faq} />
+                  {faq.active ? (
+                    <ToggleLeft
+                      className='text-red-500 cursor-pointer'
+                      onClick={() => updateFAQ({ id: faq._id, body: { active: false } })}
                     />
-                  </TableActions>
-                </TableCell>
-              </TableRow>
-            ))}
+                  ) : (
+                    <ToggleRight
+                      className='text-emerald-500 cursor-pointer'
+                      onClick={() => updateFAQ({ id: faq._id, body: { active: true } })}
+                    />
+                  )}
+                  <FAQUpdateModal faq={faq} />
+                  <Trash2
+                    className='text-destructive cursor-pointer'
+                    onClick={() => {
+                      setopen(true)
+                      setdeleteId(faq._id)
+                    }}
+                  />
+                </TableActions>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
-
-      <TablePagination
-        params={params}
-        setparams={setparams}
-        metadata={{ totalDocuments: 100, currentPage: 1, totalPage: 10 }}
-      />
 
       <ConfirmationPrompt open={open} onOpenChange={setopen} cb={deleteFAQFn} />
     </div>

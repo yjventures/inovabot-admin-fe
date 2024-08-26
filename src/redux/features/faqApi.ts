@@ -1,7 +1,7 @@
 import api from '@/redux/api'
 import { apiURL } from '../utils'
 import { IFAQ } from '@/types/IFAQ'
-import { IResponse, IResponseWithMeta, WithId } from '@/types/common/IResponse'
+import { IResponseWithMeta, WithId } from '@/types/common/IResponse'
 
 const rootApi = '/faqs'
 
@@ -27,7 +27,7 @@ const faqApi = api.injectEndpoints({
       }),
       providesTags: ['faq']
     }),
-    updateFAQ: build.mutation<{ faq: IFAQ }, { id: string; body: IFAQ }>({
+    updateFAQ: build.mutation<{ faq: IFAQ }, { id: string; body: Partial<IFAQ> }>({
       query: ({ id, body }) => ({
         url: apiURL(rootApi, 'update', id),
         method: 'PUT',
