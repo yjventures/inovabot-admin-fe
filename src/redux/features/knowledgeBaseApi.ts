@@ -15,9 +15,9 @@ const knowledgeBaseApi = api.injectEndpoints({
       }),
       invalidatesTags: ['knowledgeBases']
     }),
-    getAllBotFiles: build.query<IResponseWithMeta<IFile[]>, { params: IParams; botId: string }>({
-      query: ({ params, botId }) => ({
-        url: `/files/get-all?bot_id=${botId}`,
+    getAllBotFiles: build.query<IResponseWithMeta<IFile[]>, IParams & { bot_id: string; company_id?: string }>({
+      query: params => ({
+        url: `/files/get-all`,
         params
       }),
       providesTags: ['knowledgeBases']

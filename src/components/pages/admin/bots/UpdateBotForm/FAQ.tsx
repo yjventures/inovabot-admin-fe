@@ -64,7 +64,7 @@ export default function FAQ({ companyId }: { companyId: string }) {
     if (isError) toast.error(rtkErrorMessage(error))
   }, [isSuccess, isError, error])
 
-  const { data } = useGetFAQsQuery(initParams({ limit: 4 }))
+  const { data } = useGetFAQsQuery({ ...initParams({ limit: 4 }), bot_id: id as string })
 
   return (
     <FormWrapper>

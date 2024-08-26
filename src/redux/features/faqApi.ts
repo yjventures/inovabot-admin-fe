@@ -8,8 +8,9 @@ const rootApi = '/faqs'
 const faqApi = api.injectEndpoints({
   endpoints: build => ({
     getFAQs: build.query<IResponseWithMeta<WithId<IFAQ>[]>, {}>({
-      query: () => ({
-        url: apiURL(rootApi)
+      query: params => ({
+        url: apiURL(rootApi),
+        params
       }),
       providesTags: ['faqs']
     }),

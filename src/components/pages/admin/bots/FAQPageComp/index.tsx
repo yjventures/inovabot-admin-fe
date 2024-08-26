@@ -12,9 +12,12 @@ import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-pro
 import { useDeleteFAQMutation, useGetFAQsQuery, useUpdateFAQMutation } from '@/redux/features/faqApi'
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { initParams } from '@/constants/form/init-params'
+import { useParams } from 'next/navigation'
 
 export default function FAQPageComp() {
-  const { data } = useGetFAQsQuery({})
+  const { id } = useParams()
+  const { data } = useGetFAQsQuery({ ...initParams({}), bot_id: id })
   const [updateFAQ, { isSuccess, isError, error }] = useUpdateFAQMutation()
 
   const [open, setopen] = useState<boolean>(false)

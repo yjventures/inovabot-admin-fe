@@ -13,7 +13,7 @@ import React from 'react'
 
 export default function KnowledgeBase({ companyId }: { companyId: string }) {
   const { id } = useParams()
-  const { data } = useGetAllBotFilesQuery({ botId: id as string, params: initParams({ limit: 4 }) })
+  const { data } = useGetAllBotFilesQuery({ ...initParams({ limit: 4 }), bot_id: id as string })
   return (
     <FormWrapper>
       <DashboardHeading
