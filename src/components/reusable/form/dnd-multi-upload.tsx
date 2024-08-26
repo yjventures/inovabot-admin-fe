@@ -24,6 +24,7 @@ import axios from 'axios'
 import { API_URL } from '@/configs'
 import { useUploadKnowledgeBaseMutation } from '@/redux/features/botsApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { getToken } from '@/utils/auth/getToken'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name?: string
@@ -93,12 +94,13 @@ const DnDMultiUpload = ({
           const formData = new FormData()
           formData.append('file', file)
           formData.append('bot_id', bot_id)
-          return upload(formData)
-          // return axios.post(`${API_URL}/upload`, formData, {
-          //   headers: {
-          //     'Content-Type': 'multipart/form-data'
-          //   }
-          // })
+          //return upload(formData)
+          return axios.post(`${API_URL}/bots/upload`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${getToken()}`
+            }
+          })
         })
       )
 
@@ -138,7 +140,15 @@ const DnDMultiUpload = ({
               </p>
             </div>
           </div>
-          <input type='file' ref={inputBtnRef} onChange={handleChange} className='hidden' id='file-uploads' {...rest} />
+          <input
+            type='file'
+            ref={inputBtnRef}
+            multiple
+            onChange={handleChange}
+            className='hidden'
+            id='file-uploads'
+            {...rest}
+          />
           <Button
             onClick={handleButtonClick}
             variant='secondary'

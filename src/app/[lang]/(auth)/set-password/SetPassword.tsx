@@ -35,8 +35,8 @@ export default function SetPassword() {
   return (
     <div className='flex items-center justify-center min-h-screen'>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)} className='w-full max-w-md'>
-        <Typography variant='h3'>Enter Temporary Password</Typography>
-        <Input name='password' label='Temporary Password' placeholder='********' required type='password' />
+        <Typography variant='h3'>Enter New Password</Typography>
+        <Input name='password' label='New Password' placeholder='********' required type='password' />
         <Button type='submit' variant='gradient' icon={<ChevronRight />} iconPosition='right' isLoading={isLoading}>
           Proceed
         </Button>
