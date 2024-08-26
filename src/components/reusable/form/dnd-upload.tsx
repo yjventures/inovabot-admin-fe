@@ -79,7 +79,6 @@ const DnDUpload = ({
     try {
       setIsUploading(true)
       const fileURL = await uploadFile(file)
-      console.log(fileURL)
       if (typeof fileURL === 'string') {
         setValue(name, fileURL, { shouldValidate: true, shouldDirty: true })
       } else if (fileURL.code === 'ERR_NETWORK') {

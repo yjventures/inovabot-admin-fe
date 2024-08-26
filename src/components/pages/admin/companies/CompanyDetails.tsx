@@ -26,8 +26,6 @@ export default function CompanyDetails() {
   const params: Params = { ...initParams({}), company_id: id as string }
 
   const { data: botsData } = useGetBotsQuery(params)
-
-  console.log(botsData, categoriesData)
   return (
     <div>
       <DashboardHeading title='Company Details' />

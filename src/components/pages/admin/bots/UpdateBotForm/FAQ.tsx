@@ -14,27 +14,6 @@ import { useCreateFAQMutation, useGetFAQsQuery } from '@/redux/features/faqApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { initParams } from '@/constants/form/init-params'
 
-export const dummyFAQ = [
-  {
-    _id: '1',
-    question: 'What is this chatbot for?',
-    answer:
-      'This chatbot is designed to assist with various tasks such as answering questions, providing recommendations, and automating routine processes.'
-  },
-  {
-    _id: '2',
-    question: 'How do I start a conversation with the chatbot?',
-    answer:
-      'You can start a conversation by simply typing your question or request in the chat window. The chatbot will respond promptly.'
-  },
-  {
-    _id: '3',
-    question: "What should I do if the chatbot doesn't understand my question?",
-    answer:
-      "If the chatbot doesn't understand your question, try rephrasing it or providing more details. You can also ask for human assistance if needed."
-  }
-]
-
 export interface IFAQ {
   question: string
   answer: string

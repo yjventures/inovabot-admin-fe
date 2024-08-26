@@ -12,9 +12,7 @@ import { Checkbox } from '@/components/reusable/form/checkbox'
 
 export default function FormExample() {
   const methods = useForm()
-  const onSubmit = (data: any) => {
-    console.log(data)
-  }
+  const onSubmit = (data: any) => {}
 
   return (
     <Form methods={methods} onSubmit={methods.handleSubmit(onSubmit)} className='bg-foreground p-5 rounded-md'>

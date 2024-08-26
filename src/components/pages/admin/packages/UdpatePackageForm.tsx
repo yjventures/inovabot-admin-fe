@@ -37,8 +37,6 @@ export default function UdpatePackageForm() {
   const total_file_storage = watch('total_file_storage')
   const bot_limit = watch('bot_limit')
 
-  console.log(embed_widgets)
-
   useEffect(() => {
     if (isFetchingSuccess) {
       reset(data?.package)
@@ -47,7 +45,6 @@ export default function UdpatePackageForm() {
       data?.package?.features?.map((feat: any) => {
         // FIXME: this valeu is not updating, also, onchange, they are not updating
         if (feat.type === 'Boolean') {
-          console.log(feat.keyword, feat.value)
           setValue(feat.keyword, feat.value === 'Yes')
         } else {
           setValue(feat.keyword, feat.value)

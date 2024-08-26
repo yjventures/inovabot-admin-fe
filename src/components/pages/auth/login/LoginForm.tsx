@@ -22,7 +22,6 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(data)
       toast.success('Logged in successfully!')
 
       const { refreshToken, accessToken, ...userData } = data?.user || {}
