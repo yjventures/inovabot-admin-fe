@@ -17,6 +17,7 @@ import { useDeleteCompanyMutation, useUpdateCompanyMutation } from '@/redux/feat
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import ConfirmationPrompt from '../dashboard/confirmation-prompt'
+import { formatValue } from '@/utils/misc/formatValue'
 
 export interface CompanyCardProps {
   company: WithId<ICompany>
@@ -24,7 +25,7 @@ export interface CompanyCardProps {
 
 export default function CompanyCard({ company }: CompanyCardProps) {
   const [open, setopen] = useState<boolean>(false)
-  const { logo, name, web_url, bots, recurring, last_subscribed, createdAt, active } = { ...company }
+  const { logo, name, web_url, bots, recurring_type, last_subscribed, createdAt, active } = { ...company }
   const [UpdateCompany, { isSuccess, isError, error }] = useUpdateCompanyMutation()
   const [deleteCompany, { isLoading, isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }] =
     useDeleteCompanyMutation()
@@ -38,6 +39,8 @@ export default function CompanyCard({ company }: CompanyCardProps) {
     if (isDeleteSuccess) toast.success('Company deleted successfully')
     if (isDeleteError) toast.error(rtkErrorMessage(deleteError))
   }, [isDeleteSuccess, isDeleteError, deleteError])
+
+  console.log(recurring_type)
 
   return (
     <>
@@ -89,8 +92,8 @@ export default function CompanyCard({ company }: CompanyCardProps) {
 
         <CardCeparatorBorder />
         <CardBetween left='Bots' right={bots?.toString()} />
-        <CardBetween left='Recurring' right={recurring} />
-        <CardBetween left='Last Subscribed' right={formateDate(last_subscribed)} />
+        <CardBetween left='Recurring' right={formatValue(recurring_type)} />
+        <CardBetween left='Last Subscribed' right={last_subscribed ? formateDate(last_subscribed) : 'N/A'} />
         <CardBetween left='Created' right={formateDate(createdAt)} />
       </CardWrapper>
       <ConfirmationPrompt

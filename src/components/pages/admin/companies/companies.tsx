@@ -20,6 +20,7 @@ import { useDeleteCompanyMutation, useUpdateCompanyMutation } from '@/redux/feat
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import toast from 'react-hot-toast'
 import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
+import Badge from '@/components/reusable/cards/badge'
 
 interface Props {
   mode: TableMode
@@ -113,8 +114,14 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
                   <TableCell>{formateDate(company.createdAt, true)}</TableCell>
                   <TableCell>{company.bots}</TableCell>
                   <TableCell className='text-right'>${company.payment_amount}</TableCell>
-                  <TableCell>{company.user_id}</TableCell>
-                  <TableCell>{formateDate(company.last_subscribed, true)}</TableCell>
+                  <TableCell>
+                    {company.active ? (
+                      <Badge variant='emerald'>Active</Badge>
+                    ) : (
+                      <Badge variant='error'>Deactivated</Badge>
+                    )}
+                  </TableCell>
+                  <TableCell>{company.last_subscribed ? formateDate(company.last_subscribed, true) : 'N/A'}</TableCell>
                   <TableCell>
                     <TableActions>
                       {company.active ? (

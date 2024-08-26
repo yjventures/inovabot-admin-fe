@@ -18,6 +18,6 @@ export interface ICompany {
   createdAt: string
   updatedAt: string
   bots: number
-  recurring: string
+  recurring_type: string
   active: boolean
 }
