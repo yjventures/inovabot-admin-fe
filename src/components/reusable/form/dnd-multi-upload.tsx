@@ -35,6 +35,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   id?: string
   bot_id: string
   companyId: string
+  cb?: () => void
 }
 
 const DnDMultiUpload = ({
@@ -50,6 +51,7 @@ const DnDMultiUpload = ({
   bot_id,
   companyId,
   id,
+  cb = () => {},
   ...rest
 }: Props) => {
   const inputBtnRef = useRef<HTMLInputElement | null>(null)
@@ -86,6 +88,7 @@ const DnDMultiUpload = ({
   }, [isSuccess, isError, error])
 
   const uploadFiles = async (files: File[]) => {
+    cb()
     try {
       await Promise.all(
         files.map((file: File) => {

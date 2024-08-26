@@ -55,7 +55,6 @@ const api = createApi({
     'category',
     'faqs',
     'faq',
-    'knowledgeBase',
     'knowledgeBases'
   ],
   endpoints: () => ({})

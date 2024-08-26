@@ -6,38 +6,14 @@ import DnDMultiUpload from '@/components/reusable/form/dnd-multi-upload'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
+import { initParams } from '@/constants/form/init-params'
+import { useGetAllBotFilesQuery } from '@/redux/features/knowledgeBaseApi'
 import { useParams } from 'next/navigation'
 import React from 'react'
 
-export const dummyFilesData: IFile[] = [
-  {
-    _id: '1',
-    name: 'file1.pdf',
-    size: '100KB',
-    url: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg'
-  },
-  {
-    _id: '2',
-    name: 'file2.pdf',
-    size: '100KB',
-    url: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg'
-  },
-  {
-    _id: '3',
-    name: 'file3.pdf',
-    size: '100KB',
-    url: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg'
-  },
-  {
-    _id: '4',
-    name: 'file4.pdf',
-    size: '100KB',
-    url: 'https://www.mypunepulse.com/wp-content/uploads/2024/08/chota-bheem.jpeg'
-  }
-]
-
 export default function KnowledgeBase({ companyId }: { companyId: string }) {
   const { id } = useParams()
+  const { data } = useGetAllBotFilesQuery({ botId: id as string, params: initParams({ limit: 4 }) })
   return (
     <FormWrapper>
       <DashboardHeading
@@ -58,8 +34,8 @@ export default function KnowledgeBase({ companyId }: { companyId: string }) {
           companyId={companyId}
         />
 
-        <div className='grid grid-cols-2 gap-3 w-3/5'>
-          {dummyFilesData.map(file => (
+        <div className='grid grid-cols-2 gap-3 w-3/5 items-start'>
+          {data?.data?.map(file => (
             <FileCard key={file._id} file={file} />
           ))}
         </div>

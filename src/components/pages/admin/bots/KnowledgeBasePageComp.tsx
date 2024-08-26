@@ -10,21 +10,29 @@ import FileCard from '@/components/reusable/cards/file-card'
 import { initParams } from '@/constants/form/init-params'
 import { IParams } from '@/types/common/IParams'
 import TablePagination from '@/components/reusable/tables/table-pagination'
-import { dummyFilesData } from './UpdateBotForm/KnowledgeBase'
+import { useParams } from 'next/navigation'
+import { useGetAllBotFilesQuery } from '@/redux/features/knowledgeBaseApi'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import DnDMultiUpload from '@/components/reusable/form/dnd-multi-upload'
+import BotFileUploadModal from './BotFileUploadModal'
 
 export default function KnowledgeBasePageComp() {
   const [params, setparams] = useState<IParams>(initParams({}))
   const [searchValue, setsearchValue] = useState<string>('')
+
+  const { id } = useParams()
+  const { data } = useGetAllBotFilesQuery({ botId: id as string, params: { ...params, search: searchValue } })
+
   return (
     <div>
-      <DashboardHeading
-        title='Knowledge Base'
-        extra={
-          <Button variant='black' icon={<FilePlus />}>
-            Add Files
-          </Button>
-        }
-      />
+      <DashboardHeading title='Knowledge Base' extra={<BotFileUploadModal botId={id as string} />} />
 
       <Search
         searchValue={searchValue}
@@ -35,18 +43,11 @@ export default function KnowledgeBasePageComp() {
       />
 
       <CardGrid className='mt-6'>
-        {dummyFilesData
-          .concat(dummyFilesData)
-          .concat(dummyFilesData)
-          .map(file => (
-            <FileCard key={file._id} file={file} variant='vertical' />
-          ))}
+        {data?.data?.map(file => (
+          <FileCard key={file._id} file={file} variant='vertical' />
+        ))}
       </CardGrid>
-      <TablePagination
-        params={params}
-        setparams={setparams}
-        metadata={{ totalDocuments: 100, currentPage: 1, totalPage: 10 }}
-      />
+      <TablePagination params={params} setparams={setparams} metadata={data?.metadata!} />
     </div>
   )
 }
