@@ -36,7 +36,7 @@ export const dummyFilesData: IFile[] = [
   }
 ]
 
-export default function KnowledgeBase() {
+export default function KnowledgeBase({ companyId }: { companyId: string }) {
   const { id } = useParams()
   return (
     <FormWrapper>
@@ -51,7 +51,12 @@ export default function KnowledgeBase() {
       />
 
       <div className='flex gap-x-5 gap-y-3 justify-between'>
-        <DnDMultiUpload bot_id={id as string} accept='.pdf,.doc,.docx,.txt,.md' containerClassName='max-w-md w-2/5' />
+        <DnDMultiUpload
+          bot_id={id as string}
+          accept='.pdf,.doc,.docx,.txt,.md'
+          containerClassName='max-w-md w-2/5'
+          companyId={companyId}
+        />
 
         <div className='grid grid-cols-2 gap-3 w-3/5'>
           {dummyFilesData.map(file => (

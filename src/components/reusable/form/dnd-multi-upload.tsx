@@ -4,7 +4,6 @@ import animationData from '@/assets/lottie/imageUploading.json'
 import { Button } from '@/components/ui/button'
 import Overlay from '@/components/ui/overlay'
 import { cn } from '@/lib/utils'
-import { uploadFile } from '@/utils/files/uploadFile'
 import { ImageIcon, LucideProps } from 'lucide-react'
 import {
   ChangeEventHandler,
@@ -13,18 +12,15 @@ import {
   InputHTMLAttributes,
   RefAttributes,
   useEffect,
-  useRef,
-  useState
+  useRef
 } from 'react'
-import { useFormContext } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import FormFieldError from './form-field-error'
 import FormLabel from './form-label'
 import axios from 'axios'
 import { API_URL } from '@/configs'
-import { useUploadKnowledgeBaseMutation } from '@/redux/features/botsApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { getToken } from '@/utils/auth/getToken'
+import { useUploadKnowledgeBaseMutation } from '@/redux/features/knowledgeBaseApi'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name?: string
@@ -38,6 +34,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   required?: boolean
   id?: string
   bot_id: string
+  companyId: string
 }
 
 const DnDMultiUpload = ({
@@ -51,6 +48,7 @@ const DnDMultiUpload = ({
   labelClassName,
   containerClassName,
   bot_id,
+  companyId,
   id,
   ...rest
 }: Props) => {
@@ -89,25 +87,19 @@ const DnDMultiUpload = ({
 
   const uploadFiles = async (files: File[]) => {
     try {
-      const responses = await Promise.all(
+      await Promise.all(
         files.map((file: File) => {
           const formData = new FormData()
           formData.append('file', file)
           formData.append('bot_id', bot_id)
-          //return upload(formData)
-          return axios.post(`${API_URL}/bots/upload`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: `Bearer ${getToken()}`
-            }
-          })
+          formData.append('company_id', companyId)
+          return upload(formData)
         })
       )
 
-      console.log(responses)
-
-      const uploadedUrls = responses.map(response => response?.data?.uploadedUrl)
+      if (inputBtnRef.current) inputBtnRef.current.value = ''
     } catch (error) {
+      if (inputBtnRef.current) inputBtnRef.current.value = ''
       console.error('Error uploading files', error)
     }
   }

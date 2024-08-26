@@ -76,8 +76,8 @@ export default function UpdateBotForm() {
 
       <div className='space-y-6'>
         <ChatPreview />
-        <KnowledgeBase />
-        <FAQ />
+        <KnowledgeBase companyId={data?.data?.company_id!} />
+        <FAQ companyId={data?.data?.company_id!} />
 
         <div className='flex justify-between gap-6'>
           <div className='space-y-6 w-1/2'>

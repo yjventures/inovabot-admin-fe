@@ -44,7 +44,7 @@ const initFaq: IFAQ = {
   answer: ''
 }
 
-export default function FAQ() {
+export default function FAQ({ companyId }: { companyId: string }) {
   const { id } = useParams()
 
   const [faq, setfaq] = useState<IFAQ>(initFaq)

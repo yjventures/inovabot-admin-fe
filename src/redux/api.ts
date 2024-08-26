@@ -13,7 +13,6 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args: FetchArgs, api: BaseQueryApi, extraOptions: {}) => {
   args.headers = {
     ...args.headers,
-    'Content-Type': 'application/json',
     Authorization: `Bearer ${getToken()}`
   }
 
@@ -55,7 +54,9 @@ const api = createApi({
     'categories',
     'category',
     'faqs',
-    'faq'
+    'faq',
+    'knowledgeBase',
+    'knowledgeBases'
   ],
   endpoints: () => ({})
 })

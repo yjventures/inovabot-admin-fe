@@ -43,23 +43,9 @@ const botsApi = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: ['bots']
-    }),
-    uploadKnowledgeBase: build.mutation({
-      query: body => ({
-        url: `${rootApi}/upload`,
-        method: 'POST',
-        body
-      }),
-      invalidatesTags: ['bot', 'bots']
     })
   })
 })
 
-export const {
-  useGetBotsQuery,
-  useCreateBotMutation,
-  useGetBotQuery,
-  useUpdateBotMutation,
-  useDeleteBotMutation,
-  useUploadKnowledgeBaseMutation
-} = botsApi
+export const { useGetBotsQuery, useCreateBotMutation, useGetBotQuery, useUpdateBotMutation, useDeleteBotMutation } =
+  botsApi
