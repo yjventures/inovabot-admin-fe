@@ -14,12 +14,12 @@ import Typography from '@/components/ui/typography'
 import KnowledgeBase from './KnowledgeBase'
 import FAQ from './FAQ'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
-import Appearance from '../CreateBotForm/Appearance'
-import LLMSettings from '../CreateBotForm/LLMSettings'
-import Advanced from '../CreateBotForm/Advanced'
 import EmbeddedWidgets from './EmbeddedWidgets'
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import UpdateAppearance from './UpdateApprearance'
+import UpdateAdvanced from './UpdateAdvanced'
+import UpdateLLMSettings from './UpdateLLMSettings'
 
 export default function UpdateBotForm() {
   const push = usePush()
@@ -82,14 +82,14 @@ export default function UpdateBotForm() {
         <div className='flex justify-between gap-6'>
           <div className='space-y-6 w-1/2'>
             <FormWrapper>
-              <Appearance />
+              <UpdateAppearance />
             </FormWrapper>
             <FormWrapper>
-              <LLMSettings />
+              <UpdateLLMSettings />
             </FormWrapper>
           </div>
           <FormWrapper className='w-1/2'>
-            <Advanced />
+            <UpdateAdvanced />
           </FormWrapper>
         </div>
         <EmbeddedWidgets />
