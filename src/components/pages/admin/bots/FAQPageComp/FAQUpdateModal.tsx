@@ -12,11 +12,7 @@ import { PencilLine } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-
-interface IFAQ {
-  question: string
-  answer: string
-}
+import { IFAQ } from '../UpdateBotForm/FAQ'
 
 interface Props {
   faq: WithId<IFAQ>
@@ -61,7 +57,7 @@ export default function FAQUpdateModal({ faq }: Props) {
         </DialogHeader>
         <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Input name='question' label='Question' placeholder='Question' />
-          <Textarea name='answer' label='Answer' placeholder='Answer' />
+          <Textarea name='objective' label='Objective' placeholder='Objective' />
           <div className='flex justify-end'>
             <Button type='submit' variant='black'>
               Save

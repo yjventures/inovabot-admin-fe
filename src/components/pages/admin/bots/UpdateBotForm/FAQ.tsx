@@ -13,15 +13,18 @@ import LLink from '@/components/ui/llink'
 import { useCreateFAQMutation, useGetFAQsQuery } from '@/redux/features/faqApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { initParams } from '@/constants/form/init-params'
+import { Textarea } from '@/components/reusable/form/textarea'
 
 export interface IFAQ {
   question: string
-  answer: string
+  objective: string
+  active?: boolean
 }
 
 const initFaq: IFAQ = {
   question: '',
-  answer: ''
+  objective: '',
+  active: true
 }
 
 export default function FAQ({ companyId }: { companyId: string }) {
@@ -31,7 +34,7 @@ export default function FAQ({ companyId }: { companyId: string }) {
 
   const [addFAQ, { isLoading, isSuccess, isError, error }] = useCreateFAQMutation()
   const handleSubmit = () => {
-    if (!faq.question || !faq.answer) return toast.error('Please fill all the fields!')
+    if (!faq.question || !faq.objective) return toast.error('Please fill all the fields!')
     addFAQ({ ...faq, company_id: companyId, bot_id: id as string })
   }
 
@@ -60,13 +63,13 @@ export default function FAQ({ companyId }: { companyId: string }) {
         value={faq.question}
         onChange={e => setfaq({ ...faq, question: e.target.value })}
         placeholder='Question'
-        label='Question'
+        label='Question*'
       />
-      <Input
-        value={faq.answer}
-        onChange={e => setfaq({ ...faq, answer: e.target.value })}
-        placeholder='Answer'
-        label='Answer'
+      <Textarea
+        value={faq.objective}
+        onChange={e => setfaq({ ...faq, objective: e.target.value })}
+        placeholder='Objective'
+        label='Objective*'
       />
       <Button variant='gradient' icon={<PlusSquare />} onClick={handleSubmit} isLoading={isLoading}>
         Publish FAQ
@@ -76,7 +79,7 @@ export default function FAQ({ companyId }: { companyId: string }) {
         {data?.data?.map((faq, index) => (
           <AccordionItem value={`item-${index + 1}`} key={index} className='border-b-0'>
             <AccordionTrigger>{faq.question}</AccordionTrigger>
-            <AccordionContent>{faq.answer}</AccordionContent>
+            <AccordionContent>{faq.objective}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>

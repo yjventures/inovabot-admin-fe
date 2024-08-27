@@ -1,7 +1,7 @@
 import api from '@/redux/api'
 import { apiURL } from '../utils'
-import { IFAQ } from '@/types/IFAQ'
 import { IResponseWithMeta, WithId } from '@/types/common/IResponse'
+import { IFAQ } from '@/components/pages/admin/bots/UpdateBotForm/FAQ'
 
 const rootApi = '/faqs'
 

@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function FAQDetailsModal({ faq }: Props) {
-  const { question, answer } = { ...faq }
+  const { question, objective } = { ...faq }
   return (
     <Dialog>
       <DialogTrigger>
@@ -23,7 +23,7 @@ export default function FAQDetailsModal({ faq }: Props) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{question}</DialogTitle>
-          <DialogDescription>{answer}</DialogDescription>
+          <DialogDescription>{objective}</DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>

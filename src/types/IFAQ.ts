@@ -1,6 +1,6 @@
 export interface IFAQ {
   question: string
-  answer: string
+  Objective: string
   bot_id: string
   active: boolean
 }
