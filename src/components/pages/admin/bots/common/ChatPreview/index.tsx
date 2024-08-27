@@ -1,7 +1,6 @@
 'use client'
 
 import Intro from '@/components/reusable/common/intro'
-import { useTheme } from 'next-themes'
 import { useFormContext } from 'react-hook-form'
 import { Input } from '@/components/reusable/form/input'
 import { Paperclip, Send } from 'lucide-react'
@@ -9,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import LeftChat from './LeftChat'
 import RightChat from './RightChat'
 import { BOT_URL } from '@/configs'
+import { useLogo } from '@/hooks/useLogo'
 
 export default function ChatPreview() {
   const { watch } = useFormContext()
@@ -21,8 +21,7 @@ export default function ChatPreview() {
   const secondary_color = watch('secondary_color')
   const font_color = watch('font_color')
 
-  const { theme } = useTheme()
-  const imgSrc = theme === 'dark' && logo_dark ? logo_dark : logo_light
+  const imgSrc = useLogo(logo_light, logo_dark)
 
   return (
     <div>

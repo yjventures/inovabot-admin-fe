@@ -17,6 +17,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { IParams } from '@/types/common/IParams'
 import LLink from '@/components/ui/llink'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type Params = IParams & { company_id: string }
 
@@ -24,12 +25,20 @@ export default function AllBots() {
   const [open, setOpen] = useState(false)
   const [company_id, setcompany_id] = useState('')
 
-  const [value, setvalue] = useState<string>('')
+  const [search, setsearch] = useState<string>('')
   const [mode, setmode] = useState<TableMode>('grid')
 
   const [category, setcategory] = useState<string>('All')
-  const { data: categoriesData, isSuccess: isCategorySuccess } = useGetCategoriesQuery({})
-  const { data: companyListData } = useGetComanyListQuery({})
+  const { data: categoriesData, isSuccess: isCategorySuccess, isLoading: iscategoryLoading } = useGetCategoriesQuery({})
+  const {
+    data: companyListData,
+    isSuccess: isCompanyListSuccess,
+    isLoading: isCompanyListLoading
+  } = useGetComanyListQuery({})
+
+  useEffect(() => {
+    if (isCompanyListSuccess) setcompany_id(companyListData?.data?.[0]?._id)
+  }, [isCompanyListSuccess, companyListData])
 
   const [skip, setskip] = useState<boolean>(true)
   const { data: companyData } = useGetCompanyQuery(company_id, { skip })
@@ -45,65 +54,75 @@ export default function AllBots() {
   }, [company_id])
 
   type Params = IParams & { company_id: string; category: string }
-  const params: Params = { ...initParams({}), company_id, search: value, category }
+  const params: Params = { ...initParams({}), company_id, search, category }
 
   const { data: botsData, isSuccess } = useGetBotsQuery(params)
 
   return (
     <div className='mt-10'>
-      <CompanyIntoCard
-        name={name!}
-        logo={logo}
-        payment_status='paid'
-        createdAt={createdAt!}
-        expires_at={expires_at!}
-        description={description!}
-        address={address}
-        web_url={web_url}
-        topCTASection={
-          <div className='flex flex-wrap gap-x-3 gap-2'>
-            <LLink href={`/admin/companies/${company_id}`}>
-              <Button variant='black'>View Details</Button>
-            </LLink>
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
-                  {company_id ? companyListData?.data.find(com => com._id === company_id)?.name : 'Select Company...'}
-                  <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className='w-[200px] p-0'>
-                <Command>
-                  <CommandInput placeholder='Search company...' />
-                  <CommandList>
-                    <CommandEmpty>No company found.</CommandEmpty>
-                    <CommandGroup>
-                      {companyListData?.data?.map(com => (
-                        <CommandItem
-                          key={com?._id}
-                          value={com?._id}
-                          onSelect={currentValue => {
-                            setcompany_id(currentValue === company_id ? '' : currentValue)
-                            setOpen(false)
-                          }}
-                        >
-                          <Check
-                            className={cn('mr-2 h-4 w-4', company_id === com?._id ? 'opacity-100' : 'opacity-0')}
-                          />
-                          {com?.name}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-          </div>
-        }
-      />
+      {isCompanyListLoading ? <Skeleton className='w-full rounded-lg h-72' /> : null}
+      {isCompanyListSuccess ? (
+        <CompanyIntoCard
+          name={name!}
+          logo={logo}
+          payment_status='paid'
+          createdAt={createdAt!}
+          expires_at={expires_at!}
+          description={description!}
+          address={address}
+          web_url={web_url}
+          topCTASection={
+            <div className='flex flex-wrap gap-x-3 gap-2'>
+              <LLink href={`/admin/companies/${company_id}`}>
+                <Button variant='black'>View Details</Button>
+              </LLink>
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
+                    {company_id ? companyListData?.data.find(com => com._id === company_id)?.name : 'Select Company...'}
+                    <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className='w-[200px] p-0'>
+                  <Command>
+                    <CommandInput placeholder='Search company...' />
+                    <CommandList>
+                      <CommandEmpty>No company found.</CommandEmpty>
+                      <CommandGroup>
+                        {companyListData?.data?.map(com => (
+                          <CommandItem
+                            key={com?._id}
+                            value={com?._id}
+                            onSelect={currentValue => {
+                              setcompany_id(currentValue === company_id ? '' : currentValue)
+                              setOpen(false)
+                            }}
+                          >
+                            <Check
+                              className={cn('mr-2 h-4 w-4', company_id === com?._id ? 'opacity-100' : 'opacity-0')}
+                            />
+                            {com?.name}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
+          }
+        />
+      ) : null}
       <div className='flex gap-x-4 items-center justify-between mt-6'>
+        {iscategoryLoading ? (
+          <div className='flex flex-wrap gap-x-3 gap-y-1.5'>
+            {Array.from({ length: 3 }, (_, i) => (
+              <Skeleton key={i} className='w-40 h-10 rounded-full' />
+            ))}
+          </div>
+        ) : null}
         {isCategorySuccess ? (
-          <div className='flex flex-wrap gap-x-3'>
+          <div className='flex flex-wrap gap-x-3 gap-y-1.5'>
             {[{ _id: '1', title: 'All' }, ...categoriesData?.categories]?.map(cat => (
               <Button
                 key={cat._id}
@@ -117,24 +136,28 @@ export default function AllBots() {
           </div>
         ) : null}
         <div className='flex gap-x-4'>
-          <Search searchValue={value} setsearchValue={setvalue} placeholder='Search' />
+          <Search searchValue={search} setsearchValue={setsearch} placeholder='Search' />
           <TableSelector mode={mode} setmode={setmode} />
         </div>
       </div>
 
       {isSuccess ? (
-        <CardGrid className='mt-5'>
-          {botsData?.data?.map(bot => (
-            <BotCard
-              _id={bot?._id!}
-              key={bot._id}
-              name={bot.name!}
-              category={bot.category!}
-              model={bot.model!}
-              createdAt={String(bot.createdAt!)}
-            />
-          ))}
-        </CardGrid>
+        botsData?.data?.length ? (
+          <CardGrid className='mt-5'>
+            {botsData?.data?.map(bot => (
+              <BotCard
+                _id={bot?._id!}
+                key={bot._id}
+                name={bot.name!}
+                category={bot.category!}
+                model={bot.model!}
+                createdAt={String(bot.createdAt!)}
+              />
+            ))}
+          </CardGrid>
+        ) : (
+          <p className='italic text-text-secondary mt-10'>No bots created yet</p>
+        )
       ) : null}
     </div>
   )

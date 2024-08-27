@@ -7,7 +7,6 @@ import CardBetween from './commonn/card-between'
 import { formateDate } from '@/utils/date/formateDate'
 import CardCeparatorBorder from './commonn/card-separator-border'
 import CardAvatar from './commonn/card-avatar'
-import { useTheme } from 'next-themes'
 import CardPopover, { CardPopoverContent } from './commonn/card-popover'
 import { useDeleteBotMutation } from '@/redux/features/botsApi'
 import toast from 'react-hot-toast'
@@ -29,7 +28,6 @@ interface Props {
 
 export default function BotCard({ logo_light, logo_dark, name, category, model, createdAt, _id }: Props) {
   const imgSrc = useLogo(logo_light!, logo_dark!)
-
   const [deleteBot, { isSuccess, isError, error }] = useDeleteBotMutation()
   const [open, setopen] = useState<boolean>(false)
 
