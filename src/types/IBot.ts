@@ -36,4 +36,5 @@ export interface IBot {
   createdAt?: Date
   updatedAt?: Date
   category?: string
+  embedding_url: string
 }

@@ -8,6 +8,7 @@ import { Paperclip, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import LeftChat from './LeftChat'
 import RightChat from './RightChat'
+import { BOT_URL } from '@/configs'
 
 export default function ChatPreview() {
   const { watch } = useFormContext()
@@ -15,7 +16,7 @@ export default function ChatPreview() {
   const logo_light = watch('logo_light')
   const logo_dark = watch('logo_dark')
   const name = watch('name')
-  const embedded_link = 'https://demo-ai-cahtbot.com'
+  const embedding_url = watch('embedding_url')
   const primary_color = watch('primary_color')
   const secondary_color = watch('secondary_color')
   const font_color = watch('font_color')
@@ -26,7 +27,7 @@ export default function ChatPreview() {
   return (
     <div>
       <div className='bg-foreground p-2'>
-        <Intro title={name} description={embedded_link} imgSrc={imgSrc} hasLink />
+        <Intro title={name} description={`${BOT_URL}/${embedding_url}`} imgSrc={imgSrc} hasLink />
       </div>
       <div className='w-full h-px bg-gray-primary' />
 
