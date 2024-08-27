@@ -1,15 +1,25 @@
+'use client'
+
 import ColorInput from '@/components/reusable/form/color-input'
 import DnDUpload from '@/components/reusable/form/dnd-upload'
 import ImagePreviewer from '@/components/reusable/form/image-previewer'
 import { Input } from '@/components/reusable/form/input'
 import SingleAccordion from '@/components/reusable/form/single-accordion'
-import React from 'react'
+import { slugify } from '@/utils/form/slugify'
+import React, { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 export default function Appearance() {
   const { watch, setValue } = useFormContext()
   const logoVal = watch('logo_light')
   const darkLogoVal = watch('logo_dark')
+
+  const nameVal = watch('name')
+  useEffect(() => {
+    if (nameVal) setValue('embedding_url', slugify(nameVal))
+    else setValue('embedding_url', '')
+  }, [nameVal, setValue])
+
   return (
     <SingleAccordion value='appearance' label='Appearance'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -26,6 +36,7 @@ export default function Appearance() {
         )}
       </div>
       <Input name='name' label='Assistant Name' placeholder='Assistant name here...' required />
+      <Input name='embedding_url' label='Embedding URL Slug' placeholder='Edit Embedding URL Slug...' required />
 
       <div className='grid grid-cols-3 gap-x-3'>
         <ColorInput name='primary_color' label='Primary Color' required defaultValue='#9eb0ff' />

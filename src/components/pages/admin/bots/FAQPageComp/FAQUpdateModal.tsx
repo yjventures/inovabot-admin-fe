@@ -29,7 +29,7 @@ export default function FAQUpdateModal({ faq }: Props) {
     if (faq) reset(faq)
   }, [reset, faq])
 
-  const [updateFAQ, { isSuccess, isError, error }] = useUpdateFAQMutation()
+  const [updateFAQ, { isLoading, isSuccess, isError, error }] = useUpdateFAQMutation()
 
   const onSubmit = (data: IFAQ) => {
     updateFAQ({ id: faq._id, body: data })
@@ -59,7 +59,7 @@ export default function FAQUpdateModal({ faq }: Props) {
           <Input name='question' label='Question' placeholder='Question' />
           <Textarea name='objective' label='Objective' placeholder='Objective' />
           <div className='flex justify-end'>
-            <Button type='submit' variant='black'>
+            <Button type='submit' variant='gradient' isLoading={isLoading}>
               Save
             </Button>
           </div>
