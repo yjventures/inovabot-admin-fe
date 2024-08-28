@@ -85,13 +85,13 @@ export default function CreateCompanyForm() {
         />
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
           {logoVal ? (
-            <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo', '')} />
+            <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo', '')} aspect='square' />
           ) : (
             <DnDUpload name='logo' label='Company Logo Light Mode' required />
           )}
 
           {darkLogoVal ? (
-            <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('logo_dark', '')} />
+            <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('logo_dark', '')} aspect='square' />
           ) : (
             <DnDUpload name='logo_dark' label='Company Logo Dark Mode' />
           )}

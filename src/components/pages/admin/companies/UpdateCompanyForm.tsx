@@ -77,12 +77,12 @@ export default function UpdateCompanyForm() {
         />
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
           {logoVal ? (
-            <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo', null)} />
+            <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo', null)} aspect='square' />
           ) : (
             <DnDUpload name='logo' text='Company Logo Light Mode' />
           )}
           {darkLogoVal ? (
-            <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('dark_logo', null)} />
+            <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('dark_logo', null)} aspect='square' />
           ) : (
             <DnDUpload name='logo' text='Company Logo Light Mode' />
           )}

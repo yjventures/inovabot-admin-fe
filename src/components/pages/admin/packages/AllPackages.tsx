@@ -20,7 +20,7 @@ export default function AllPackages() {
   const [params, setparams] = useState<IParams>(initParams({ limit: 4 }))
   const [search, setSearch] = useState<string>('')
 
-  const { data, isLoading, isSuccess } = useGetPackagesQuery(params)
+  const { data, isLoading, isSuccess } = useGetPackagesQuery({ ...params, search })
 
   const [frequency, setFrequency] = useState(frequencies[0])
 
@@ -37,12 +37,12 @@ export default function AllPackages() {
         <p className='text-text text-sm sm:text-xl'>Billed Anually</p>
       </div>
 
-      <CardGrid total={4}>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'>
         {isLoading
           ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className='rounded-lg w-full h-96' />)
           : null}
         {isSuccess ? data?.data?.map(tier => <PriceCard key={tier._id} tier={tier} frequency={frequency} />) : null}
-      </CardGrid>
+      </div>
 
       <TablePagination metadata={data?.metadata!} setparams={setparams} params={params} />
     </div>
