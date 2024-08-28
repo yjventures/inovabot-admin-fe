@@ -22,6 +22,7 @@ import toast from 'react-hot-toast'
 import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
 import Badge from '@/components/reusable/cards/badge'
 import { useLogo } from '@/hooks/useLogo'
+import CompanyCardSkeletons from '@/components/reusable/cards/Skeletons/company-card-skeletons'
 
 interface Props {
   mode: TableMode
@@ -54,19 +55,9 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
 
   return (
     <>
-      {isLoading ? (
-        mode == 'grid' ? (
-          <CardGrid>
-            {Array.from({ length: 10 }).map((_, index) => (
-              <Skeleton key={index} className='w-full h-80' />
-            ))}
-          </CardGrid>
-        ) : (
-          <TableSkeleton />
-        )
-      ) : null}
+      {isLoading && <CompanyCardSkeletons />}
 
-      {isSuccess ? (
+      {isSuccess && data?.data?.length ? (
         mode == 'grid' ? (
           <CardGrid>
             {data?.data?.map((company: WithId<ICompany>) => (
@@ -163,6 +154,9 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
           </Table>
         )
       ) : null}
+
+      {isSuccess && !data?.data?.length && <p className='mt-10 italic text-text-gray'>No Company Yet</p>}
+
       <ConfirmationPrompt
         open={open}
         onOpenChange={setopen}

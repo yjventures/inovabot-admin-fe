@@ -43,12 +43,7 @@ export default function UdpatePackageForm() {
       setValue('monthly_price', data?.package?.price?.monthly?.price)
       setValue('yearly_price', data?.package?.price?.yearly?.price)
       data?.package?.features?.map((feat: any) => {
-        // FIXME: this valeu is not updating, also, onchange, they are not updating
-        if (feat.type === 'Boolean') {
-          setValue(feat.keyword, feat.value === 'Yes')
-        } else {
-          setValue(feat.keyword, feat.value)
-        }
+        setValue(feat.keyword, feat.value)
       })
     }
   }, [data, reset, isFetchingSuccess, setValue])
@@ -71,13 +66,13 @@ export default function UdpatePackageForm() {
         name: 'Embed Widget',
         keyword: 'embed_widget',
         type: 'Boolean',
-        value: embed_widgets ? 'Yes' : 'No'
+        value: embed_widgets
       },
       {
         name: 'Display Images',
         keyword: 'display_images',
         type: 'Boolean',
-        value: display_images ? 'Yes' : 'No'
+        value: display_images
       },
       {
         name: 'Bot Limit',
@@ -95,13 +90,13 @@ export default function UdpatePackageForm() {
         name: 'Custom Domain',
         keyword: 'custom_domain',
         type: 'Boolean',
-        value: custom_domain ? 'Yes' : 'No'
+        value: custom_domain
       },
       {
         name: 'Priority Support',
         keyword: 'priority_support',
         type: 'Boolean',
-        value: priority_support ? 'Yes' : 'No'
+        value: priority_support
       }
     ]
   }

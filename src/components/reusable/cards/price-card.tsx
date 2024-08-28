@@ -26,6 +26,7 @@ interface Feature {
 
 function transformFeatures(features: Feature[]) {
   return features.reduce((acc: string[], feature: Feature) => {
+    console.log(feature)
     if (feature.type === 'String') {
       acc.push(`${feature.name}: ${feature.value || 'N/A'}`)
     } else if (feature.type === 'Boolean' && feature.value) {

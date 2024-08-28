@@ -51,13 +51,13 @@ export default function CreatePackageForm() {
         name: 'Embed Widget',
         keyword: 'embed_widget',
         type: 'Boolean',
-        value: embed_widgets ? 'Yes' : 'No'
+        value: embed_widgets
       },
       {
         name: 'Display Images',
         keyword: 'display_images',
         type: 'Boolean',
-        value: display_images ? 'Yes' : 'No'
+        value: display_images
       },
       {
         name: 'Bot Limit',
@@ -75,13 +75,13 @@ export default function CreatePackageForm() {
         name: 'Custom Domain',
         keyword: 'custom_domain',
         type: 'Boolean',
-        value: custom_domain ? 'Yes' : 'No'
+        value: custom_domain
       },
       {
         name: 'Priority Support',
         keyword: 'priority_support',
         type: 'Boolean',
-        value: priority_support ? 'Yes' : 'No'
+        value: priority_support
       }
     ]
   }

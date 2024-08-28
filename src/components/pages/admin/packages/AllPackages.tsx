@@ -1,6 +1,5 @@
 'use client'
 
-import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import PriceCard from '@/components/reusable/cards/price-card'
 import Search from '@/components/reusable/tables/search'
 import TablePagination from '@/components/reusable/tables/table-pagination'
