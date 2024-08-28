@@ -2,8 +2,6 @@
 
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import CompanyCard from '@/components/reusable/cards/company-card'
-import TableSkeleton from '@/components/reusable/tables/table-skeleton'
-import { Skeleton } from '@/components/ui/skeleton'
 import { IResponseWithMeta, WithId } from '@/types/common/IResponse'
 import { ICompany } from '@/types/ICompany'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
@@ -55,7 +53,7 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
 
   return (
     <>
-      {isLoading && <CompanyCardSkeletons />}
+      <CompanyCardSkeletons isLoading={isLoading} />
 
       {isSuccess && data?.data?.length ? (
         mode == 'grid' ? (

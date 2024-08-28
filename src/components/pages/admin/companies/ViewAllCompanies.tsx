@@ -33,9 +33,7 @@ export default function ViewAllCompanies() {
         setparams={setparams}
       />
 
-      {isSuccess && data?.data?.length && (
-        <TablePagination params={params} setparams={setparams} metadata={data?.metadata!} />
-      )}
+      <TablePagination params={params} setparams={setparams} metadata={data?.metadata!} />
     </div>
   )
 }

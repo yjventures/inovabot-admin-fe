@@ -1,13 +1,9 @@
 import { Skeleton } from '@/components/ui/skeleton'
 import React from 'react'
 import CardGrid from '../commonn/card-grid'
+import { CardSkeletonsProps } from './company-card-skeletons'
 
-interface Props {
-  isLoading: boolean
-  className?: string
-}
-
-export default function BotCardSkeletons({ isLoading, className }: Props) {
+export default function BotCardSkeletons({ isLoading, className }: CardSkeletonsProps) {
   return (
     <>
       {isLoading ? (

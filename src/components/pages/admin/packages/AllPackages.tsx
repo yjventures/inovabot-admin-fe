@@ -1,9 +1,10 @@
 'use client'
 
+import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import PriceCard from '@/components/reusable/cards/price-card'
+import PackagesKkeletons from '@/components/reusable/cards/Skeletons/packages-skeletons'
 import Search from '@/components/reusable/tables/search'
 import TablePagination from '@/components/reusable/tables/table-pagination'
-import { Skeleton } from '@/components/ui/skeleton'
 import { Switch } from '@/components/ui/switch'
 import { initParams } from '@/constants/form/init-params'
 import { useGetPackagesQuery } from '@/redux/features/packagesApi'
@@ -36,12 +37,14 @@ export default function AllPackages() {
         <p className='text-text text-sm sm:text-xl'>Billed Anually</p>
       </div>
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'>
-        {isLoading
-          ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className='rounded-lg w-full h-96' />)
-          : null}
-        {isSuccess ? data?.data?.map(tier => <PriceCard key={tier._id} tier={tier} frequency={frequency} />) : null}
-      </div>
+      <PackagesKkeletons isLoading={isLoading} />
+      {isSuccess ? (
+        <CardGrid total='packages'>
+          {data?.data?.map(tier => (
+            <PriceCard key={tier._id} tier={tier} frequency={frequency} />
+          ))}
+        </CardGrid>
+      ) : null}
 
       <TablePagination metadata={data?.metadata!} setparams={setparams} params={params} />
     </div>
