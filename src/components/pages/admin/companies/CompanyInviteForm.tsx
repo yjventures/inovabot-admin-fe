@@ -9,7 +9,7 @@ import Typography from '@/components/ui/typography'
 import usePush from '@/hooks/usePush'
 import { useSendCompanyInvitationMutation } from '@/redux/features/companiesApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { Send } from 'lucide-react'
+import { MailCheck, Send } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -52,9 +52,14 @@ export default function CompanyInviteForm() {
   }, [isSuccess, isError, error, push])
 
   return showEmailCheck ? (
-    <div className='flex items-center justify-center min-h-screen'>
-      <FormWrapper>
-        <Typography variant='h3'>Check your email</Typography>
+    <div className='flex items-center justify-center min-h-[70vh]'>
+      <FormWrapper className='max-w-md flex flex-col justify-center items-center text-center text-balance gap-y-3'>
+        <MailCheck size={72} strokeWidth={0.8} className='text-emerald-primary' />
+        <Typography variant='h4'>Check your email</Typography>
+        <p className='text-text-gray'>
+          We&apos;ve send you an email with the verification link, please open it and click on the link and signup with
+          the temporary password
+        </p>
       </FormWrapper>
     </div>
   ) : (

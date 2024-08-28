@@ -18,11 +18,9 @@ import { useGetBotsQuery } from '@/redux/features/botsApi'
 import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { useDeleteCompanyMutation, useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
-import { ICategory } from '@/types/ICategory'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { PencilLine, Trash2 } from 'lucide-react'
 import { useParams } from 'next/navigation'
-import { title } from 'process'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -30,7 +28,9 @@ export default function CompanyDetails() {
   const push = usePush()
   const { id } = useParams()
   const { data, isLoading, isSuccess: isCompanySuccess } = useGetCompanyQuery(id as string)
-  const { logo, logo_dark, name, web_url, address, description, createdAt, expires_at } = { ...data?.data }
+  const { logo, logo_dark, name, web_url, address, description, createdAt, expires_at, payment_status } = {
+    ...data?.data
+  }
 
   const { data: categoriesData, isSuccess: isCategorySuccess, isLoading: iscategoryLoading } = useGetCategoriesQuery({})
   const [category, setcategory] = useState<string>('All')
@@ -71,7 +71,7 @@ export default function CompanyDetails() {
         <CompanyIntoCard
           name={name!}
           logo={logoSrc}
-          payment_status='paid'
+          payment_status={payment_status!}
           createdAt={createdAt!}
           expires_at={expires_at!}
           description={description!}
@@ -116,18 +116,22 @@ export default function CompanyDetails() {
       <BotCardSkeletons isLoading={isBotsLoading} className='mt-5' />
 
       {isSuccess ? (
-        <CardGrid className='mt-5'>
-          {botsData?.data?.map(bot => (
-            <BotCard
-              _id={bot?._id!}
-              key={bot._id}
-              name={bot.name!}
-              category={bot.category!}
-              model={bot.model!}
-              createdAt={String(bot.createdAt!)}
-            />
-          ))}
-        </CardGrid>
+        botsData?.data?.length ? (
+          <CardGrid className='mt-5'>
+            {botsData?.data?.map(bot => (
+              <BotCard
+                _id={bot?._id!}
+                key={bot._id}
+                name={bot.name!}
+                category={bot.category!}
+                model={bot.model!}
+                createdAt={String(bot.createdAt!)}
+              />
+            ))}
+          </CardGrid>
+        ) : (
+          <p className='italic text-text-secondary mt-5 min-h-72'>No bots created yet</p>
+        )
       ) : null}
 
       <ConfirmationPrompt

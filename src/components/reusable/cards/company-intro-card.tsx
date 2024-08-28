@@ -12,7 +12,7 @@ interface Props {
   logo?: string
   web_url?: string
   address?: string
-  payment_status: string
+  payment_status: boolean
   createdAt: string
   expires_at: string
   description: string
@@ -70,12 +70,12 @@ export default function CompanyIntoCard({
 
           <div className='space-y-1'>
             <p className='text-sm text-text-gray-light'>Status</p>
-            <Badge>{payment_status}</Badge>
+            {payment_status ? <Badge variant='emerald'>Paid</Badge> : <Badge variant='error'>Unpaid</Badge>}
           </div>
 
           <div className='space-y-1'>
             <p className='text-sm text-text-gray-light'>Expires At</p>
-            <p className='text-sm font-semibold'>{formateDate(expires_at, true)}</p>
+            <p className='text-sm font-semibold'>{expires_at ? formateDate(expires_at, true) : 'N/A'}</p>
           </div>
 
           <div className='space-y-1'>

@@ -18,6 +18,7 @@ import { Check, ChevronsUpDown } from 'lucide-react'
 import { IParams } from '@/types/common/IParams'
 import LLink from '@/components/ui/llink'
 import { Skeleton } from '@/components/ui/skeleton'
+import BotCardSkeletons from '@/components/reusable/cards/Skeletons/bot-card-skeletons'
 
 type Params = IParams & { company_id: string }
 
@@ -43,7 +44,7 @@ export default function AllBots() {
   const [skip, setskip] = useState<boolean>(true)
   const { data: companyData } = useGetCompanyQuery(company_id, { skip })
 
-  const { logo, name, web_url, address, description, createdAt, expires_at } = {
+  const { logo, name, web_url, address, description, createdAt, expires_at, payment_status } = {
     ...companyData?.data
   }
 
@@ -56,7 +57,7 @@ export default function AllBots() {
   type Params = IParams & { company_id: string; category: string }
   const params: Params = { ...initParams({}), company_id, search, category }
 
-  const { data: botsData, isSuccess } = useGetBotsQuery(params)
+  const { data: botsData, isSuccess, isLoading } = useGetBotsQuery(params)
 
   return (
     <div className='mt-10'>
@@ -65,7 +66,7 @@ export default function AllBots() {
         <CompanyIntoCard
           name={name!}
           logo={logo}
-          payment_status='paid'
+          payment_status={payment_status!}
           createdAt={createdAt!}
           expires_at={expires_at!}
           description={description!}
@@ -141,6 +142,8 @@ export default function AllBots() {
         </div>
       </div>
 
+      <BotCardSkeletons isLoading={isLoading} className='mt-5' />
+
       {isSuccess ? (
         botsData?.data?.length ? (
           <CardGrid className='mt-5'>
@@ -156,7 +159,7 @@ export default function AllBots() {
             ))}
           </CardGrid>
         ) : (
-          <p className='italic text-text-secondary mt-10'>No bots created yet</p>
+          <p className='italic text-text-secondary mt-5 min-h-72'>No bots created yet</p>
         )
       ) : null}
     </div>

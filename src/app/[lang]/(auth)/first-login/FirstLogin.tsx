@@ -33,9 +33,9 @@ export default function FirstLogin() {
   const { handleSubmit } = methods
   const onSubmit = (data: any) => checkPassword({ email, ...data })
   return (
-    <div className='flex items-center justify-center min-h-screen'>
+    <div>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)} className='w-full max-w-md'>
-        <Typography variant='h3'>Enter Temporary Password</Typography>
+        <Typography variant='h4'>Enter Temporary Password</Typography>
         <Input name='password' label='Temporary Password' placeholder='********' required type='password' />
         <Button type='submit' variant='gradient' icon={<ChevronRight />} iconPosition='right' isLoading={isLoading}>
           Proceed

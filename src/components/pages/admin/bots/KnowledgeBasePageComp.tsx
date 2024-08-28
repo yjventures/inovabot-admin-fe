@@ -3,7 +3,7 @@
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Search from '@/components/reusable/tables/search'
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import FileCard from '@/components/reusable/cards/file-card'
 import { initParams } from '@/constants/form/init-params'
 import { IParams } from '@/types/common/IParams'
@@ -13,11 +13,16 @@ import { useGetAllBotFilesQuery } from '@/redux/features/knowledgeBaseApi'
 import BotFileUploadModal from './BotFileUploadModal'
 
 export default function KnowledgeBasePageComp() {
-  const [params, setparams] = useState<IParams>(initParams({}))
-  const [searchValue, setsearchValue] = useState<string>('')
-
   const { id } = useParams()
-  const { data } = useGetAllBotFilesQuery({ ...initParams({ limit: 4 }), bot_id: id as string, search: searchValue })
+  const [searchValue, setsearchValue] = useState<string>('')
+  type Params = IParams & { bot_id: string }
+  const [params, setparams] = useState<Params>({
+    ...initParams({ limit: 2 }),
+    bot_id: id as string,
+    search: searchValue
+  })
+
+  const { data } = useGetAllBotFilesQuery(params)
 
   return (
     <div>
@@ -36,7 +41,11 @@ export default function KnowledgeBasePageComp() {
           <FileCard key={file._id} file={file} variant='vertical' />
         ))}
       </CardGrid>
-      <TablePagination params={params} setparams={setparams} metadata={data?.metadata!} />
+      <TablePagination
+        params={params}
+        setparams={setparams as Dispatch<SetStateAction<IParams>>}
+        metadata={data?.metadata!}
+      />
     </div>
   )
 }

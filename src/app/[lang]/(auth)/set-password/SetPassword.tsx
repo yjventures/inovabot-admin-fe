@@ -30,13 +30,30 @@ export default function SetPassword() {
     if (isError) toast.error(rtkErrorMessage(error))
   }, [isSuccess, isError, error, push])
 
-  const { handleSubmit } = methods
-  const onSubmit = (data: any) => checkPassword({ id, ...data })
+  const { handleSubmit, watch } = methods
+
+  const passwordVal = watch('password')
+  const onSubmit = (data: any) => {
+    if (data.password !== data.repeatPassword) {
+      toast.error("Passwords don't match")
+      return
+    }
+
+    if (data.password.length < 8) {
+      toast.error('Password should be at least 8 characters long!')
+      return
+    }
+    checkPassword({ id, password: data.password })
+  }
   return (
     <div className='flex items-center justify-center min-h-screen'>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)} className='w-full max-w-md'>
         <Typography variant='h3'>Enter New Password</Typography>
         <Input name='password' label='New Password' placeholder='********' required type='password' />
+        {passwordVal.length < 8 && passwordVal.length && (
+          <p className='text-sm font-medium text-destructive'>Password should be at least 8 characters long!</p>
+        )}
+        <Input name='repeatPassword' label='Repeat Password' placeholder='********' required type='password' />
         <Button type='submit' variant='gradient' icon={<ChevronRight />} iconPosition='right' isLoading={isLoading}>
           Proceed
         </Button>
