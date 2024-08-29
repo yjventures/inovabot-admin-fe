@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
 import usePush from '@/hooks/usePush'
@@ -7,10 +5,10 @@ import { cn } from '@/lib/utils'
 import { X } from 'lucide-react'
 import toast from 'react-hot-toast'
 import UserInfo from './UserInfo'
-import { useAppDispatch } from '../../../../redux/hooks'
-import { logoutActions } from '../../../../utils/auth/logoutActions'
+import { useAppDispatch } from '@/redux/hooks'
+import { logoutActions } from '@/utils/auth/logoutActions'
 import { IUser } from '@/types/IUser'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import AdminLinks from './AdminLinks'
 import { platformAdminLinks } from '@/constants/admin-nav-links'
 import logo from '@/assets/images/common/logo.png'
@@ -34,10 +32,6 @@ export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, curren
       setnavbarOpen(false)
     })
   }
-
-  //const { data, isSuccess, isLoading } = useGetWebfrontQuery({ type: 'logo' })
-  //const title = data?.data?.title
-  const title = 'Title'
 
   return (
     <nav
