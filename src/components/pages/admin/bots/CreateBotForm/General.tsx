@@ -22,13 +22,14 @@ export default function General({ category, setcategory, company_id, setcompany_
   const { data: categoriesListData } = useGetCategoriesQuery({})
   const [open, setOpen] = useState<boolean>(false)
   const [catOpen, setcatOpen] = useState<boolean>(false)
+
   return (
     <SingleAccordion value='general' label='General'>
       <div className='grid grid-cols-2 gap-x-2'>
         <div>
           <p className='text-sm font-medium mb-1.5 text-text-secondary'>Company*</p>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger asChild className='truncate'>
               <Button variant='outline' role='combobox' aria-expanded={open} className='w-full justify-between'>
                 {company_id ? companyListData?.data.find(com => com._id === company_id)?.name : 'Select Company...'}
                 <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />

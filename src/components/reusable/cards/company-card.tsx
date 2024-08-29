@@ -11,7 +11,7 @@ import CardCeparatorBorder from './commonn/card-separator-border'
 import CardPopover, { CardPopoverContent } from './commonn/card-popover'
 import { ICompany } from '@/types/ICompany'
 import { WithId } from '@/types/common/IResponse'
-import { Eye, PencilLine, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react'
+import { Eye, PencilLine, Plus, PlusCircle, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react'
 import LLink from '@/components/ui/llink'
 import { useDeleteCompanyMutation, useUpdateCompanyMutation } from '@/redux/features/companiesApi'
 import toast from 'react-hot-toast'
@@ -47,6 +47,9 @@ export default function CompanyCard({ company }: CompanyCardProps) {
     <>
       <CardWrapper>
         <CardPopover>
+          <LLink href={`/admin/bots/create?companyId=${company._id}`}>
+            <CardPopoverContent text='Create a bot' icon={<PlusCircle className='text-emerald-primary' />} />
+          </LLink>
           {active ? (
             <CardPopoverContent
               text='Deactivate'

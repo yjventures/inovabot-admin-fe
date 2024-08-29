@@ -14,7 +14,7 @@ import { useGetComanyListQuery, useGetCompanyQuery } from '@/redux/features/comp
 import React, { useEffect, useState } from 'react'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Check, ChevronsUpDown, PencilLine, Trash2 } from 'lucide-react'
+import { Check, ChevronsUpDown, Eye, PencilLine, PlusSquare, Trash2 } from 'lucide-react'
 import { IParams } from '@/types/common/IParams'
 import LLink from '@/components/ui/llink'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -28,6 +28,7 @@ import TableActions from '@/components/reusable/tables/table-actions'
 import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { BOT_URL } from '@/configs'
 
 type Params = IParams & { company_id: string; category: string }
 
@@ -91,6 +92,9 @@ export default function AllBots() {
           web_url={web_url}
           topCTASection={
             <div className='flex flex-wrap gap-x-3 gap-2'>
+              <LLink href={`/admin/bots/create?companyId=${company_id}`}>
+                <Button icon={<PlusSquare />}>Create a Bot</Button>
+              </LLink>
               <LLink href={`/admin/companies/${company_id}`}>
                 <Button variant='black'>View Details</Button>
               </LLink>
@@ -175,6 +179,7 @@ export default function AllBots() {
                   category={bot.category!}
                   model={bot.model!}
                   createdAt={String(bot.createdAt!)}
+                  embedding_url={bot.embedding_url!}
                 />
               ))}
             </CardGrid>
@@ -193,6 +198,7 @@ export default function AllBots() {
                   {botsData?.data?.map(bot => {
                     // eslint-disable-next-line react-hooks/rules-of-hooks
                     const imgSrc = useLogo(bot?.logo_light!, bot?.logo_dark!)
+                    const url = `${BOT_URL}/${bot?.embedding_url}`
                     return (
                       <TableRow key={bot?._id}>
                         <TableCell>
@@ -202,6 +208,9 @@ export default function AllBots() {
                         <TableCell>{formateDate(bot?.createdAt! as unknown as string, true)}</TableCell>
                         <TableCell className='text-right'>
                           <TableActions>
+                            <a href={url} target='_blank'>
+                              <Eye />
+                            </a>
                             <LLink href={`/admin/bots/update/${bot?._id}`}>
                               <PencilLine className='text-blue-primary' />
                             </LLink>

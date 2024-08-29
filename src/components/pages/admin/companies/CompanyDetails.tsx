@@ -129,6 +129,7 @@ export default function CompanyDetails() {
                 category={bot.category!}
                 model={bot.model!}
                 createdAt={String(bot.createdAt!)}
+                embedding_url={bot.embedding_url!}
               />
             ))}
           </CardGrid>

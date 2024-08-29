@@ -12,9 +12,10 @@ import { useDeleteBotMutation } from '@/redux/features/botsApi'
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import ConfirmationPrompt from '../dashboard/confirmation-prompt'
-import { PencilLine, Trash2 } from 'lucide-react'
+import { Eye, PencilLine, Trash2 } from 'lucide-react'
 import LLink from '@/components/ui/llink'
 import { useLogo } from '@/hooks/useLogo'
+import { BOT_URL } from '@/configs'
 
 interface Props {
   _id: string
@@ -24,9 +25,19 @@ interface Props {
   category: string
   model: string
   createdAt: string
+  embedding_url: string
 }
 
-export default function BotCard({ logo_light, logo_dark, name, category, model, createdAt, _id }: Props) {
+export default function BotCard({
+  logo_light,
+  logo_dark,
+  name,
+  category,
+  model,
+  createdAt,
+  embedding_url,
+  _id
+}: Props) {
   const imgSrc = useLogo(logo_light!, logo_dark!)
   const [deleteBot, { isSuccess, isError, error }] = useDeleteBotMutation()
   const [open, setopen] = useState<boolean>(false)
@@ -36,10 +47,17 @@ export default function BotCard({ logo_light, logo_dark, name, category, model, 
     if (isError) toast.error(rtkErrorMessage(error))
   }, [isSuccess, isError, error])
 
+  const url = `${BOT_URL}/${embedding_url}`
+
   return (
     <>
       <CardWrapper>
         <CardPopover>
+          <a href={url} target='_blank' className='flex items-center justify-between'>
+            <p className='text-sm font-medium text-text-secondary'>View Bot</p>
+            <Eye className='size-5' />
+          </a>
+
           <LLink href={`/admin/bots/update/${_id}`}>
             <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
           </LLink>
