@@ -19,14 +19,7 @@ import { IParams } from '@/types/common/IParams'
 import LLink from '@/components/ui/llink'
 import { Skeleton } from '@/components/ui/skeleton'
 import BotCardSkeletons from '@/components/reusable/cards/Skeletons/bot-card-skeletons'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import Intro from '@/components/reusable/common/intro'
 import Badge from '@/components/reusable/cards/badge'
 import { useLogo } from '@/hooks/useLogo'
@@ -36,8 +29,7 @@ import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-pro
 import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 
-
-type Params = IParams & { company_id: string }
+type Params = IParams & { company_id: string; category: string }
 
 export default function AllBots() {
   const [open, setOpen] = useState(false)
@@ -71,7 +63,6 @@ export default function AllBots() {
     }
   }, [company_id])
 
-  type Params = IParams & { company_id: string; category: string }
   const params: Params = { ...initParams({}), company_id, search, category }
 
   const { data: botsData, isSuccess, isLoading } = useGetBotsQuery(params)
@@ -92,7 +83,7 @@ export default function AllBots() {
         <CompanyIntoCard
           name={name!}
           logo={logo}
-          payment_status={payment_status!}
+          payment_status={!!expires_at!}
           createdAt={createdAt!}
           expires_at={expires_at!}
           description={description!}
@@ -104,7 +95,7 @@ export default function AllBots() {
                 <Button variant='black'>View Details</Button>
               </LLink>
               <Popover open={open} onOpenChange={setOpen}>
-                <PopoverTrigger asChild className="truncate">
+                <PopoverTrigger asChild className='truncate'>
                   <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
                     {company_id ? companyListData?.data.find(com => com._id === company_id)?.name : 'Select Company...'}
                     <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
@@ -172,60 +163,74 @@ export default function AllBots() {
 
       {isSuccess ? (
         botsData?.data?.length ? (
-          mode === 'grid' ? <CardGrid className='mt-5'>
-            {botsData?.data?.map(bot => (
-              <BotCard
-                logo_light={bot?.logo_light}
-                logo_dark={bot?.logo_dark}
-                _id={bot?._id!}
-                key={bot._id}
-                name={bot.name!}
-                category={bot.category!}
-                model={bot.model!}
-                createdAt={String(bot.createdAt!)}
-              />
-            ))}
-          </CardGrid> : <div className="mt-8">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Bot</TableHead>
-                  <TableHead>Model</TableHead>
-                  <TableHead>Created</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {botsData?.data?.map(bot =>{
-                  const imgSrc = useLogo(bot?.logo_light, bot?.logo_dark)
-                  return (
-                    <TableRow key={bot?._id}>
-                      <TableCell>
-                        <Intro title={bot?.name!} description={<Badge>{bot?.category}</Badge>} imgSrc={imgSrc} />
-                      </TableCell>
-                      <TableCell>{bot?.model}</TableCell>
-                      <TableCell>{formateDate(bot?.createdAt, true)}</TableCell>
-                      <TableCell className="text-right">
-                        <TableActions>
-                          <LLink href={`/admin/bots/update/${bot?._id}`}>
-                            <PencilLine className='text-blue-primary' /></LLink>
-                          <Trash2 className='text-destructive' onClick={() => {
-                            setDeleteId(bot?._id)
-                            setOpenPrompt(true)
-                          }}/>
-                        </TableActions>
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </div>
+          mode === 'grid' ? (
+            <CardGrid className='mt-5'>
+              {botsData?.data?.map(bot => (
+                <BotCard
+                  logo_light={bot?.logo_light}
+                  logo_dark={bot?.logo_dark}
+                  _id={bot?._id!}
+                  key={bot._id}
+                  name={bot.name!}
+                  category={bot.category!}
+                  model={bot.model!}
+                  createdAt={String(bot.createdAt!)}
+                />
+              ))}
+            </CardGrid>
+          ) : (
+            <div className='mt-8'>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Bot</TableHead>
+                    <TableHead>Model</TableHead>
+                    <TableHead>Created</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {botsData?.data?.map(bot => {
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
+                    const imgSrc = useLogo(bot?.logo_light!, bot?.logo_dark!)
+                    return (
+                      <TableRow key={bot?._id}>
+                        <TableCell>
+                          <Intro title={bot?.name!} description={<Badge>{bot?.category}</Badge>} imgSrc={imgSrc} />
+                        </TableCell>
+                        <TableCell>{bot?.model}</TableCell>
+                        <TableCell>{formateDate(bot?.createdAt! as unknown as string, true)}</TableCell>
+                        <TableCell className='text-right'>
+                          <TableActions>
+                            <LLink href={`/admin/bots/update/${bot?._id}`}>
+                              <PencilLine className='text-blue-primary' />
+                            </LLink>
+                            <Trash2
+                              className='text-destructive'
+                              onClick={() => {
+                                setDeleteId(bot?._id)
+                                setOpenPrompt(true)
+                              }}
+                            />
+                          </TableActions>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+          )
         ) : (
           <p className='italic text-text-secondary mt-5 min-h-72'>No bots created yet</p>
         )
       ) : null}
-      <ConfirmationPrompt open={openPrompt} onOpenChange={setOpenPrompt} cb={() => deleteBot(deleteId)} title="Are you sure to delete this bot?"/>
+      <ConfirmationPrompt
+        open={openPrompt}
+        onOpenChange={setOpenPrompt}
+        cb={() => deleteBot(deleteId!)}
+        title='Are you sure to delete this bot?'
+      />
     </div>
   )
 }

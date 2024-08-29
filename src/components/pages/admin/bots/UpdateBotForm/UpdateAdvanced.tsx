@@ -4,10 +4,12 @@ import SingleAccordion from '@/components/reusable/form/single-accordion'
 import { Textarea } from '@/components/reusable/form/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/reusable/form/select'
 import { formattingOrStructures, frameworkOrModels, toneAndStyles } from '@/constants/bot'
+import { Input } from '@/components/reusable/form/input'
 
 export default function UpdateAdvanced() {
   return (
     <SingleAccordion value='advanced' label='Advanced'>
+      <Input name='sounds_like' label='Sounds like' placeholder='Sounds like' />
       <Textarea name='Context' label='Context' placeholder='Type Context here...' rows={4} />
       <Select name='tone_and_style' label='Tone & Style'>
         <SelectTrigger>

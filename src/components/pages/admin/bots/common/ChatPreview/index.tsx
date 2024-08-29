@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-import Intro from '@/components/reusable/common/intro'
 import { useFormContext } from 'react-hook-form'
 import { Input } from '@/components/reusable/form/input'
 import { Moon, Paperclip, Send, Sun } from 'lucide-react'

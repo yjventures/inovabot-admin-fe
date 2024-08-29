@@ -19,7 +19,7 @@ import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { useDeleteCompanyMutation, useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { PencilLine, Trash2 } from 'lucide-react'
+import { PencilLine, PlusSquare, Trash2 } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -71,7 +71,7 @@ export default function CompanyDetails() {
         <CompanyIntoCard
           name={name!}
           logo={logoSrc}
-          payment_status={payment_status!}
+          payment_status={!!expires_at!}
           createdAt={createdAt!}
           expires_at={expires_at!}
           description={description!}
@@ -79,6 +79,9 @@ export default function CompanyDetails() {
           web_url={web_url}
           topCTASection={
             <div className='flex flex-wrap gap-x-3 gap-2'>
+              <LLink href={`/admin/bots/create?companyId=${id}`}>
+                <Button icon={<PlusSquare />}>Add New Bot</Button>
+              </LLink>
               <LLink href={`/admin/companies/update/${id}`}>
                 <Button icon={<PencilLine />}>Update Company</Button>
               </LLink>
