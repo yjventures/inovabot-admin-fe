@@ -13,7 +13,7 @@ interface Props {
 export default function ImagePreviewer({ imgSrc, onClick, className, aspect = 'video' }: Props) {
   return (
     <div
-      className={cn('rounded-lg overflow-hidden relative border max-w-md', className, {
+      className={cn('rounded-lg overflow-hidden relative border max-w-md mb-3', className, {
         'aspect-video': aspect === 'video',
         'aspect-square': aspect === 'square',
         'aspect-auto': aspect === 'auto'

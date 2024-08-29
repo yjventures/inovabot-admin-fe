@@ -3,7 +3,7 @@ import React from 'react'
 import companyPlaceholder from '@/assets/images/common/dashboard/company-placeholder.png'
 import { Img } from '@/components/ui/img'
 import Badge from './badge'
-import { Flag, Share2, ShowerHead } from 'lucide-react'
+import { Flag, Share2 } from 'lucide-react'
 import { formateDate } from '@/utils/date/formateDate'
 
 interface Props {
@@ -19,6 +19,7 @@ interface Props {
   gradientClassName?: string
   className?: string
 }
+
 
 export default function CompanyIntoCard({
   topCTASection,

@@ -22,7 +22,6 @@ import BotCardSkeletons from '@/components/reusable/cards/Skeletons/bot-card-ske
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
