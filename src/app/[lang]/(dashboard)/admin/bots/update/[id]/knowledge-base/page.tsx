@@ -3,6 +3,7 @@ import KnowledgeBasePageComp from '@/components/pages/admin/bots/KnowledgeBasePa
 export const metadata = {
   title: 'Knowledge Base'
 }
+
 export default function KnowledgeBasePagae() {
   return <KnowledgeBasePageComp />
 }

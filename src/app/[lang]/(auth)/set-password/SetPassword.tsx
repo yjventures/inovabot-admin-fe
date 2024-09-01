@@ -50,9 +50,9 @@ export default function SetPassword() {
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)} className='w-full max-w-md'>
         <Typography variant='h3'>Enter New Password</Typography>
         <Input name='password' label='New Password' placeholder='********' required type='password' />
-        {passwordVal.length < 8 && passwordVal.length && (
+        {passwordVal?.length && passwordVal?.length < 8 ? (
           <p className='text-sm font-medium text-destructive'>Password should be at least 8 characters long!</p>
-        )}
+        ) : null}
         <Input name='repeatPassword' label='Repeat Password' placeholder='********' required type='password' />
         <Button type='submit' variant='gradient' icon={<ChevronRight />} iconPosition='right' isLoading={isLoading}>
           Proceed
