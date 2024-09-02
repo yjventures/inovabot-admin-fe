@@ -3,8 +3,8 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { RegisterOptions, useFormContext } from 'react-hook-form'
 import { Eye, EyeOff } from 'lucide-react'
+import { RegisterOptions, useFormContext } from 'react-hook-form'
 import FormFieldError from './form-field-error'
 import FormLabel from './form-label'
 
@@ -17,6 +17,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   label?: string
   labelClassName?: string
   id?: string
+  hint?: string
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -33,6 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       labelClassName,
       required,
       id,
+      hint,
       ...props
     },
     ref
@@ -47,7 +49,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={cn(containerClassName)}>
-        <FormLabel label={label} labelClassName={labelClassName} name={id || name} required={required} />
+        <FormLabel label={label} labelClassName={labelClassName} name={id || name} required={required} hint={hint} />
         <div className='relative'>
           <input
             id={id || name}

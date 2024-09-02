@@ -1,15 +1,15 @@
+import companyPlaceholder from '@/assets/images/common/dashboard/company-placeholder.png'
+import { Input } from '@/components/reusable/form/input'
+import { Button } from '@/components/ui/button'
+import { Img } from '@/components/ui/img'
+import { Switch } from '@/components/ui/switch'
+import { BOT_URL } from '@/configs'
+import { cn } from '@/lib/utils'
+import { Moon, Paperclip, Send, Sun } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { Input } from '@/components/reusable/form/input'
-import { Moon, Paperclip, Send, Sun } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import LeftChat from './LeftChat'
 import RightChat from './RightChat'
-import { BOT_URL } from '@/configs'
-import { Switch } from '@/components/ui/switch'
-import { cn } from '@/lib/utils'
-import { Img } from '@/components/ui/img'
-import companyPlaceholder from '@/assets/images/common/dashboard/company-placeholder.png'
 
 export default function ChatPreview() {
   const { watch } = useFormContext()

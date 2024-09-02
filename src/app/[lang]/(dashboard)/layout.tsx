@@ -1,6 +1,6 @@
 import AdminNav from '@/components/common/admin/AdminNav/AdminNav'
-import React, { ReactNode } from 'react'
 import { cookies } from 'next/headers'
+import { ReactNode } from 'react'
 
 interface Props {
   children: ReactNode

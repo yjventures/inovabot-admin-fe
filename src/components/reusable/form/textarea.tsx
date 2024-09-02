@@ -15,11 +15,12 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   label?: string
   labelClassName?: string
   id?: string
+  hint?: string
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
-    { containerClassName, className, icon, name, hookFormConfig, label, labelClassName, required, id, ...props },
+    { containerClassName, className, icon, name, hookFormConfig, label, labelClassName, required, id, hint, ...props },
     ref
   ) => {
     const {
@@ -41,7 +42,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     return (
       <div className={cn(containerClassName)}>
-        <FormLabel label={label} labelClassName={labelClassName} name={id || name} required={required} />
+        <FormLabel label={label} labelClassName={labelClassName} name={id || name} required={required} hint={hint} />
         <div className='relative'>
           <textarea
             className={cn(
