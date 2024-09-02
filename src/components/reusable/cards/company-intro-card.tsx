@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils'
-import React from 'react'
 import companyPlaceholder from '@/assets/images/common/dashboard/company-placeholder.png'
 import { Img } from '@/components/ui/img'
-import Badge from './badge'
-import { Flag, Share2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { formateDate } from '@/utils/date/formateDate'
+import { Flag, Share2 } from 'lucide-react'
+import React, { ReactNode } from 'react'
+import Badge from './badge'
 
 interface Props {
   topCTASection?: React.ReactNode
@@ -18,8 +18,8 @@ interface Props {
   description: string
   gradientClassName?: string
   className?: string
+  extra?: ReactNode
 }
-
 
 export default function CompanyIntoCard({
   topCTASection,
@@ -32,7 +32,8 @@ export default function CompanyIntoCard({
   expires_at,
   description,
   gradientClassName,
-  className
+  className,
+  extra
 }: Props) {
   return (
     <section className={cn('p-2 bg-foreground rounded-lg border border-border-primary', className)}>
@@ -92,6 +93,7 @@ export default function CompanyIntoCard({
       </div>
 
       <p className='text-sm mb-2 sm:mb-4 mx-2 sm:mx-4 mt-2'>{description}</p>
+      {extra}
     </section>
   )
 }

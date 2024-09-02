@@ -23,13 +23,13 @@ const botsApi = api.injectEndpoints({
       }),
       invalidatesTags: ['bots']
     }),
-    getBot: build.query<IResponse<WithId<IBot>>, string>({
+    getBot: build.query<{ data: WithId<IBot>; totalStorage: number }, string>({
       query: id => ({
         url: apiURL(rootApi, 'get', id)
       }),
       providesTags: ['bot']
     }),
-    updateBot: build.mutation<IResponse<WithId<IBot>>, { id: string; body: Partial<IBot> }>({
+    updateBot: build.mutation<{ data: WithId<IBot>; totalStorage: number }, { id: string; body: Partial<IBot> }>({
       query: ({ id, body }) => ({
         url: apiURL(rootApi, 'update', id),
         method: 'PUT',

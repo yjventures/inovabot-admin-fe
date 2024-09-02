@@ -16,9 +16,10 @@ import usePush from '@/hooks/usePush'
 import { cn } from '@/lib/utils'
 import { useGetBotsQuery } from '@/redux/features/botsApi'
 import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
-import { useDeleteCompanyMutation, useGetCompanyQuery } from '@/redux/features/companiesApi'
+import { useDeleteCompanyMutation, useGetCompanyQuery, useGetStorageInfoMutation } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { formatFileSize } from '@/utils/files/formatFileSize'
 import { PencilLine, PlusSquare, Trash2 } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -28,9 +29,17 @@ export default function CompanyDetails() {
   const push = usePush()
   const { id } = useParams()
   const { data, isLoading, isSuccess: isCompanySuccess } = useGetCompanyQuery(id as string)
-  const { logo, logo_dark, name, web_url, address, description, createdAt, expires_at, payment_status } = {
+  const { logo, logo_dark, name, web_url, address, description, createdAt, expires_at } = {
     ...data?.data
   }
+
+  const [getStorageInfo, { data: storageData, isSuccess: isStorageSuccess }] = useGetStorageInfoMutation()
+
+  useEffect(() => {
+    if (id) {
+      getStorageInfo(id as string)
+    }
+  }, [id, getStorageInfo])
 
   const { data: categoriesData, isSuccess: isCategorySuccess, isLoading: iscategoryLoading } = useGetCategoriesQuery({})
   const [category, setcategory] = useState<string>('All')
@@ -77,6 +86,14 @@ export default function CompanyDetails() {
           description={description!}
           address={address}
           web_url={web_url}
+          extra={
+            isStorageSuccess ? (
+              <div className='px-4 pb-4 text-sm font-medium'>
+                Total Storage Used: {formatFileSize(storageData?.data.usedStorage!)} /{' '}
+                {formatFileSize(storageData?.data.totalStorage!)}
+              </div>
+            ) : null
+          }
           topCTASection={
             <div className='flex flex-wrap gap-x-3 gap-2'>
               <LLink href={`/admin/bots/create?companyId=${id}`}>

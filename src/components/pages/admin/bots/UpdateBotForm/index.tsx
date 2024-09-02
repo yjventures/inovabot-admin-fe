@@ -28,6 +28,8 @@ export default function UpdateBotForm() {
   const push = usePush()
   const { id } = useParams()
   const { data, isSuccess } = useGetBotQuery(id as string)
+
+  console.log(data?.totalStorage)
   const methods = useForm()
   const { handleSubmit, reset } = methods
 

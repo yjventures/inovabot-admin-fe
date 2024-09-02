@@ -1,8 +1,8 @@
 import api from '@/redux/api'
-import { apiURL } from '../utils'
-import { ICompany } from '@/types/ICompany'
-import { IParams } from './../../types/common/IParams'
 import { IResponse, IResponseWithMeta, WithId } from '@/types/common/IResponse'
+import { ICompany } from '@/types/ICompany'
+import { apiURL } from '../utils'
+import { IParams } from './../../types/common/IParams'
 
 const rootApi = '/companies'
 
@@ -55,6 +55,13 @@ const companiesApi = api.injectEndpoints({
         method: 'POST',
         body
       })
+    }),
+    getStorageInfo: build.mutation<IResponse<{ totalStorage: number; usedStorage: number }>, string>({
+      query: company_id => ({
+        url: `${rootApi}/get-storage`,
+        method: 'POST',
+        body: { company_id }
+      })
     })
   })
 })
@@ -66,5 +73,6 @@ export const {
   useUpdateCompanyMutation,
   useDeleteCompanyMutation,
   useSendCompanyInvitationMutation,
-  useGetComanyListQuery
+  useGetComanyListQuery,
+  useGetStorageInfoMutation
 } = companiesApi
