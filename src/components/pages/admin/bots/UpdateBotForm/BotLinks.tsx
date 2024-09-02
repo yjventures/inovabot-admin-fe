@@ -50,7 +50,7 @@ export default function BotLinks() {
         title='Bot Links'
         variant='h5'
         extra={
-          <LLink href={`/admin/bots/update/${id}/botLink`}>
+          <LLink href={`/admin/bots/update/${id}/bot-links`}>
             <Button variant='black'>View All</Button>
           </LLink>
         }
