@@ -22,7 +22,7 @@ export default function KnowledgeBase({ companyId, ...rest }: Props) {
     <FormWrapper {...rest}>
       <DashboardHeading
         title='Knowledge Base'
-        variant='h4'
+        variant='h5'
         extra={
           <LLink href={`/admin/bots/update/${id}/knowledge-base`}>
             <Button variant='black'>View All</Button>

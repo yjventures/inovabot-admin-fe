@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { scroller } from 'react-scroll'
 import ChatPreview from '../common/ChatPreview'
+import BotLinks from './BotLinks'
 import EmbeddedWidgets from './EmbeddedWidgets'
 import FAQ from './FAQ'
 import KnowledgeBase from './KnowledgeBase'
@@ -94,6 +95,7 @@ export default function UpdateBotForm() {
         <ChatPreview />
         <KnowledgeBase companyId={data?.data?.company_id!} id='knowledgeBase' />
         <FAQ companyId={data?.data?.company_id!} />
+        <BotLinks />
 
         <div className='flex justify-between gap-6'>
           <div className='space-y-6 w-1/2'>

@@ -55,7 +55,9 @@ const api = createApi({
     'category',
     'faqs',
     'faq',
-    'knowledgeBases'
+    'knowledgeBases',
+    'botLink',
+    'botLinks'
   ],
   endpoints: () => ({})
 })
