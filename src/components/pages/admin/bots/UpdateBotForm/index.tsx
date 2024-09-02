@@ -1,32 +1,46 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import ChatPreview from '../common/ChatPreview'
-import Form from '@/components/reusable/form/form'
-import { useParams } from 'next/navigation'
-import { useGetBotQuery, useUpdateBotMutation } from '@/redux/features/botsApi'
-import { useEffect } from 'react'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
-import { Button } from '@/components/ui/button'
-import { PencilLine } from 'lucide-react'
-import usePush from '@/hooks/usePush'
-import Typography from '@/components/ui/typography'
-import KnowledgeBase from './KnowledgeBase'
-import FAQ from './FAQ'
+import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
-import EmbeddedWidgets from './EmbeddedWidgets'
-import toast from 'react-hot-toast'
+import { Button } from '@/components/ui/button'
+import Typography from '@/components/ui/typography'
+import usePush from '@/hooks/usePush'
+import { useGetBotQuery, useUpdateBotMutation } from '@/redux/features/botsApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import UpdateAppearance from './UpdateApprearance'
+import { PencilLine } from 'lucide-react'
+import { useParams, useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { scroller } from 'react-scroll'
+import ChatPreview from '../common/ChatPreview'
+import EmbeddedWidgets from './EmbeddedWidgets'
+import FAQ from './FAQ'
+import KnowledgeBase from './KnowledgeBase'
 import UpdateAdvanced from './UpdateAdvanced'
+import UpdateAppearance from './UpdateApprearance'
 import UpdateLLMSettings from './UpdateLLMSettings'
 
 export default function UpdateBotForm() {
+  const params = useSearchParams()
+  const from = params.get('from')
   const push = usePush()
   const { id } = useParams()
   const { data, isSuccess } = useGetBotQuery(id as string)
   const methods = useForm()
   const { handleSubmit, reset } = methods
+
+  useEffect(() => {
+    if (from && from === 'creation') {
+      scroller.scrollTo('knowledgeBase', {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        offset: -100
+      })
+    }
+  }, [from])
 
   useEffect(() => {
     if (isSuccess) {
@@ -76,7 +90,7 @@ export default function UpdateBotForm() {
 
       <div className='space-y-6'>
         <ChatPreview />
-        <KnowledgeBase companyId={data?.data?.company_id!} />
+        <KnowledgeBase companyId={data?.data?.company_id!} id='knowledgeBase' />
         <FAQ companyId={data?.data?.company_id!} />
 
         <div className='flex justify-between gap-6'>

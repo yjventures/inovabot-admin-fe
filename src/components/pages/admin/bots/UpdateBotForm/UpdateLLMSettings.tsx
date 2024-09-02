@@ -3,7 +3,6 @@
 import { Input } from '@/components/reusable/form/input'
 import SingleAccordion from '@/components/reusable/form/single-accordion'
 import { Textarea } from '@/components/reusable/form/textarea'
-import React from 'react'
 
 export default function UpdateLLMSettings() {
   return (
@@ -20,6 +19,7 @@ export default function UpdateLLMSettings() {
           max={2}
           step={0.1}
           hookFormConfig={{ valueAsNumber: true }}
+          hint='Controls randomness; higher values make output more creative'
         />
         <Input
           name='frequently_penalty'
@@ -31,6 +31,7 @@ export default function UpdateLLMSettings() {
           max={2}
           step={0.1}
           hookFormConfig={{ valueAsNumber: true }}
+          hint='Reduces repetition by penalizing frequent tokens'
         />
       </div>
       <div className='flex items-center gap-x-2'>
@@ -41,6 +42,7 @@ export default function UpdateLLMSettings() {
           containerClassName='w-full'
           type='number'
           hookFormConfig={{ valueAsNumber: true }}
+          hint='Limits the length of the output by setting a maximum number of tokens'
         />
         <Input
           name='top_p'
@@ -52,6 +54,7 @@ export default function UpdateLLMSettings() {
           max={1}
           step={0.1}
           hookFormConfig={{ valueAsNumber: true }}
+          hint='Encourages diversity by boosting the selection of less common tokens'
         />
       </div>
       <Textarea name='description' label='Description' placeholder='Enter Description here...' />

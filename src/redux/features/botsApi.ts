@@ -1,8 +1,8 @@
 import api from '@/redux/api'
-import { apiURL } from '../utils'
-import { IBot } from '@/types/IBot'
-import { IParams } from './../../types/common/IParams'
 import { IResponse, IResponseWithMeta, WithId } from '@/types/common/IResponse'
+import { IBot } from '@/types/IBot'
+import { apiURL } from '../utils'
+import { IParams } from './../../types/common/IParams'
 
 const rootApi = '/bots'
 
@@ -15,7 +15,7 @@ const botsApi = api.injectEndpoints({
       }),
       providesTags: ['bots']
     }),
-    createBot: build.mutation<IResponse<WithId<IBot>>, IBot>({
+    createBot: build.mutation<{ bot: WithId<IBot> }, IBot>({
       query: body => ({
         url: apiURL(rootApi, 'create'),
         method: 'POST',

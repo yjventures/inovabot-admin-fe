@@ -14,7 +14,7 @@ export default function FormLabel({ label, labelClassName, name, required, hint 
   return (
     <>
       {label && (
-        <Label className={cn('text-text-gray mb-2 flex items-center', labelClassName)} htmlFor={name}>
+        <Label className={cn('text-text-gray mb-2 flex items-center gap-x-1.5', labelClassName)} htmlFor={name}>
           {label}
           {required ? '*' : null}
           {hint ? <Hint>{hint}</Hint> : null}

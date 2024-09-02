@@ -11,7 +11,7 @@ export default function Hint({ children }: Props) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <HelpCircle className='size-4 ml-1.5 text-text-gray' />
+          <HelpCircle className='size-4 text-text-gray' />
         </TooltipTrigger>
         <TooltipContent>
           <p className='text-text-gray text-sm font-medium'>{children}</p>

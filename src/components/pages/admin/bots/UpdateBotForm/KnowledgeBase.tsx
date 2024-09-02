@@ -1,6 +1,6 @@
 'use client'
 
-import FileCard, { IFile } from '@/components/reusable/cards/file-card'
+import FileCard from '@/components/reusable/cards/file-card'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import DnDMultiUpload from '@/components/reusable/form/dnd-multi-upload'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
@@ -9,13 +9,17 @@ import LLink from '@/components/ui/llink'
 import { initParams } from '@/constants/form/init-params'
 import { useGetAllBotFilesQuery } from '@/redux/features/knowledgeBaseApi'
 import { useParams } from 'next/navigation'
-import React from 'react'
+import { HTMLAttributes } from 'react'
 
-export default function KnowledgeBase({ companyId }: { companyId: string }) {
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  companyId: string
+}
+
+export default function KnowledgeBase({ companyId, ...rest }: Props) {
   const { id } = useParams()
   const { data } = useGetAllBotFilesQuery({ ...initParams({ limit: 4 }), bot_id: id as string })
   return (
-    <FormWrapper>
+    <FormWrapper {...rest}>
       <DashboardHeading
         title='Knowledge Base'
         variant='h4'

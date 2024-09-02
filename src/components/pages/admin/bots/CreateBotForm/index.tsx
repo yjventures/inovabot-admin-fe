@@ -1,27 +1,23 @@
 'use client'
 
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
-import { Button } from '@/components/ui/button'
-import { Check, ChevronsUpDown, PlusSquare } from 'lucide-react'
-import { useForm } from 'react-hook-form'
 import Form from '@/components/reusable/form/form'
-import { IBot } from '@/types/IBot'
-import Appearance from './Appearance'
-import LLMSettings from './LLMSettings'
-import Advanced from './Advanced'
-import ChatPreview from '../common/ChatPreview'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
-import { useGetComanyListQuery } from '@/redux/features/companiesApi'
-
-import { useEffect, useState } from 'react'
-import { cn } from '@/lib/utils'
-import { useCreateBotMutation } from '@/redux/features/botsApi'
-import toast from 'react-hot-toast'
+import { Button } from '@/components/ui/button'
 import usePush from '@/hooks/usePush'
+import { useCreateBotMutation } from '@/redux/features/botsApi'
+import { IBot } from '@/types/IBot'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
-import General from './General'
+import { ArrowRight } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import ChatPreview from '../common/ChatPreview'
+import Advanced from './Advanced'
+import Appearance from './Appearance'
+import General from './General'
+import LLMSettings from './LLMSettings'
 
 export default function CreateBotForm() {
   const push = usePush()
@@ -37,7 +33,7 @@ export default function CreateBotForm() {
 
   const [category, setcategory] = useState<string | undefined>(undefined)
 
-  const [createBot, { isLoading, isSuccess, isError, error }] = useCreateBotMutation()
+  const [createBot, { isLoading, isSuccess, isError, error, data }] = useCreateBotMutation()
 
   const onSubmit = (data: IBot) => {
     if (!company_id) return toast.error('Please select a company!')
@@ -48,11 +44,11 @@ export default function CreateBotForm() {
   useEffect(() => {
     if (isSuccess) {
       toast.success('Bot created successfully')
-      push('/admin/bots')
+      push(`/admin/bots/update/${data?.bot?._id}?from=creation`)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isSuccess, isError, error, push])
+  }, [isSuccess, isError, error, push, data])
 
   return (
     <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -61,8 +57,8 @@ export default function CreateBotForm() {
         extra={
           <>
             <Button variant='destructive'>Discard</Button>
-            <Button variant='gradient' icon={<PlusSquare />} type='submit' isLoading={isLoading}>
-              Publish Agent
+            <Button variant='gradient' icon={<ArrowRight />} iconPosition='right' type='submit' isLoading={isLoading}>
+              Proceed to Knowledgebase
             </Button>
           </>
         }
