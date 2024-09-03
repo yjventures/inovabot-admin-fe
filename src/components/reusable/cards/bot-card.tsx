@@ -1,21 +1,22 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import CardWrapper from './commonn/card-wrapper'
-import Badge from './badge'
-import CardBetween from './commonn/card-between'
-import { formateDate } from '@/utils/date/formateDate'
-import CardCeparatorBorder from './commonn/card-separator-border'
-import CardAvatar from './commonn/card-avatar'
-import CardPopover, { CardPopoverContent } from './commonn/card-popover'
-import { useDeleteBotMutation } from '@/redux/features/botsApi'
-import toast from 'react-hot-toast'
-import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import ConfirmationPrompt from '../dashboard/confirmation-prompt'
-import { Eye, PencilLine, Trash2 } from 'lucide-react'
 import LLink from '@/components/ui/llink'
-import { useLogo } from '@/hooks/useLogo'
 import { BOT_URL } from '@/configs'
+import { getDashboardURLPath } from '@/helpers/common'
+import { useLogo } from '@/hooks/useLogo'
+import { useDeleteBotMutation } from '@/redux/features/botsApi'
+import { formateDate } from '@/utils/date/formateDate'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { Eye, PencilLine, Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import ConfirmationPrompt from '../dashboard/confirmation-prompt'
+import Badge from './badge'
+import CardAvatar from './commonn/card-avatar'
+import CardBetween from './commonn/card-between'
+import CardPopover, { CardPopoverContent } from './commonn/card-popover'
+import CardCeparatorBorder from './commonn/card-separator-border'
+import CardWrapper from './commonn/card-wrapper'
 
 interface Props {
   _id: string
@@ -58,7 +59,7 @@ export default function BotCard({
             <Eye className='size-5' />
           </a>
 
-          <LLink href={`/admin/bots/update/${_id}`}>
+          <LLink href={`/${getDashboardURLPath()}/bots/update/${_id}`}>
             <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
           </LLink>
           <CardPopoverContent
