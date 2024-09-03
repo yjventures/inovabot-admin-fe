@@ -35,8 +35,11 @@ export default function LoginForm() {
         maxAge: calculateTokenExpiration(refreshToken)
       })
 
-      if (data?.user?.type === 'super-admin') {
+      const userRole = data?.user?.type
+      if (['super-admin'].includes(userRole)) {
         push('/admin/dashboard')
+      } else if (['admin'].includes(userRole)) {
+        push('/company/dashboard')
       }
     }
 
