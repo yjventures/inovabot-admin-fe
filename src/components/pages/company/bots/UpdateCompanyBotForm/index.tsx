@@ -23,7 +23,7 @@ import UpdateAdvanced from './UpdateAdvanced'
 import UpdateAppearance from './UpdateApprearance'
 import UpdateLLMSettings from './UpdateLLMSettings'
 
-export default function UpdateBotForm() {
+export default function UpdateCompanyBotForm() {
   const params = useSearchParams()
   const from = params.get('from')
   const push = usePush()

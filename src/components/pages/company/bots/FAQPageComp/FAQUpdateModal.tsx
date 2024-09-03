@@ -12,7 +12,7 @@ import { PencilLine } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { IFAQ } from '../UpdateBotForm/FAQ'
+import { IFAQ } from '../UpdateCompanyBotForm/FAQ'
 
 interface Props {
   faq: WithId<IFAQ>

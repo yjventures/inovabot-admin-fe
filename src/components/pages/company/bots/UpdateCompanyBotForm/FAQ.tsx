@@ -54,7 +54,7 @@ export default function FAQ({ companyId }: { companyId: string }) {
         title='FAQ'
         variant='h5'
         extra={
-          <LLink href={`/admin/bots/update/${id}/faq`}>
+          <LLink href={`/company/bots/update/${id}/faq`}>
             <Button variant='black'>View All</Button>
           </LLink>
         }

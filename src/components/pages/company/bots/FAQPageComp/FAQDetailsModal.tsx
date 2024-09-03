@@ -7,7 +7,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Eye } from 'lucide-react'
-import { IFAQ } from '../UpdateBotForm/FAQ'
+import { IFAQ } from '../UpdateCompanyBotForm/FAQ'
 
 interface Props {
   faq: IFAQ

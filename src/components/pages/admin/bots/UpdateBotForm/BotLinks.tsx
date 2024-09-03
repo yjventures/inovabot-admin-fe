@@ -58,7 +58,7 @@ export default function BotLinks() {
       <Textarea
         value={botLink.link}
         onChange={e => setbotLink({ ...botLink, link: e.target.value })}
-        placeholder='https://google.com'
+        placeholder='https://facebook.com'
         label='Link*'
       />
       <Textarea

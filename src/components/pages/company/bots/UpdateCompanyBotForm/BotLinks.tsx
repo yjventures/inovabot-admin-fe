@@ -50,7 +50,7 @@ export default function BotLinks() {
         title='Bot Links'
         variant='h5'
         extra={
-          <LLink href={`/admin/bots/update/${id}/bot-links`}>
+          <LLink href={`/company/bots/update/${id}/bot-links`}>
             <Button variant='black'>View All</Button>
           </LLink>
         }
@@ -58,7 +58,7 @@ export default function BotLinks() {
       <Textarea
         value={botLink.link}
         onChange={e => setbotLink({ ...botLink, link: e.target.value })}
-        placeholder='https://google.com'
+        placeholder='https://facebook.com'
         label='Link*'
       />
       <Textarea

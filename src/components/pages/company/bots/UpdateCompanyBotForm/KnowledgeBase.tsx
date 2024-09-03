@@ -24,7 +24,7 @@ export default function KnowledgeBase({ companyId, ...rest }: Props) {
         title='Knowledge Base'
         variant='h5'
         extra={
-          <LLink href={`/admin/bots/update/${id}/knowledge-base`}>
+          <LLink href={`/company/bots/update/${id}/knowledge-base`}>
             <Button variant='black'>View All</Button>
           </LLink>
         }
