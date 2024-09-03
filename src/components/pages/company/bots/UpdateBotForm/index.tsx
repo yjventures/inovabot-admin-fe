@@ -53,7 +53,7 @@ export default function UpdateBotForm() {
 
   const discardChanges = () => {
     reset()
-    push('/admin/bots')
+    push('/company/bots')
   }
 
   const [updateBot, { isSuccess: isBotUdpateSuccess, isLoading, isError, error }] = useUpdateBotMutation()
@@ -65,7 +65,7 @@ export default function UpdateBotForm() {
   useEffect(() => {
     if (isBotUdpateSuccess) {
       toast.success('Bot updated successfully!')
-      push('/admin/bots')
+      push('/company/bots')
     }
 
     if (isError) toast.error(rtkErrorMessage(error))

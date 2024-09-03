@@ -9,7 +9,6 @@ import { useCreateBotMutation } from '@/redux/features/botsApi'
 import { IBot } from '@/types/IBot'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { ArrowRight } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -19,32 +18,24 @@ import Appearance from './Appearance'
 import General from './General'
 import LLMSettings from './LLMSettings'
 
-export default function CreateBotForm() {
+export default function CreateCompanyBotForm() {
   const push = usePush()
-  const params = useSearchParams()
-
-  const [company_id, setcompany_id] = useState('')
   const methods = useForm<IBot>()
   const { handleSubmit } = methods
-
-  useEffect(() => {
-    if (params.has('companyId')) setcompany_id(params.get('companyId') as string)
-  }, [params])
 
   const [category, setcategory] = useState<string | undefined>(undefined)
 
   const [createBot, { isLoading, isSuccess, isError, error, data }] = useCreateBotMutation()
 
   const onSubmit = (data: IBot) => {
-    if (!company_id) return toast.error('Please select a company!')
     if (!category) return toast.error('Please select a category!')
-    createBot({ ...data, company_id, category })
+    createBot({ ...data, category })
   }
 
   useEffect(() => {
     if (isSuccess) {
       toast.success('Bot created successfully')
-      push(`/admin/bots/update/${data?.bot?._id}?from=creation`)
+      push(`/company/bots/update/${data?.bot?._id}?from=creation`)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
@@ -66,12 +57,7 @@ export default function CreateBotForm() {
 
       <div className='flex gap-x-5'>
         <FormWrapper className='w-1/2'>
-          <General
-            company_id={company_id}
-            setcompany_id={setcompany_id}
-            category={category}
-            setcategory={setcategory}
-          />
+          <General category={category} setcategory={setcategory} />
           <Appearance />
           <LLMSettings />
           <Advanced />
