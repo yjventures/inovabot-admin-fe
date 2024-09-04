@@ -32,9 +32,9 @@ export default function CheckToken() {
               maxAge: calculateTokenExpiration(refreshToken)
             })
             const userRole = res?.data?.user?.type
-            if (['super-admin'].includes(userRole)) {
+            if (['super-admin', 'admin'].includes(userRole)) {
               push('/admin/dashboard')
-            } else if (['admin'].includes(userRole)) {
+            } else if (['company-admin'].includes(userRole)) {
               push('/company/dashboard')
             }
           }

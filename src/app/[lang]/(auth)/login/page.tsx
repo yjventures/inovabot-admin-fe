@@ -1,3 +1,4 @@
+import AuthPageWrapper from '@/components/common/auth/AuthPageWrapper'
 import LoginForm from '@/components/pages/auth/login/LoginForm'
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 }
 
 export default function LoginPage() {
-  return <LoginForm />
+  return (
+    <AuthPageWrapper>
+      <LoginForm />
+    </AuthPageWrapper>
+  )
 }

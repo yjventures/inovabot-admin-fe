@@ -36,9 +36,9 @@ export default function LoginForm() {
       })
 
       const userRole = data?.user?.type
-      if (['super-admin'].includes(userRole)) {
+      if (['super-admin', 'admin'].includes(userRole)) {
         push('/admin/dashboard')
-      } else if (['admin'].includes(userRole)) {
+      } else if (['company-admin'].includes(userRole)) {
         push('/company/dashboard')
       }
     }
@@ -47,7 +47,7 @@ export default function LoginForm() {
   }, [isSuccess, isError, error, push, data])
 
   return (
-    <div className='flex flex-col min-h-screen justify-center items-center'>
+    <div className='flex flex-col min-h-screen justify-center items-center max-w-md w-full'>
       <Form methods={methods} onSubmit={methods.handleSubmit(onSubmit)} className='max-w-sm w-full'>
         <Input name='email' label='Email' type='email' required />
         <Input name='password' label='Password' type='password' required />

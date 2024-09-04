@@ -31,7 +31,7 @@ export default function AdminSideNav({ currentLink }: Props) {
 
     if (userRole === 'super-admin') {
       setlinks(platformAdminLinks)
-    } else if (userRole === 'admin') {
+    } else if (userRole === 'company-admin') {
       setlinks(companymAdminLinks)
     }
   }, [])

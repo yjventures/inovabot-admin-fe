@@ -46,7 +46,7 @@ export default function SetPassword() {
     checkPassword({ id, password: data.password })
   }
   return (
-    <div className='flex items-center justify-center min-h-screen'>
+    <div className='flex items-center justify-center min-h-screen w-full max-w-md'>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)} className='w-full max-w-md'>
         <Typography variant='h3'>Enter New Password</Typography>
         <Input name='password' label='New Password' placeholder='********' required type='password' />
