@@ -1,28 +1,27 @@
 'use client'
 
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
+import PriceCard from '@/components/reusable/cards/price-card'
 import { Checkbox } from '@/components/reusable/form/checkbox'
 import DnDUpload from '@/components/reusable/form/dnd-upload'
 import Form from '@/components/reusable/form/form'
+import ImagePreviewer from '@/components/reusable/form/image-previewer'
 import { Input } from '@/components/reusable/form/input'
 import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Switch } from '@/components/ui/switch'
 import Typography from '@/components/ui/typography'
 import { initParams } from '@/constants/form/init-params'
 import usePush from '@/hooks/usePush'
 import { useCreateCompanyMutation } from '@/redux/features/companiesApi'
 import { useGetPackagesQuery } from '@/redux/features/packagesApi'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { PlusSquare } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { frequencies } from '../packages/AllPackages'
-import { Switch } from '@/components/ui/switch'
-import { Skeleton } from '@/components/ui/skeleton'
-import PriceCard from '@/components/reusable/cards/price-card'
 import toast from 'react-hot-toast'
-import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import ImagePreviewer from '@/components/reusable/form/image-previewer'
-import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
+import { frequencies } from '../packages/AllPackages'
 
 export default function CreateCompanyForm() {
   const push = usePush()
@@ -65,7 +64,7 @@ export default function CreateCompanyForm() {
   return (
     <div className='bg-foreground rounded-xl px-4 py-6'>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <div className='flex justify-between items-center gap-x-4 g gap-y-2 flex-wrap'>
+        <div className='flex justify-between items-center gap-x-4 g gap-y-2 flex-wrap mb-2'>
           <Typography variant='h4'>Compnay Information</Typography>
           <div className='flex items-center gap-x-4 gap-y-2'>
             <Button variant='destructive' onClick={discardForm}>

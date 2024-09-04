@@ -35,7 +35,9 @@ export default function FirstLogin() {
   return (
     <div>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)} className='w-full max-w-md'>
-        <Typography variant='h4'>Enter Temporary Password</Typography>
+        <Typography variant='h4' className='mb-4'>
+          Enter Temporary Password
+        </Typography>
         <Input name='password' label='Temporary Password' placeholder='********' required type='password' />
         <Button type='submit' variant='gradient' icon={<ChevronRight />} iconPosition='right' isLoading={isLoading}>
           Proceed
