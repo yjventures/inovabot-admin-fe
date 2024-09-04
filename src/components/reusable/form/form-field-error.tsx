@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils'
 import { formatFieldName } from '@/utils/form/formatFieldName'
-import React from 'react'
 import { FieldErrors, FieldValues } from 'react-hook-form'
 
 interface Props {
@@ -15,7 +14,7 @@ export default function FormFieldError({ required, name, errors, label, errorCla
   return (
     <>
       {required && name ? (
-        <div className={cn('flex justify-start mt-1', errorClassName)}>
+        <div className={cn('flex justify-start my-1', errorClassName)}>
           {errors[name] && errors[name]?.type === 'required' ? (
             <span className='text-red-500 text-xs h-3 leading-none !text-left font-medium'>
               {label || formatFieldName(name)} is required

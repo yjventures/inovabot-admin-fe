@@ -56,6 +56,13 @@ const companiesApi = api.injectEndpoints({
         body
       })
     }),
+    sendTeamInvitation: build.mutation({
+      query: body => ({
+        url: '/invitation/invite-user',
+        method: 'POST',
+        body
+      })
+    }),
     getStorageInfo: build.mutation<IResponse<{ totalStorage: number; usedStorage: number }>, string>({
       query: company_id => ({
         url: `${rootApi}/get-storage`,

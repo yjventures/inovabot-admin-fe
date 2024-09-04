@@ -144,7 +144,7 @@ export default function CompnayAllBots() {
                               <PencilLine className='text-blue-primary' />
                             </LLink>
                             <Trash2
-                              className='text-destructive'
+                              className='text-destructive cursor-pointer'
                               onClick={() => {
                                 setDeleteId(bot?._id)
                                 setOpenPrompt(true)

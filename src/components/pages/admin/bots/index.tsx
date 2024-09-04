@@ -1,34 +1,34 @@
 'use client'
 
+import Badge from '@/components/reusable/cards/badge'
 import BotCard from '@/components/reusable/cards/bot-card'
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import CompanyIntoCard from '@/components/reusable/cards/company-intro-card'
+import BotCardSkeletons from '@/components/reusable/cards/Skeletons/bot-card-skeletons'
+import Intro from '@/components/reusable/common/intro'
+import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
 import Search from '@/components/reusable/tables/search'
+import TableActions from '@/components/reusable/tables/table-actions'
 import TableSelector, { TableMode } from '@/components/reusable/tables/table-selector'
 import { Button } from '@/components/ui/button'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import LLink from '@/components/ui/llink'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { BOT_URL } from '@/configs'
 import { initParams } from '@/constants/form/init-params'
+import { useLogo } from '@/hooks/useLogo'
 import { cn } from '@/lib/utils'
 import { useDeleteBotMutation, useGetBotsQuery } from '@/redux/features/botsApi'
 import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { useGetComanyListQuery, useGetCompanyQuery } from '@/redux/features/companiesApi'
-import React, { useEffect, useState } from 'react'
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Check, ChevronsUpDown, Eye, PencilLine, PlusSquare, Trash2 } from 'lucide-react'
 import { IParams } from '@/types/common/IParams'
-import LLink from '@/components/ui/llink'
-import { Skeleton } from '@/components/ui/skeleton'
-import BotCardSkeletons from '@/components/reusable/cards/Skeletons/bot-card-skeletons'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import Intro from '@/components/reusable/common/intro'
-import Badge from '@/components/reusable/cards/badge'
-import { useLogo } from '@/hooks/useLogo'
 import { formateDate } from '@/utils/date/formateDate'
-import TableActions from '@/components/reusable/tables/table-actions'
-import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
-import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { BOT_URL } from '@/configs'
+import { Check, ChevronsUpDown, Eye, PencilLine, PlusSquare, Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 type Params = IParams & { company_id: string; category: string }
 
@@ -215,7 +215,7 @@ export default function AllBots() {
                               <PencilLine className='text-blue-primary' />
                             </LLink>
                             <Trash2
-                              className='text-destructive'
+                              className='text-destructive cursor-pointer'
                               onClick={() => {
                                 setDeleteId(bot?._id)
                                 setOpenPrompt(true)
