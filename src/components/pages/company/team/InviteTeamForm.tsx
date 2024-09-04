@@ -7,8 +7,9 @@ import { Input } from '@/components/reusable/form/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/reusable/form/select'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
+import { getCompanyId } from '@/helpers/pages/companies'
 import usePush from '@/hooks/usePush'
-import { useSendCompanyInvitationMutation } from '@/redux/features/companiesApi'
+import { useSendTeamInvitationMutation } from '@/redux/features/companiesApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { MailCheck, Send } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -29,10 +30,10 @@ export default function InviteTeamForm() {
 
   const [showEmailCheck, setshowEmailCheck] = useState<boolean>(false)
 
-  const [sendInvitation, { isLoading, isSuccess, isError, error }] = useSendCompanyInvitationMutation()
+  const [sendInvitation, { isLoading, isSuccess, isError, error }] = useSendTeamInvitationMutation()
 
   const onSubmit = (data: FormData) => {
-    sendInvitation(data)
+    sendInvitation({ ...data, company_id: getCompanyId() })
   }
 
   useEffect(() => {
@@ -67,8 +68,8 @@ export default function InviteTeamForm() {
               <SelectValue placeholder='Select a role' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='viewer'>Editor</SelectItem>
-              <SelectItem value='editor'>Viewer</SelectItem>
+              <SelectItem value='editor'>Editor</SelectItem>
+              <SelectItem value='viewer'>Viewer</SelectItem>
             </SelectContent>
           </Select>
           <Button variant='gradient' icon={<Send />} type='submit' isLoading={isLoading}>

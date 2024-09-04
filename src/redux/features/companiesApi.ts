@@ -69,6 +69,12 @@ const companiesApi = api.injectEndpoints({
         method: 'POST',
         body: { company_id }
       })
+    }),
+    getUsers: build.query({
+      query: params => ({
+        url: '/users/get-all',
+        params
+      })
     })
   })
 })
@@ -81,5 +87,7 @@ export const {
   useDeleteCompanyMutation,
   useSendCompanyInvitationMutation,
   useGetComanyListQuery,
-  useGetStorageInfoMutation
+  useGetStorageInfoMutation,
+  useGetUsersQuery,
+  useSendTeamInvitationMutation
 } = companiesApi
