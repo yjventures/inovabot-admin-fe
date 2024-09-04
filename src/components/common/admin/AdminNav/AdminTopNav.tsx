@@ -1,9 +1,9 @@
 'use client'
 
-import { AlignRight, Bell, CalendarDays, Mail, MessageSquareMore, Search } from 'lucide-react'
-import UserInfo from './UserInfo'
 import { IUser } from '@/types/IUser'
+import { AlignRight, Bell, CalendarDays, Mail, MessageSquareMore, Search } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
+import UserInfo from './UserInfo'
 
 interface Props {
   user: IUser

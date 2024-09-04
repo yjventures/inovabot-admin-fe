@@ -1,27 +1,28 @@
+import logo from '@/assets/images/common/logo.png'
 import { Button } from '@/components/ui/button'
+import { Img } from '@/components/ui/img'
 import LLink from '@/components/ui/llink'
+import { AdminLink } from '@/constants/admin-nav-links'
 import usePush from '@/hooks/usePush'
 import { cn } from '@/lib/utils'
-import { X } from 'lucide-react'
-import toast from 'react-hot-toast'
-import UserInfo from './UserInfo'
 import { useAppDispatch } from '@/redux/hooks'
-import { logoutActions } from '@/utils/auth/logoutActions'
 import { IUser } from '@/types/IUser'
+import { logoutActions } from '@/utils/auth/logoutActions'
+import { X } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
+import toast from 'react-hot-toast'
 import AdminLinks from './AdminLinks'
-import { platformAdminLinks } from '@/constants/admin-nav-links'
-import logo from '@/assets/images/common/logo.png'
-import { Img } from '@/components/ui/img'
+import UserInfo from './UserInfo'
 
 interface Props {
   user: IUser
   navbarOpen: boolean
   setnavbarOpen: Dispatch<SetStateAction<boolean>>
   currentLink?: string
+  links: AdminLink[]
 }
 
-export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, currentLink }: Props) {
+export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, currentLink, links }: Props) {
   const push = usePush()
   const dispatch = useAppDispatch()
 
@@ -57,7 +58,7 @@ export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, curren
 
         <UserInfo user={user} className='flex md:hidden mb-5' darkBg />
 
-        <AdminLinks links={platformAdminLinks} currentLink={currentLink} />
+        <AdminLinks links={links} currentLink={currentLink} />
       </div>
 
       <div className='p-5 w-full'>

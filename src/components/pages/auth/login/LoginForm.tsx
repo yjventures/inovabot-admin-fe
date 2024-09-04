@@ -3,6 +3,7 @@
 import Form from '@/components/reusable/form/form'
 import { Input } from '@/components/reusable/form/input'
 import { Button } from '@/components/ui/button'
+import Typography from '@/components/ui/typography'
 import usePush from '@/hooks/usePush'
 import { useLoginMutation } from '@/redux/features/authApi'
 import { calculateTokenExpiration } from '@/utils/auth/calculateTokenExpiration'
@@ -49,6 +50,9 @@ export default function LoginForm() {
   return (
     <div className='flex flex-col min-h-screen justify-center items-center max-w-md w-full'>
       <Form methods={methods} onSubmit={methods.handleSubmit(onSubmit)} className='max-w-sm w-full'>
+        <Typography className='mb-4' variant='h3'>
+          Login
+        </Typography>
         <Input name='email' label='Email' type='email' required />
         <Input name='password' label='Password' type='password' required />
         <Button type='submit' isLoading={isLoading}>

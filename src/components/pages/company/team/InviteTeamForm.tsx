@@ -67,8 +67,8 @@ export default function InviteTeamForm() {
               <SelectValue placeholder='Select a role' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='editor'>Viewer</SelectItem>
               <SelectItem value='viewer'>Editor</SelectItem>
+              <SelectItem value='editor'>Viewer</SelectItem>
             </SelectContent>
           </Select>
           <Button variant='gradient' icon={<Send />} type='submit' isLoading={isLoading}>

@@ -4,11 +4,8 @@ import logo from '@/assets/images/common/logo.png'
 import { Button } from '@/components/ui/button'
 import { Img } from '@/components/ui/img'
 import LLink from '@/components/ui/llink'
-import { AdminLink, platformAdminLinks } from '@/constants/admin-nav-links'
-import { companymAdminLinks } from '@/constants/admin-nav-links/company-admin-links'
+import { AdminLink } from '@/constants/admin-nav-links'
 import usePush from '@/hooks/usePush'
-import { getCookie } from 'cookies-next'
-import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAppDispatch } from '../../../../redux/hooks/index'
 import { logoutActions } from '../../../../utils/auth/logoutActions'
@@ -16,25 +13,12 @@ import AdminLinks from './AdminLinks'
 
 interface Props {
   currentLink?: string
+  links: AdminLink[]
 }
 
-export default function AdminSideNav({ currentLink }: Props) {
+export default function AdminSideNav({ currentLink, links }: Props) {
   const push = usePush()
   const dispatch = useAppDispatch()
-
-  const [links, setlinks] = useState<AdminLink[]>([])
-
-  useEffect(() => {
-    const userData = getCookie('userData')
-    const user = userData && JSON.parse(userData)
-    const userRole = user?.type
-
-    if (userRole === 'super-admin') {
-      setlinks(platformAdminLinks)
-    } else if (userRole === 'company-admin') {
-      setlinks(companymAdminLinks)
-    }
-  }, [])
 
   // const { data, isSuccess, isLoading } = useGetWebfrontQuery({ type: 'logo' })
   //const title = data?.data?.title
