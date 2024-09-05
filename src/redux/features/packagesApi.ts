@@ -1,8 +1,8 @@
 import api from '@/redux/api'
-import { apiURL } from '../utils'
-import { IParams } from './../../types/common/IParams'
 import { IResponse, IResponseWithMeta, WithId } from '@/types/common/IResponse'
 import { IPackage } from '@/types/IPackage'
+import { apiURL } from '../utils'
+import { IParams } from './../../types/common/IParams'
 
 const rootApi = '/packages'
 
@@ -43,6 +43,14 @@ const packagesApi = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: ['packages']
+    }),
+    updateSubscription: build.mutation({
+      query: body => ({
+        url: '/subscription/update',
+        method: 'POST',
+        body
+      }),
+      invalidatesTags: ['company']
     })
   })
 })
@@ -52,5 +60,6 @@ export const {
   useGetPackageQuery,
   useCreatePackageMutation,
   useUpdatePackageMutation,
-  useDeletePackageMutation
+  useDeletePackageMutation,
+  useUpdateSubscriptionMutation
 } = packagesApi

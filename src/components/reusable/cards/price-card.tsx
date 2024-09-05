@@ -38,7 +38,6 @@ function transformFeatures(features: Feature[]) {
 }
 
 export default function PriceCard({ tier, frequency, className, showPopover = true, child }: Props) {
-  console.log(tier)
   const features = transformFeatures(tier?.features)
 
   const [open, setopen] = useState<boolean>(false)

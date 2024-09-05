@@ -18,6 +18,7 @@ export interface ICompany {
   createdAt: string
   updatedAt: string
   bots: number
-  recurring_type: string
+  recurring_type: 'monthly' | 'yearly'
   active: boolean
+  price_id: string
 }

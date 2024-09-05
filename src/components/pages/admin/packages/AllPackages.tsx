@@ -13,13 +13,18 @@ import { WithId } from '@/types/common/IResponse'
 import { IPackage } from '@/types/IPackage'
 import { useState } from 'react'
 
-export const frequencies = [
+export interface IFrequency {
+  value: 'monthly' | 'yearly'
+  priceSuffix: string
+}
+
+export const frequencies: IFrequency[] = [
   { value: 'monthly', priceSuffix: '/month' },
   { value: 'yearly', priceSuffix: '/year' }
 ]
 
 export default function AllPackages() {
-  const [params, setparams] = useState<IParams>(initParams({ limit: 4 }))
+  const [params, setparams] = useState<IParams>(initParams({ limit: 100, sortOrder: 'asc' }))
   const [search, setSearch] = useState<string>('')
 
   const { data, isLoading, isSuccess } = useGetPackagesQuery({ ...params, search })

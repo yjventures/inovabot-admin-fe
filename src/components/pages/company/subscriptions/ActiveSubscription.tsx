@@ -8,18 +8,40 @@ import { Switch } from '@/components/ui/switch'
 import { initParams } from '@/constants/form/init-params'
 import { getCompanyId } from '@/helpers/pages/companies'
 import { useGetCompanyQuery } from '@/redux/features/companiesApi'
-import { useGetPackagesQuery } from '@/redux/features/packagesApi'
+import { useGetPackagesQuery, useUpdateSubscriptionMutation } from '@/redux/features/packagesApi'
 import { WithId } from '@/types/common/IResponse'
 import { IPackage } from '@/types/IPackage'
-import { useState } from 'react'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { frequencies } from '../../admin/packages/AllPackages'
 
 export default function ActiveSubscription() {
-  const { data, isLoading, isSuccess } = useGetPackagesQuery(initParams({ limit: 100 }))
+  const { data, isLoading, isSuccess } = useGetPackagesQuery(initParams({ limit: 100, sortOrder: 'asc' }))
   const [frequency, setFrequency] = useState(frequencies[0])
   const companyId = getCompanyId()
   const { data: companyData } = useGetCompanyQuery(companyId as string)
-  console.log(companyData)
+
+  const activePackage = data?.data?.find(
+    pkg =>
+      pkg?.price?.[companyData?.data?.recurring_type as keyof IPackage['price']]?.stripe_id ===
+      companyData?.data?.price_id
+  )
+
+  const [
+    updateSubscription,
+    { isLoading: isUpdateLoading, isSuccess: isUpdateSuccess, isError, error, data: updateData }
+  ] = useUpdateSubscriptionMutation()
+
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      toast.success('Subscription updated successfully!')
+      console.log(updateData)
+    }
+
+    if (isError) toast.error(rtkErrorMessage(error))
+  }, [isUpdateSuccess, isError, error, updateData])
+
   return (
     <div>
       <PackagesKkeletons isLoading={isLoading} />
@@ -39,9 +61,36 @@ export default function ActiveSubscription() {
               tier={tier}
               frequency={frequency}
               showPopover={false}
-              child={<Button>Selected</Button>}
+              child={
+                activePackage?._id === tier._id && frequency.value === companyData?.data?.recurring_type ? (
+                  <Button variant='outline' className='w-full' disabled>
+                    Selected
+                  </Button>
+                ) : (
+                  <Button
+                    variant='gradient'
+                    className='w-full'
+                    isLoading={isUpdateLoading}
+                    onClick={() =>
+                      updateSubscription({
+                        price_id: tier.price[frequency.value].stripe_id,
+                        package_id: tier._id,
+                        recurring_type: frequency.value
+                      })
+                    }
+                  >
+                    {activePackage?.price?.[frequency.value]?.price && tier?.price?.[frequency.value]?.price
+                      ? frequency.value !== companyData?.data?.recurring_type && activePackage?._id === tier?._id
+                        ? 'Update Frequency'
+                        : activePackage?.price?.[frequency.value]?.price > tier?.price?.[frequency.value]?.price
+                        ? 'Downgrade'
+                        : 'Upgrade'
+                      : 'Select'}
+                  </Button>
+                )
+              }
             />
-          ))}
+          ))}{' '}
         </CardGrid>
       ) : null}
     </div>
