@@ -11,5 +11,6 @@ const nextConfig = {
     typescript: { ignoreBuildErrors: true, }
   }
 }
+// comment
 
 export default nextConfig
