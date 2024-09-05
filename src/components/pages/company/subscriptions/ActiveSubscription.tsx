@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { initParams } from '@/constants/form/init-params'
 import { getCompanyId } from '@/helpers/pages/companies'
+import { cn } from '@/lib/utils'
 import { useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { useGetPackagesQuery, useUpdateSubscriptionMutation } from '@/redux/features/packagesApi'
 import { WithId } from '@/types/common/IResponse'
@@ -61,6 +62,10 @@ export default function ActiveSubscription() {
               tier={tier}
               frequency={frequency}
               showPopover={false}
+              className={cn({
+                'border-dashed border-2':
+                  activePackage?._id === tier._id && frequency.value === companyData?.data?.recurring_type
+              })}
               child={
                 activePackage?._id === tier._id && frequency.value === companyData?.data?.recurring_type ? (
                   <Button variant='outline' className='w-full' disabled>
