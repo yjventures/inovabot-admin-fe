@@ -19,7 +19,6 @@ export default function CheckToken() {
     const checkTokenFn = async () => {
       if (params.has('token')) {
         try {
-          console.log(params.get('token'))
           const res = await axios.post(`${API_URL}/auth/login`, { type: 'refresh', refreshToken: params.get('token') })
           if (res.status === 200) {
             setisLoading(false)
@@ -40,7 +39,7 @@ export default function CheckToken() {
           }
         } catch (error) {
           setisLoading(false)
-          console.log(error)
+          console.error(error)
           push('/login')
         }
       }

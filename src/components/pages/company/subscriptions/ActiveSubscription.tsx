@@ -3,6 +3,7 @@
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import PriceCard from '@/components/reusable/cards/price-card'
 import PackagesKkeletons from '@/components/reusable/cards/Skeletons/packages-skeletons'
+import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { initParams } from '@/constants/form/init-params'
 import { getCompanyId } from '@/helpers/pages/companies'
@@ -33,7 +34,13 @@ export default function ActiveSubscription() {
       {isSuccess ? (
         <CardGrid total='packages'>
           {data?.data?.map((tier: WithId<IPackage>) => (
-            <PriceCard key={tier._id} tier={tier} frequency={frequency} showPopover={false} />
+            <PriceCard
+              key={tier._id}
+              tier={tier}
+              frequency={frequency}
+              showPopover={false}
+              child={<Button>Selected</Button>}
+            />
           ))}
         </CardGrid>
       ) : null}

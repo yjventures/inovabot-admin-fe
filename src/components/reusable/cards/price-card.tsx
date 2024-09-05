@@ -1,14 +1,14 @@
-import Typography from '@/components/ui/typography'
-import { CheckIcon, PencilLine, Trash2 } from 'lucide-react'
-import React, { ReactNode, useEffect, useState } from 'react'
-import CardWrapper from './commonn/card-wrapper'
-import CardPopover, { CardPopoverContent } from './commonn/card-popover'
 import LLink from '@/components/ui/llink'
-import { useDeletePackageMutation } from '@/redux/features/packagesApi'
-import toast from 'react-hot-toast'
-import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import ConfirmationPrompt from '../dashboard/confirmation-prompt'
+import Typography from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
+import { useDeletePackageMutation } from '@/redux/features/packagesApi'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { CheckIcon, PencilLine, Trash2 } from 'lucide-react'
+import { ReactNode, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import ConfirmationPrompt from '../dashboard/confirmation-prompt'
+import CardPopover, { CardPopoverContent } from './commonn/card-popover'
+import CardWrapper from './commonn/card-wrapper'
 
 interface Props {
   tier: any
@@ -26,7 +26,6 @@ interface Feature {
 
 function transformFeatures(features: Feature[]) {
   return features.reduce((acc: string[], feature: Feature) => {
-    console.log(feature)
     if (feature.type === 'String') {
       acc.push(`${feature.name}: ${feature.value || 'N/A'}`)
     } else if (feature.type === 'Boolean' && feature.value) {
@@ -39,6 +38,7 @@ function transformFeatures(features: Feature[]) {
 }
 
 export default function PriceCard({ tier, frequency, className, showPopover = true, child }: Props) {
+  console.log(tier)
   const features = transformFeatures(tier?.features)
 
   const [open, setopen] = useState<boolean>(false)
