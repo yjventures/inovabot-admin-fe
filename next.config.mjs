@@ -11,6 +11,6 @@ const nextConfig = {
   },
   typescript: { ignoreBuildErrors: true, }
 }
-// comment
+// added domain
 
 export default nextConfig
