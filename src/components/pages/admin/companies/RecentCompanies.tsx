@@ -6,7 +6,7 @@ import { useGetCompaniesQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
 import { useState } from 'react'
 import { initParams } from '@/constants/form/init-params'
-import Companies from './Companies'
+import Companies from './companies' //fix import -abrar
 
 export default function RecentCompanies() {
   const [params, setparams] = useState<IParams>(initParams({}))
