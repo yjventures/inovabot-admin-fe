@@ -49,10 +49,10 @@ export default function InviteTeamForm() {
     <div className='flex items-center justify-center min-h-[70vh]'>
       <FormWrapper className='max-w-md flex flex-col justify-center items-center text-center text-balance gap-y-3'>
         <MailCheck size={72} strokeWidth={0.8} className='text-emerald-primary' />
-        <Typography variant='h4'>Check your email</Typography>
+        <Typography variant='h4'>Email has been sent</Typography>
         <p className='text-text-gray'>
-          We&apos;ve send you an email with the verification link, please open it and click on the link and signup with
-          the temporary password
+          We&apos;ve send the user an email with the verification link, please inform to open it and click on the link
+          and signup with the temporary password
         </p>
       </FormWrapper>
     </div>

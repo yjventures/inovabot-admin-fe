@@ -1,6 +1,7 @@
 import api from '@/redux/api'
 import { IResponse, IResponseWithMeta, WithId } from '@/types/common/IResponse'
 import { ICompany } from '@/types/ICompany'
+import { IUser } from '@/types/IUser'
 import { apiURL } from '../utils'
 import { IParams } from './../../types/common/IParams'
 
@@ -70,11 +71,19 @@ const companiesApi = api.injectEndpoints({
         body: { company_id }
       })
     }),
-    getUsers: build.query({
+    getUsers: build.query<IResponseWithMeta<WithId<IUser>[]>, IParams>({
       query: params => ({
         url: '/users/get-all',
         params
       })
+    }),
+    updateCompanyMemberRole: build.mutation({
+      query: body => ({
+        url: '/users/update-role',
+        method: 'PUT',
+        body
+      }),
+      invalidatesTags: ['users']
     })
   })
 })
@@ -89,5 +98,6 @@ export const {
   useGetComanyListQuery,
   useGetStorageInfoMutation,
   useGetUsersQuery,
-  useSendTeamInvitationMutation
+  useSendTeamInvitationMutation,
+  useUpdateCompanyMemberRoleMutation
 } = companiesApi

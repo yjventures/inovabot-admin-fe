@@ -4,6 +4,10 @@ import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
 import { PlusSquare } from 'lucide-react'
 
+export const metadata = {
+  title: 'Team Members'
+}
+
 export default function TeamPage() {
   return (
     <>

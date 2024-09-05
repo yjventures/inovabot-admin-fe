@@ -7,4 +7,5 @@ export interface IUser {
   phone?: string
   image?: string
   type: IUserRoleEnum
+  company_position: 'editor' | 'viewer' | ''
 }
