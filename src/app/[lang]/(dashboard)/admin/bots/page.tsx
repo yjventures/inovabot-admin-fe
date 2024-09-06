@@ -4,7 +4,6 @@ import Tutorial from '@/components/reusable/dashboard/tutorial'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
 import { PlusSquare } from 'lucide-react'
-import React from 'react'
 
 export const metadata = {
   title: 'All Bots | Inova'
@@ -24,10 +23,10 @@ export default function BotsPage() {
         }
       />
       <Tutorial
-        videoId='oPVgo3jOUAc'
-        title='Tutorial Title'
-        description='Tutorial Description'
-        ctaLabel='Tutorial CTA'
+        videoId='qXgYQgCRqz8'
+        title='Learn More'
+        description='about the importance of having an AI chatbot'
+        ctaLabel='Learn More'
         ctaHref='/'
         className='mb-10'
       />

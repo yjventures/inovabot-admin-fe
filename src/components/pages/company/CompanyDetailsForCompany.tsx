@@ -44,10 +44,10 @@ export default function CompanyDetailsForCompnay() {
     <>
       <DashboardHeading title={name!} />
       <Tutorial
-        videoId='oPVgo3jOUAc'
-        title='Tutorial Title'
-        description='Tutorial Description'
-        ctaLabel='Tutorial CTA'
+        videoId='qXgYQgCRqz8'
+        title='Learn More'
+        description='about the importance of having an AI chatbot'
+        ctaLabel='Learn More'
         ctaHref='/'
         className='mb-10'
       />

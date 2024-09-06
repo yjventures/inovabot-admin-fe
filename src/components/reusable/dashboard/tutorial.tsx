@@ -1,12 +1,12 @@
 'use client'
 
-import React, { HTMLAttributes } from 'react'
 import tutorialBg from '@/assets/images/common/dashboard/tutorial-bg.png'
-import { cn } from '@/lib/utils'
-import YoutubeEmbed from '@/components/ui/youtube-embed'
-import LLink from '@/components/ui/llink'
 import { Button } from '@/components/ui/button'
+import LLink from '@/components/ui/llink'
 import Typography from '@/components/ui/typography'
+import YoutubeEmbed from '@/components/ui/youtube-embed'
+import { cn } from '@/lib/utils'
+import { HTMLAttributes } from 'react'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   videoId: string
@@ -32,10 +32,10 @@ export default function Tutorial({ videoId, title, description, ctaLabel, ctaHre
       </div>
 
       <div className='w-full min-[900px]:w-1/2 lg:w-full min-[1200px]:w-1/2 flex flex-col items-center justify-center gap-y-4 order-1 min-[900px]:order-2 lg:order-1 min-[1200px]:order-2 pt-10 min-[900px]:pt-0 lg:pt-10 min-[1200px]:pt-0'>
-        <Typography variant='h4' className='text-white font-bold'>
+        <Typography variant='h1' className='text-white font-bold'>
           {title}
         </Typography>
-        <p className='text-base font-semibold text-white'>{description}</p>
+        <p className='text-lg font-normal text-white'>{description}</p>
         <LLink href={ctaHref}>
           <Button variant='unstyled' className='bg-orange-dark text-white px-8'>
             {ctaLabel}
