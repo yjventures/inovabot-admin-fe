@@ -7,7 +7,7 @@ import { Input } from '@/components/reusable/form/input'
 import SingleAccordion from '@/components/reusable/form/single-accordion'
 import { Label } from '@/components/ui/label'
 import { slugify } from '@/utils/form/slugify'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 export default function Appearance() {
@@ -65,13 +65,13 @@ export default function Appearance() {
         {bgLightVal ? (
           <ImagePreviewer imgSrc={bgLightVal} onClick={() => setValue('bg_light', '')} />
         ) : (
-          <DnDUpload name='bg_light' text='Background Image(Light)*' required />
+          <DnDUpload name='bg_light' text='Background Image(Light)' />
         )}
 
         {bgDarkVal ? (
           <ImagePreviewer imgSrc={bgDarkVal} onClick={() => setValue('bg_dark', '')} />
         ) : (
-          <DnDUpload name='bg_dark' text='Background Image(Dark)*' required />
+          <DnDUpload name='bg_dark' text='Background Image(Dark)' />
         )}
       </div>
 

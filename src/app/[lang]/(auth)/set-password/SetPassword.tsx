@@ -24,7 +24,7 @@ export default function SetPassword() {
   useEffect(() => {
     if (isSuccess) {
       toast.success('Password updated successfully')
-      redirect('http://localhost:3001/en/login')
+      redirect(`https://bldr.bot/en/login`)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))

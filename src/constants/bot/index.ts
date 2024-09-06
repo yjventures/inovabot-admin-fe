@@ -25,12 +25,12 @@ export const frameworkOrModels = [
   'Imaginary Situations',
   'Quote Prompts',
   'Question Prompts',
-  'Finisht the Sentence',
+  'Finish the Sentence',
   'Character Creation',
   'Oppsites Attract',
   'List Prompts',
   'Unusual Pairings',
-  'Problem-SAolving Scenarios'
+  'Problem-Solving Scenarios'
 ]
 
 export const formattingOrStructures = ['Bullet Points', 'Full Paragraph', 'Short Sentences', 'Conversational']
