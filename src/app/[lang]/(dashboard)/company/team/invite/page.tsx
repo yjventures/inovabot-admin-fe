@@ -8,7 +8,7 @@ export const metadata = {
 export default function TeamInvitePage() {
   return (
     <>
-      <DashboardHeading title='Invite Company' />
+      <DashboardHeading title='Invite Team Members' />
       <InviteTeamForm />
     </>
   )

@@ -1,14 +1,14 @@
-import { BaggageClaim, Boxes, MessagesSquare, Users } from 'lucide-react'
+import { BaggageClaim, Blocks, Boxes, MessagesSquare, Users } from 'lucide-react'
 import { AdminLink } from '.'
 
 export const companymAdminLinks: Array<AdminLink> = [
-  // {
-  //   id: 1,
-  //   label: 'Dashboard',
-  //   href: '/company/dashboard',
-  //   hasChildren: false,
-  //   icon: Blocks
-  // },
+  {
+    id: 1,
+    label: 'Dashboard',
+    href: '/company/dashboard',
+    hasChildren: false,
+    icon: Blocks
+  },
   {
     id: 2,
     label: 'Company',

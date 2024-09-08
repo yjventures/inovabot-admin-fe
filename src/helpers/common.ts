@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next'
 
-export const getDashboardURLPath = () => {
+export const getDashboardURLPath = (): string => {
   const user = getCookie('userData')
   const userData = user && JSON.parse(user as string)
   const role = userData?.type
@@ -8,5 +8,19 @@ export const getDashboardURLPath = () => {
     return '/company'
   } else if (['super-admin', 'admin'].includes(role)) {
     return '/admin'
+  }
+}
+
+export const getUserRole = () => {
+  const user = getCookie('userData')
+  const userData = user && JSON.parse(user as string)
+  const role = userData?.type
+
+  if (role === 'super-admin') return 'super-admin'
+  else if (role === 'admin') return 'admin'
+  else if (role === 'company-admin') return 'company-admin'
+  else if (role === 'user') {
+    if (userData?.company_position === 'editor') return 'editor'
+    else return 'viewer'
   }
 }

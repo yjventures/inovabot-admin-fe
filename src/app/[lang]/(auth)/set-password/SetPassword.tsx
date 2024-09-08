@@ -4,6 +4,7 @@ import Form from '@/components/reusable/form/form'
 import { Input } from '@/components/reusable/form/input'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
+import { BOT_URL } from '@/configs'
 import usePush from '@/hooks/usePush'
 import { useResetPasswordMutation } from '@/redux/features/authApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
@@ -24,7 +25,7 @@ export default function SetPassword() {
   useEffect(() => {
     if (isSuccess) {
       toast.success('Password updated successfully')
-      redirect(`https://bldr.bot/en/login`)
+      redirect(`${BOT_URL.split('/bot')[0]}/login`)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
@@ -48,7 +49,9 @@ export default function SetPassword() {
   return (
     <div className='flex items-center justify-center min-h-screen w-full max-w-md'>
       <Form methods={methods} onSubmit={handleSubmit(onSubmit)} className='w-full max-w-md'>
-        <Typography variant='h3'>Enter New Password</Typography>
+        <Typography variant='h3' className='mb-3'>
+          Enter New Password
+        </Typography>
         <Input name='password' label='New Password' placeholder='********' required type='password' />
         {passwordVal?.length && passwordVal?.length < 8 ? (
           <p className='text-sm font-medium text-destructive'>Password should be at least 8 characters long!</p>
