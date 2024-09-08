@@ -1,7 +1,8 @@
 'use client'
 
 import { AdminLink, platformAdminLinks } from '@/constants/admin-nav-links'
-import { companymAdminLinks } from '@/constants/admin-nav-links/company-admin-links'
+import { companyAdminLinks } from '@/constants/admin-nav-links/company-admin-links'
+import { companyViewerLinks } from '@/constants/admin-nav-links/company-viewer-links'
 import { IUser } from '@/types/IUser'
 import { getCookie } from 'cookies-next'
 import { useEffect, useState } from 'react'
@@ -27,8 +28,12 @@ export default function AdminNav({ currentLink }: Props) {
 
     if (['super-admin', 'admin'].includes(userRole)) {
       setlinks(platformAdminLinks)
-    } else if (['company-admin', 'user'].includes(userRole)) {
-      setlinks(companymAdminLinks)
+    } else if (['company-admin'].includes(userRole)) {
+      setlinks(companyAdminLinks)
+    } else if (userRole === 'user') {
+      if (user?.company_position === 'viewer') {
+        setlinks(companyViewerLinks)
+      }
     }
   }, [])
   return (

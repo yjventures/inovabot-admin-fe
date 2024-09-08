@@ -6,6 +6,7 @@ import PackagesKkeletons from '@/components/reusable/cards/Skeletons/packages-sk
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { initParams } from '@/constants/form/init-params'
+import { getUserRole } from '@/helpers/common'
 import { getCompanyId } from '@/helpers/pages/companies'
 import { cn } from '@/lib/utils'
 import { useGetCompanyQuery } from '@/redux/features/companiesApi'
@@ -71,7 +72,7 @@ export default function ActiveSubscription() {
                   <Button variant='outline' className='w-full' disabled>
                     Selected
                   </Button>
-                ) : (
+                ) : getUserRole() === 'company-admin' ? (
                   <Button
                     variant='gradient'
                     className='w-full'
@@ -92,7 +93,7 @@ export default function ActiveSubscription() {
                         : 'Upgrade'
                       : 'Select'}
                   </Button>
-                )
+                ) : null
               }
             />
           ))}{' '}

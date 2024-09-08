@@ -53,8 +53,8 @@ export default function LoginForm() {
         <Typography className='mb-4' variant='h3'>
           Login
         </Typography>
-        <Input name='email' label='Email' type='email' required />
-        <Input name='password' label='Password' type='password' required />
+        <Input name='email' label='Email' type='email' placeholder='Enter your email' required />
+        <Input name='password' label='Password' placeholder='********' type='password' required />
         <Button type='submit' isLoading={isLoading}>
           Login
         </Button>

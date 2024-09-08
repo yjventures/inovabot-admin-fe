@@ -1,7 +1,7 @@
 import { BaggageClaim, Blocks, Boxes, MessagesSquare, Users } from 'lucide-react'
 import { AdminLink } from '.'
 
-export const companyAdminLinks: Array<AdminLink> = [
+export const companyViewerLinks: Array<AdminLink> = [
   {
     id: 1,
     label: 'Dashboard',
@@ -20,17 +20,15 @@ export const companyAdminLinks: Array<AdminLink> = [
     id: 3,
     label: 'Chat Agents',
     href: '/company/bots',
-    hasChildren: true,
-    icon: MessagesSquare,
-    childrenLinks: [{ id: 1, label: 'Create', href: '/company/bots/create' }]
+    hasChildren: false,
+    icon: MessagesSquare
   },
   {
     id: 4,
     label: 'Team',
-    hasChildren: true,
+    hasChildren: false,
     icon: Users,
-    href: '/company/team',
-    childrenLinks: [{ id: 1, label: 'Add Team Member', href: '/company/team/invite' }]
+    href: '/company/team'
   },
   {
     id: 5,
