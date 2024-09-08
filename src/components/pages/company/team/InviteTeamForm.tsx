@@ -26,7 +26,7 @@ export default function InviteTeamForm() {
   const push = usePush()
 
   const methods = useForm<FormData>()
-  const { handleSubmit } = methods
+  const { handleSubmit, reset } = methods
 
   const [showEmailCheck, setshowEmailCheck] = useState<boolean>(false)
 
@@ -40,10 +40,15 @@ export default function InviteTeamForm() {
     if (isSuccess) {
       setshowEmailCheck(true)
       toast.success('Invitation sent successfully')
+
+      setTimeout(() => {
+        reset()
+        setshowEmailCheck(false)
+      }, 5000)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isSuccess, isError, error, push])
+  }, [isSuccess, isError, error, push, reset])
 
   return showEmailCheck ? (
     <div className='flex items-center justify-center min-h-[70vh]'>

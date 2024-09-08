@@ -7,7 +7,7 @@ import { useLocale } from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 import { setCookie } from 'cookies-next'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 interface NestedChildLink {
   id: number
@@ -18,9 +18,10 @@ interface NestedChildLink {
 interface Props {
   link: AdminLinkWithChildren
   currentLink?: string
+  setnavbarOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const NestedLink = ({ link, currentLink }: Props) => {
+const NestedLink = ({ link, currentLink, setnavbarOpen }: Props) => {
   const pathname = usePathname()
   const locale = useLocale()
   const [value, setvalue] = useState<string | undefined>(undefined)
@@ -54,6 +55,7 @@ const NestedLink = ({ link, currentLink }: Props) => {
               href={link.href}
               key={link.id}
               className={cn('text-gray-light text-left text-sm text-text-primary h-12 flex items-center w-full')}
+              onClick={() => setnavbarOpen(false)}
             >
               <span className='ml-5 mr-2'>
                 <link.icon
@@ -72,7 +74,12 @@ const NestedLink = ({ link, currentLink }: Props) => {
         </AccordionTrigger>
         <AccordionContent className='pb-0'>
           {link.childrenLinks.map(childLink => (
-            <LLink href={childLink.href} key={childLink.id} className='flex items-center h-11 pl-14'>
+            <LLink
+              href={childLink.href}
+              key={childLink.id}
+              className='flex items-center h-11 pl-14'
+              onClick={() => setnavbarOpen(false)}
+            >
               <button
                 className={cn('w-full rounded-lg text-text-primary text-left hover:font-bold', {
                   'font-bold': pathname.includes(childLink.href)

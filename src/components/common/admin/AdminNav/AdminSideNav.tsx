@@ -6,6 +6,7 @@ import { Img } from '@/components/ui/img'
 import LLink from '@/components/ui/llink'
 import { AdminLink } from '@/constants/admin-nav-links'
 import usePush from '@/hooks/usePush'
+import { Dispatch, SetStateAction } from 'react'
 import toast from 'react-hot-toast'
 import { useAppDispatch } from '../../../../redux/hooks/index'
 import { logoutActions } from '../../../../utils/auth/logoutActions'
@@ -14,9 +15,10 @@ import AdminLinks from './AdminLinks'
 interface Props {
   currentLink?: string
   links: AdminLink[]
+  setnavbarOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function AdminSideNav({ currentLink, links }: Props) {
+export default function AdminSideNav({ currentLink, links, setnavbarOpen }: Props) {
   const push = usePush()
   const dispatch = useAppDispatch()
 
@@ -38,7 +40,7 @@ export default function AdminSideNav({ currentLink, links }: Props) {
           <Img src={logo} alt='Inova' className='h-8 w-auto' />
         </LLink>
 
-        <AdminLinks links={links} currentLink={currentLink} />
+        <AdminLinks links={links} currentLink={currentLink} setnavbarOpen={setnavbarOpen} />
       </div>
 
       <div className='p-5 w-full'>

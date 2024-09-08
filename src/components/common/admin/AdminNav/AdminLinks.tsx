@@ -3,23 +3,25 @@
 import LLink from '@/components/ui/llink'
 import { AdminLink } from '@/constants/admin-nav-links'
 import { cn } from '@/lib/utils'
-import { usePathname } from 'next/navigation'
-import NestedLink from './NestedLink'
 import { deleteCookie } from 'cookies-next'
+import { usePathname } from 'next/navigation'
+import { Dispatch, SetStateAction } from 'react'
+import NestedLink from './NestedLink'
 
 interface Props {
   links: Array<AdminLink>
   currentLink?: string
+  setnavbarOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function AdminLinks({ links, currentLink }: Props) {
+export default function AdminLinks({ links, currentLink, setnavbarOpen }: Props) {
   const pathname = usePathname()
   return (
     <ul className='flex flex-col items-center w-full overflow-x-hidden'>
       {links.map(link =>
         link.hasChildren ? (
           <li key={link.id} className='w-full'>
-            <NestedLink link={link} currentLink={currentLink} />
+            <NestedLink link={link} currentLink={currentLink} setnavbarOpen={setnavbarOpen} />
           </li>
         ) : (
           <li
@@ -32,6 +34,7 @@ export default function AdminLinks({ links, currentLink }: Props) {
               className={cn('w-full text-gray-light text-left text-sm text-text-primary h-12 flex items-center', {
                 'font-bold bg-gray-primary': pathname.includes(link.href)
               })}
+              onClick={() => setnavbarOpen(false)}
             >
               <span className='ml-5 mr-2'>
                 <link.icon
