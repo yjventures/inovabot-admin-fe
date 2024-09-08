@@ -25,9 +25,9 @@ export default function AdminNav({ currentLink }: Props) {
     const user = userData && JSON.parse(userData)
     const userRole = user?.type
 
-    if (userRole === 'super-admin') {
+    if (['super-admin', 'admin'].includes(userRole)) {
       setlinks(platformAdminLinks)
-    } else if (userRole === 'company-admin') {
+    } else if (['company-admin', 'user'].includes(userRole)) {
       setlinks(companymAdminLinks)
     }
   }, [])

@@ -33,7 +33,7 @@ export default function CheckToken() {
             const userRole = res?.data?.user?.type
             if (['super-admin', 'admin'].includes(userRole)) {
               push('/admin/dashboard')
-            } else if (['company-admin'].includes(userRole)) {
+            } else if (['company-admin', 'user'].includes(userRole)) {
               push('/company/dashboard')
             }
           }
