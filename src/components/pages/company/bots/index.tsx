@@ -16,6 +16,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { BOT_URL } from '@/configs'
 import { initParams } from '@/constants/form/init-params'
+import { getUserRole } from '@/helpers/common'
 import { getCompanyId } from '@/helpers/pages/companies'
 import { useLogo } from '@/hooks/useLogo'
 import { cn } from '@/lib/utils'
@@ -57,11 +58,13 @@ export default function CompnayAllBots() {
       <DashboardHeading
         title='Chat Assistants'
         extra={
-          <LLink href='/company/bots/create'>
-            <Button variant='gradient' icon={<PlusSquare />}>
-              Create Assistant
-            </Button>
-          </LLink>
+          getUserRole() !== 'viewer' && (
+            <LLink href='/company/bots/create'>
+              <Button variant='gradient' icon={<PlusSquare />}>
+                Create Assistant
+              </Button>
+            </LLink>
+          )
         }
       />
       <div className='flex gap-x-4 items-center justify-between mt-6'>
@@ -140,16 +143,20 @@ export default function CompnayAllBots() {
                             <a href={url} target='_blank'>
                               <Eye />
                             </a>
-                            <LLink href={`/company/bots/update/${bot?._id}`}>
-                              <PencilLine className='text-blue-primary' />
-                            </LLink>
-                            <Trash2
-                              className='text-destructive cursor-pointer'
-                              onClick={() => {
-                                setDeleteId(bot?._id)
-                                setOpenPrompt(true)
-                              }}
-                            />
+                            {getUserRole() !== 'viewer' && (
+                              <>
+                                <LLink href={`/company/bots/update/${bot?._id}`}>
+                                  <PencilLine className='text-blue-primary' />
+                                </LLink>
+                                <Trash2
+                                  className='text-destructive cursor-pointer'
+                                  onClick={() => {
+                                    setDeleteId(bot?._id)
+                                    setOpenPrompt(true)
+                                  }}
+                                />
+                              </>
+                            )}
                           </TableActions>
                         </TableCell>
                       </TableRow>

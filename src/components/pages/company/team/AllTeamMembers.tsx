@@ -1,17 +1,20 @@
 'use client'
 
+import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import TableActions from '@/components/reusable/tables/table-actions'
 import TablePagination from '@/components/reusable/tables/table-pagination'
 import TableSkeleton from '@/components/reusable/tables/table-skeleton'
 import { Button } from '@/components/ui/button'
+import LLink from '@/components/ui/llink'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { initParams } from '@/constants/form/init-params'
+import { getUserRole } from '@/helpers/common'
 import { getCompanyId } from '@/helpers/pages/companies'
 import { useUpdateCompanyMemberRoleMutation } from '@/redux/features/companiesApi'
 import { useDeleteUserMutation, useGetUsersQuery } from '@/redux/features/usersApi'
 import { IParams } from '@/types/common/IParams'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { Trash2, UserPen } from 'lucide-react'
+import { PlusSquare, Trash2, UserPen } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -47,6 +50,18 @@ export default function AllTeamMembers() {
 
   return (
     <div>
+      <DashboardHeading
+        title='Team'
+        extra={
+          getUserRole() !== 'viewer' && (
+            <LLink href='/company/team/invite'>
+              <Button variant='gradient' icon={<PlusSquare />}>
+                Add Team Member
+              </Button>
+            </LLink>
+          )
+        }
+      />
       {isLoading ? <TableSkeleton /> : null}
       {isSuccess ? (
         <Table>
@@ -55,7 +70,7 @@ export default function AllTeamMembers() {
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Role</TableHead>
-              <TableHead>Actions</TableHead>
+              {getUserRole() !== 'viewer' && <TableHead>Actions</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -70,37 +85,39 @@ export default function AllTeamMembers() {
                     ? 'Editor'
                     : 'Viewer'}
                 </TableCell>
-                <TableCell>
-                  <TableActions>
-                    {user.type === 'user' && (
-                      <Button
-                        icon={<UserPen />}
-                        size='sm'
-                        variant='default'
-                        onClick={() =>
-                          updateRole({
-                            user_id: user?._id,
-                            role_name: user?.company_position === 'editor' ? 'viewer' : 'editor'
-                          })
-                        }
-                        isLoading={isUpdateLoading}
-                      >
-                        Make {user?.company_position === 'editor' ? 'Viewer' : 'Editor'}
-                      </Button>
-                    )}
-                    {user.type !== 'company-admin' && (
-                      <Button
-                        icon={<Trash2 />}
-                        size='sm'
-                        variant='destructive'
-                        isLoading={isDeleteLoading}
-                        onClick={() => removeMember(user?._id!)}
-                      >
-                        Remove Member
-                      </Button>
-                    )}
-                  </TableActions>
-                </TableCell>
+                {getUserRole() !== 'viewer' && (
+                  <TableCell>
+                    <TableActions>
+                      {user.type === 'user' && (
+                        <Button
+                          icon={<UserPen />}
+                          size='sm'
+                          variant='default'
+                          onClick={() =>
+                            updateRole({
+                              user_id: user?._id,
+                              role_name: user?.company_position === 'editor' ? 'viewer' : 'editor'
+                            })
+                          }
+                          isLoading={isUpdateLoading}
+                        >
+                          Make {user?.company_position === 'editor' ? 'Viewer' : 'Editor'}
+                        </Button>
+                      )}
+                      {user.type !== 'company-admin' && (
+                        <Button
+                          icon={<Trash2 />}
+                          size='sm'
+                          variant='destructive'
+                          isLoading={isDeleteLoading}
+                          onClick={() => removeMember(user?._id!)}
+                        >
+                          Remove Member
+                        </Button>
+                      )}
+                    </TableActions>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

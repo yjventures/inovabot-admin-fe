@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
 import { Skeleton } from '@/components/ui/skeleton'
 import { initParams } from '@/constants/form/init-params'
+import { getUserRole } from '@/helpers/common'
 import { getCompanyId } from '@/helpers/pages/companies'
 import { useLogo } from '@/hooks/useLogo'
 import { useGetBotsQuery } from '@/redux/features/botsApi'
@@ -72,12 +73,16 @@ export default function CompanyDetailsForCompnay() {
           }
           topCTASection={
             <div className='flex flex-wrap gap-x-3 gap-2'>
-              <LLink href={'/company/bots/create'}>
-                <Button icon={<PlusSquare />}>Add New Bot</Button>
-              </LLink>
-              <LLink href={'/company/update'}>
-                <Button icon={<PencilLine />}>Update Company</Button>
-              </LLink>
+              {getUserRole() !== 'viewer' && (
+                <LLink href={'/company/bots/create'}>
+                  <Button icon={<PlusSquare />}>Add New Bot</Button>
+                </LLink>
+              )}
+              {getUserRole() !== 'viewer' && (
+                <LLink href={'/company/update'}>
+                  <Button icon={<PencilLine />}>Update Company</Button>
+                </LLink>
+              )}
             </div>
           }
         />

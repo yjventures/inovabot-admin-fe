@@ -2,7 +2,7 @@
 
 import LLink from '@/components/ui/llink'
 import { BOT_URL } from '@/configs'
-import { getDashboardURLPath } from '@/helpers/common'
+import { getDashboardURLPath, getUserRole } from '@/helpers/common'
 import { useLogo } from '@/hooks/useLogo'
 import { useDeleteBotMutation } from '@/redux/features/botsApi'
 import { formateDate } from '@/utils/date/formateDate'
@@ -59,14 +59,18 @@ export default function BotCard({
             <Eye className='size-5' />
           </a>
 
-          <LLink href={`/${getDashboardURLPath()}/bots/update/${_id}`}>
-            <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
-          </LLink>
-          <CardPopoverContent
-            text='Delete'
-            icon={<Trash2 className='text-destructive' />}
-            onClick={() => setopen(true)}
-          />
+          {getUserRole() !== 'viewer' && (
+            <>
+              <LLink href={`/${getDashboardURLPath()}/bots/update/${_id}`}>
+                <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
+              </LLink>
+              <CardPopoverContent
+                text='Delete'
+                icon={<Trash2 className='text-destructive' />}
+                onClick={() => setopen(true)}
+              />
+            </>
+          )}
         </CardPopover>
 
         <div className='flex flex-col items-center justify-center gap-y-2'>
