@@ -53,7 +53,7 @@ export default function AllTeamMembers() {
       <DashboardHeading
         title='Team'
         extra={
-          getUserRole() !== 'viewer' && (
+          getUserRole() === 'company-admin' && (
             <LLink href='/company/team/invite'>
               <Button variant='gradient' icon={<PlusSquare />}>
                 Add Team Member
@@ -70,7 +70,7 @@ export default function AllTeamMembers() {
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Role</TableHead>
-              {getUserRole() !== 'viewer' && <TableHead>Actions</TableHead>}
+              {getUserRole() === 'company-admin' && <TableHead>Actions</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -85,7 +85,7 @@ export default function AllTeamMembers() {
                     ? 'Editor'
                     : 'Viewer'}
                 </TableCell>
-                {getUserRole() !== 'viewer' && (
+                {getUserRole() == 'company-admin' && (
                   <TableCell>
                     <TableActions>
                       {user.type === 'user' && (

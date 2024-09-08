@@ -46,7 +46,6 @@ export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, curren
       <div className='flex flex-col items-center justify-center w-full'>
         <div className='flex items-center justify-between gap-4 mb-5'>
           <LLink href='/' className='w-full p-5'>
-            {/* {isLoading ? <Skeleton className='w-28 h-7 rounded-sm' /> : isSuccess ? title : 'Dashboard'} */}
             <Img src={logo} alt='Inova' className='h-8 w-auto' />
           </LLink>
           <X

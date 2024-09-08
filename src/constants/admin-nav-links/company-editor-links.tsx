@@ -27,10 +27,9 @@ export const companyEditorLinks: Array<AdminLink> = [
   {
     id: 4,
     label: 'Team',
-    hasChildren: true,
+    hasChildren: false,
     icon: Users,
-    href: '/company/team',
-    childrenLinks: [{ id: 1, label: 'Add Team Member', href: '/company/team/invite' }]
+    href: '/company/team'
   },
   {
     id: 5,
