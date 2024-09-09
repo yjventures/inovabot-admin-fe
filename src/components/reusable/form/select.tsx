@@ -1,13 +1,11 @@
 'use client'
 
-import * as React from 'react'
+import { cn } from '@/lib/utils'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { Check, ChevronDown, ChevronUp } from 'lucide-react'
-
-import { cn } from '@/lib/utils'
+import * as React from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 import FormFieldError from './form-field-error'
-import { Label } from '../../ui/label'
 import FormLabel from './form-label'
 
 const RawSelect: React.FC<SelectPrimitive.SelectProps & { id?: string }> = SelectPrimitive.Root
@@ -177,13 +175,13 @@ const Select = ({
 
 export {
   Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
   SelectContent,
-  SelectLabel,
+  SelectGroup,
   SelectItem,
-  SelectSeparator,
+  SelectLabel,
+  SelectScrollDownButton,
   SelectScrollUpButton,
-  SelectScrollDownButton
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue
 }

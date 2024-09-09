@@ -1,6 +1,6 @@
 import CardWrapper from '@/components/reusable/cards/commonn/card-wrapper'
-import ChatAvatar from './ChatAvatar'
 import { cn } from '@/lib/utils'
+import ChatAvatar from './ChatAvatar'
 
 interface Props {
   message: string
@@ -19,7 +19,13 @@ export default function RightChat({ message, imgSrc, sources, isDark }: Props) {
 
   return (
     <div className='flex justify-end pr-2'>
-      <div className='flex gap-x-2 max-w-2xl w-2/3 justify-end'>
+      <div
+        className={cn(
+          'flex items-end gap-y-1 gap-x-2 max-w-3xl w-[80%] justify-end',
+          'flex-col-reverse sm:flex-row md:flex-col-reverse lg:flex-col-reverse xl:flex-row',
+          'sm:items-start md:items-end lg:items-end xl:items-start'
+        )}
+      >
         <CardWrapper
           className={cn('p-2.5', { 'border-transparent': isDark })}
           style={{

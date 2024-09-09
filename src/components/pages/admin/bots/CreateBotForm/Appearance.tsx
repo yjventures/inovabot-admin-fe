@@ -36,7 +36,7 @@ export default function Appearance() {
       <Input name='embedding_url' label='Embedding URL Slug' placeholder='Edit Embedding URL Slug...' required />
 
       <Label className='mt-4 mb-2 inline-block text-lg'>Logo and Backgrounds</Label>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-4'>
         {logoVal ? (
           <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo_light', '')} aspect='square' />
         ) : (
@@ -50,7 +50,7 @@ export default function Appearance() {
         )}
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-4'>
         {botLogoVal ? (
           <ImagePreviewer imgSrc={botLogoVal} onClick={() => setValue('bot_logo', '')} aspect='square' />
         ) : (
@@ -64,7 +64,7 @@ export default function Appearance() {
         )}
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-4'>
         {bgLightVal ? (
           <ImagePreviewer imgSrc={bgLightVal} onClick={() => setValue('bg_light', '')} />
         ) : (
@@ -79,7 +79,7 @@ export default function Appearance() {
       </div>
 
       <Label className='mt-4 mb-2 inline-block text-lg'>Colors</Label>
-      <div className='grid grid-cols-3 gap-x-3'>
+      <div className='grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-3 gap-y-2'>
         <ColorInput name='primary_color' label='Primary Color' required defaultValue='#9eb0ff' />
         <ColorInput name='secondary_color' label='Secondary Color' required defaultValue='#e1e1f9' />
         <ColorInput name='font_color' label='Font Color' required defaultValue='#000000' />

@@ -64,8 +64,8 @@ export default function CreateBotForm() {
         }
       />
 
-      <div className='flex gap-x-5'>
-        <FormWrapper className='w-1/2'>
+      <div className='flex flex-col md:flex-row gap-x-5 relative gap-y-10'>
+        <FormWrapper className='w-full md:w-1/2 order-2 md:order-1'>
           <General
             company_id={company_id}
             setcompany_id={setcompany_id}
@@ -76,7 +76,7 @@ export default function CreateBotForm() {
           <LLMSettings />
           <Advanced />
         </FormWrapper>
-        <div className='w-1/2'>
+        <div className='w-full md:w-1/2 relative md:sticky right-0 top-0 md:top-20 scroll-pt-24 h-auto md:h-screen order-1 md:order-2 overflow-y-auto'>
           <ChatPreview />
         </div>
       </div>

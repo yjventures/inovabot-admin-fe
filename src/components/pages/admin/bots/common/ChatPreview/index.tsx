@@ -78,7 +78,10 @@ export default function ChatPreview() {
 
       <div className='space-y-5 py-5'>
         <RightChat
-          message={first_message || 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, hic.'}
+          message={
+            first_message ||
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, hic.  nulla officia, eligendi rem vel nostrum modi! D'
+          }
           imgSrc={user_logo}
           sources={{ primary_color, primary_color_dark, font_color, font_color_dark }}
           isDark={isDark}
