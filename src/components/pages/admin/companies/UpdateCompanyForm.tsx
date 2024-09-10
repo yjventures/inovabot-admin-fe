@@ -6,15 +6,14 @@ import ImagePreviewer from '@/components/reusable/form/image-previewer'
 import { Input } from '@/components/reusable/form/input'
 import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
-import { Img } from '@/components/ui/img'
 import Typography from '@/components/ui/typography'
 import usePush from '@/hooks/usePush'
 import { useGetCompanyQuery, useUpdateCompanyMutation } from '@/redux/features/companiesApi'
 import { ICompany } from '@/types/ICompany'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { PencilLine, X } from 'lucide-react'
+import { PencilLine } from 'lucide-react'
 import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -79,12 +78,12 @@ export default function UpdateCompanyForm() {
           {logoVal ? (
             <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo', null)} aspect='square' />
           ) : (
-            <DnDUpload name='logo' text='Company Logo Light Mode' />
+            <DnDUpload name='logo' text='Company Logo Light Mode' required description='(3000 x 300)' />
           )}
           {darkLogoVal ? (
             <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('dark_logo', null)} aspect='square' />
           ) : (
-            <DnDUpload name='logo' text='Company Logo Light Mode' />
+            <DnDUpload name='logo' text='Company Logo Light Mode' description='(3000 x 300)' />
           )}
         </div>
         <Input name='name' required label='Company Name' placeholder='Enter company name' />

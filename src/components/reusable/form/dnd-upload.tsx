@@ -2,7 +2,6 @@
 
 import animationData from '@/assets/lottie/imageUploading.json'
 import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import Overlay from '@/components/ui/overlay'
 import { cn } from '@/lib/utils'
 import { uploadFile } from '@/utils/files/uploadFile'
@@ -25,6 +24,7 @@ interface Props {
   label?: string
   required?: boolean
   id?: string
+  description?: string
 }
 
 const DnDUpload = ({
@@ -37,6 +37,7 @@ const DnDUpload = ({
   className,
   labelClassName,
   containerClassName,
+  description,
   id,
   cb = () => {},
   ...rest
@@ -121,9 +122,12 @@ const DnDUpload = ({
                     <ImageIcon className='text-foreground' size={20} strokeWidth={2} />
                   )}
                 </div>
-                <p className='text-text-gray-light'>
-                  {text || 'Drag and drop file here, or click the button below to select file'}
-                </p>
+                <div className='space-y-1'>
+                  <p className='text-text-gray-light'>
+                    {text || 'Drag and drop file here, or click the button below to select file'}
+                  </p>
+                  <p className='text-text-gray font-medium italic'>{description}</p>
+                </div>
               </div>
             )}
           </div>

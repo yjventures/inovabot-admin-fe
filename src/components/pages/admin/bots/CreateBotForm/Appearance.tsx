@@ -38,13 +38,13 @@ export default function Appearance() {
         {logoVal ? (
           <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo_light', '')} aspect='square' />
         ) : (
-          <DnDUpload name='logo_light' text='Light Mode Logo*' required />
+          <DnDUpload name='logo_light' text='Light Mode Logo*' required description='(3000 x 300)' />
         )}
 
         {darkLogoVal ? (
           <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('logo_dark', '')} aspect='square' />
         ) : (
-          <DnDUpload name='logo_dark' text='Dark Mode Logo' />
+          <DnDUpload name='logo_dark' text='Dark Mode Logo' description='(3000 x 300)' />
         )}
       </div>
 
@@ -52,13 +52,13 @@ export default function Appearance() {
         {botLogoVal ? (
           <ImagePreviewer imgSrc={botLogoVal} onClick={() => setValue('bot_logo', '')} aspect='square' />
         ) : (
-          <DnDUpload name='bot_logo' text='Bot Logo*' required />
+          <DnDUpload name='bot_logo' text='Bot Logo*' required description='(48 x 48)' />
         )}
 
         {userLogoVal ? (
           <ImagePreviewer imgSrc={userLogoVal} onClick={() => setValue('user_logo', '')} aspect='square' />
         ) : (
-          <DnDUpload name='user_logo' text='User Logo*' required />
+          <DnDUpload name='user_logo' text='User Logo*' required description='(48 x 48)' />
         )}
       </div>
 
@@ -66,13 +66,13 @@ export default function Appearance() {
         {bgLightVal ? (
           <ImagePreviewer imgSrc={bgLightVal} onClick={() => setValue('bg_light', '')} />
         ) : (
-          <DnDUpload name='bg_light' text='Background Image(Light)' />
+          <DnDUpload name='bg_light' text='Background Image(Light)' description='(1920 x 1080)' />
         )}
 
         {bgDarkVal ? (
           <ImagePreviewer imgSrc={bgDarkVal} onClick={() => setValue('bg_dark', '')} />
         ) : (
-          <DnDUpload name='bg_dark' text='Background Image(Dark)' />
+          <DnDUpload name='bg_dark' text='Background Image(Dark)' description='(1920 x 1080)' />
         )}
       </div>
 
