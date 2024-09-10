@@ -78,12 +78,12 @@ export default function UpdateCompanyForm() {
           {logoVal ? (
             <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo', null)} aspect='square' />
           ) : (
-            <DnDUpload name='logo' text='Company Logo Light Mode' required description='(300 x 3000)' />
+            <DnDUpload name='logo' text='Company Logo Light Mode' required description='(300 x 300)' />
           )}
           {darkLogoVal ? (
             <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('dark_logo', null)} aspect='square' />
           ) : (
-            <DnDUpload name='logo' text='Company Logo Light Mode' description='(300 x 3000)' />
+            <DnDUpload name='logo' text='Company Logo Light Mode' description='(300 x 300)' />
           )}
         </div>
         <Input name='name' required label='Company Name' placeholder='Enter company name' />

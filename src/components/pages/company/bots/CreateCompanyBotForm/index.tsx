@@ -15,7 +15,6 @@ import toast from 'react-hot-toast'
 import ChatPreview from '../common/ChatPreview'
 import Advanced from './Advanced'
 import Appearance from './Appearance'
-import General from './General'
 import LLMSettings from './LLMSettings'
 
 export default function CreateCompanyBotForm() {
@@ -63,14 +62,13 @@ export default function CreateCompanyBotForm() {
         }
       />
 
-      <div className='flex gap-x-5'>
-        <FormWrapper className='w-1/2'>
-          <General category={category} setcategory={setcategory} />
+      <div className='flex flex-col md:flex-row gap-x-5 relative gap-y-10'>
+        <FormWrapper className='w-full md:w-1/2 order-2 md:order-1'>
           <Appearance />
           <LLMSettings />
           <Advanced language={language} setlanguage={setlanguage} />
         </FormWrapper>
-        <div className='w-1/2'>
+        <div className='w-full md:w-1/2 relative md:sticky right-0 top-0 md:top-20 scroll-pt-24 h-auto md:h-screen order-1 md:order-2 overflow-y-auto'>
           <ChatPreview />
         </div>
       </div>
