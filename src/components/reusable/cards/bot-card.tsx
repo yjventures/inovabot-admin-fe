@@ -82,7 +82,6 @@ export default function BotCard({
         </div>
 
         <CardCeparatorBorder />
-        <CardBetween left='Model' right={model} />
         <CardBetween left='Created' right={formateDate(createdAt)} />
       </CardWrapper>
       <ConfirmationPrompt

@@ -25,7 +25,7 @@ export default function CreateBotForm() {
 
   const [company_id, setcompany_id] = useState('')
   const methods = useForm<IBot>()
-  const { handleSubmit } = methods
+  const { handleSubmit, reset } = methods
 
   useEffect(() => {
     if (params.has('companyId')) setcompany_id(params.get('companyId') as string)
@@ -43,6 +43,11 @@ export default function CreateBotForm() {
     console.log(data)
   }
 
+  const discardChanges = () => {
+    reset()
+    push('/admin/bots')
+  }
+
   useEffect(() => {
     if (isSuccess) {
       toast.success('Bot created successfully')
@@ -58,7 +63,9 @@ export default function CreateBotForm() {
         title='Add an Assistant'
         extra={
           <>
-            <Button variant='destructive'>Discard</Button>
+            <Button variant='destructive' onClick={discardChanges}>
+              Discard
+            </Button>
             <Button variant='gradient' icon={<ArrowRight />} iconPosition='right' type='submit' isLoading={isLoading}>
               Proceed to Knowledgebase
             </Button>

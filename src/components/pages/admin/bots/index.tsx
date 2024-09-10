@@ -189,7 +189,6 @@ export default function AllBots() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Bot</TableHead>
-                    <TableHead>Model</TableHead>
                     <TableHead>Created</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
@@ -204,7 +203,6 @@ export default function AllBots() {
                         <TableCell>
                           <Intro title={bot?.name!} description={<Badge>{bot?.category}</Badge>} imgSrc={imgSrc} />
                         </TableCell>
-                        <TableCell>{bot?.model}</TableCell>
                         <TableCell>{formateDate(bot?.createdAt! as unknown as string, true)}</TableCell>
                         <TableCell className='text-right'>
                           <TableActions>

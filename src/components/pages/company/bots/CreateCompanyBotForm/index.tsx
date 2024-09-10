@@ -21,7 +21,7 @@ import LLMSettings from './LLMSettings'
 export default function CreateCompanyBotForm() {
   const push = usePush()
   const methods = useForm<IBot>()
-  const { handleSubmit } = methods
+  const { handleSubmit, reset } = methods
 
   const [category, setcategory] = useState<string | undefined>(undefined)
 
@@ -30,6 +30,11 @@ export default function CreateCompanyBotForm() {
   const onSubmit = (data: IBot) => {
     if (!category) return toast.error('Please select a category!')
     createBot({ ...data, category })
+  }
+
+  const discardChanges = () => {
+    reset()
+    push('/company/bots')
   }
 
   useEffect(() => {
@@ -47,7 +52,9 @@ export default function CreateCompanyBotForm() {
         title='Add an Assistant'
         extra={
           <>
-            <Button variant='destructive'>Discard</Button>
+            <Button variant='destructive' onClick={discardChanges}>
+              Discard
+            </Button>
             <Button variant='gradient' icon={<ArrowRight />} iconPosition='right' type='submit' isLoading={isLoading}>
               Proceed to Knowledgebase
             </Button>

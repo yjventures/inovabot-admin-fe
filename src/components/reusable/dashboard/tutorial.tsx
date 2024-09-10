@@ -2,7 +2,6 @@
 
 import tutorialBg from '@/assets/images/common/dashboard/tutorial-bg.png'
 import { Button } from '@/components/ui/button'
-import LLink from '@/components/ui/llink'
 import Typography from '@/components/ui/typography'
 import YoutubeEmbed from '@/components/ui/youtube-embed'
 import { cn } from '@/lib/utils'
@@ -36,11 +35,11 @@ export default function Tutorial({ videoId, title, description, ctaLabel, ctaHre
           {title}
         </Typography>
         <p className='text-lg font-normal text-white'>{description}</p>
-        <LLink href={ctaHref}>
-          <Button variant='unstyled' className='bg-orange-dark text-white px-8'>
-            {ctaLabel}
-          </Button>
-        </LLink>
+        {/* <LLink href={ctaHref}> */}
+        <Button variant='unstyled' className='bg-orange-dark text-white px-8' disabled>
+          {ctaLabel}
+        </Button>
+        {/* </LLink> */}
       </div>
     </section>
   )

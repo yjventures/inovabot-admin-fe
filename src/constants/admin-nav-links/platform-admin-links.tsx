@@ -1,4 +1,4 @@
-import { BaggageClaim, Blocks, Boxes, MessagesSquare, ChartBarStacked } from 'lucide-react'
+import { BaggageClaim, Blocks, Boxes, ChartBarStacked, MessagesSquare } from 'lucide-react'
 import { AdminLink } from '.'
 
 export const platformAdminLinks: Array<AdminLink> = [
@@ -26,7 +26,10 @@ export const platformAdminLinks: Array<AdminLink> = [
     href: '/admin/bots',
     hasChildren: true,
     icon: MessagesSquare,
-    childrenLinks: [{ id: 1, label: 'Create', href: '/admin/bots/create' }]
+    childrenLinks: [
+      { id: 1, label: 'View All', href: '/admin/bots' },
+      { id: 2, label: 'Create', href: '/admin/bots/create' }
+    ]
   },
   {
     id: 4,
@@ -34,7 +37,10 @@ export const platformAdminLinks: Array<AdminLink> = [
     hasChildren: true,
     icon: Boxes,
     href: '/admin/packages',
-    childrenLinks: [{ id: 1, label: 'Create', href: '/admin/packages/create' }]
+    childrenLinks: [
+      { id: 1, label: 'View all', href: '/admin/packages' },
+      { id: 2, label: 'Create', href: '/admin/packages/create' }
+    ]
   },
   {
     id: 5,

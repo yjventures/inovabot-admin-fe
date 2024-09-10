@@ -22,7 +22,10 @@ export const companyAdminLinks: Array<AdminLink> = [
     href: '/company/bots',
     hasChildren: true,
     icon: MessagesSquare,
-    childrenLinks: [{ id: 1, label: 'Create', href: '/company/bots/create' }]
+    childrenLinks: [
+      { id: 1, label: 'View All', href: '/company/bots' },
+      { id: 2, label: 'Create', href: '/company/bots/create' }
+    ]
   },
   {
     id: 4,
@@ -30,7 +33,10 @@ export const companyAdminLinks: Array<AdminLink> = [
     hasChildren: true,
     icon: Users,
     href: '/company/team',
-    childrenLinks: [{ id: 1, label: 'Add Team Member', href: '/company/team/invite' }]
+    childrenLinks: [
+      { id: 1, label: 'View all', href: '/company/team' },
+      { id: 2, label: 'Add Team Member', href: '/company/team/invite' }
+    ]
   },
   {
     id: 5,

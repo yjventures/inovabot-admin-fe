@@ -1,7 +1,7 @@
 'use client'
 
 import { IUser } from '@/types/IUser'
-import { AlignRight, Bell, CalendarDays, Mail, MessageSquareMore, Search } from 'lucide-react'
+import { AlignRight, Search } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
 import UserInfo from './UserInfo'
 
@@ -22,15 +22,14 @@ export default function AdminTopNav({ user, navbarOpen, setnavbarOpen }: Props) 
       </div>
 
       <div className='flex items-center justify-end gap-4 w-auto md:w-full'>
-        <div className='flex items-center gap-4 text-text-primary-muted'>
+        {/* <div className='flex items-center gap-4 text-text-primary-muted'>
           <CalendarDays className='size-6' />
           <Bell className='size-6' />
           <Mail className='size-6' />
           <MessageSquareMore className='size-6' />
-          {/* <ThemeChanger /> */}
-        </div>
+        </div> */}
 
-        <div className='w-px h-10 bg-gray-primary bg-opacity-40' />
+        {/* <div className='w-px h-10 bg-gray-primary bg-opacity-40' /> */}
 
         <UserInfo user={user} className='hidden md:flex mr-3' />
 
