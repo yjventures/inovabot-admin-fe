@@ -4,7 +4,6 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import { Button } from '@/components/ui/button'
-import Typography from '@/components/ui/typography'
 import usePush from '@/hooks/usePush'
 import { useGetBotQuery, useUpdateBotMutation } from '@/redux/features/botsApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
@@ -85,29 +84,21 @@ export default function UpdateBotForm() {
         }
       />
 
-      <Typography variant='h4' className='mb-4'>
-        Chatbot Preview
-      </Typography>
+      <div className='flex flex-col md:flex-row gap-x-5 relative gap-y-10'>
+        <FormWrapper className='w-full md:w-1/2 order-2 md:order-1'>
+          <UpdateAppearance />
+          <UpdateLLMSettings />
+          <UpdateAdvanced />
+        </FormWrapper>
+        <div className='w-full md:w-1/2 relative md:sticky right-0 top-0 md:top-20 scroll-pt-24 h-auto md:h-screen order-1 md:order-2 overflow-y-auto'>
+          <ChatPreview />
+        </div>
+      </div>
 
-      <div className='space-y-6'>
-        <ChatPreview />
+      <div className='space-y-6 mt-6'>
         <KnowledgeBase companyId={data?.data?.company_id!} id='knowledgeBase' />
         <FAQ companyId={data?.data?.company_id!} />
         <BotLinks />
-
-        <div className='flex justify-between gap-6'>
-          <div className='space-y-6 w-1/2'>
-            <FormWrapper>
-              <UpdateAppearance />
-            </FormWrapper>
-            <FormWrapper>
-              <UpdateLLMSettings />
-            </FormWrapper>
-          </div>
-          <FormWrapper className='w-1/2'>
-            <UpdateAdvanced />
-          </FormWrapper>
-        </div>
         <EmbeddedWidgets />
       </div>
     </Form>

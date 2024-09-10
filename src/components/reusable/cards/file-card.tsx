@@ -1,16 +1,16 @@
 'use client'
 
-import { Download, FileText, Trash2 } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
-import CardWrapper from './commonn/card-wrapper'
 import { cn } from '@/lib/utils'
-import CardPopover, { CardPopoverContent } from './commonn/card-popover'
-import { locallyDownloadFile } from '@/utils/files/locallyDownloadFile'
-import ConfirmationPrompt from '../dashboard/confirmation-prompt'
-import { formatFileSize } from '@/utils/files/formatFileSize'
 import { useDeleteBotFileMutation } from '@/redux/features/knowledgeBaseApi'
-import toast from 'react-hot-toast'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { formatFileSize } from '@/utils/files/formatFileSize'
+import { locallyDownloadFile } from '@/utils/files/locallyDownloadFile'
+import { Download, FileText, Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import ConfirmationPrompt from '../dashboard/confirmation-prompt'
+import CardPopover, { CardPopoverContent } from './commonn/card-popover'
+import CardWrapper from './commonn/card-wrapper'
 
 export interface IFile {
   _id: string
@@ -63,7 +63,7 @@ const FileCard = ({ file, variant = 'horizontal' }: Props) => {
             onClick={() => setopen(true)}
           />
         </CardPopover>
-        <FileText className='size-14 text-text-gray-light' strokeWidth={1} />
+        <FileText className='size-14 min-w-14 text-text-gray-light' strokeWidth={1} />
         <div className={cn('flex-1', { 'text-center': variant === 'vertical' })}>
           <p className='text-lg'>{name}</p>
           <p className='text-sm font-medium text-text-gray'>{formatFileSize(size)}</p>

@@ -39,6 +39,8 @@ export default function CreateBotForm() {
     if (!company_id) return toast.error('Please select a company!')
     if (!category) return toast.error('Please select a category!')
     createBot({ ...data, company_id, category })
+
+    console.log(data)
   }
 
   useEffect(() => {

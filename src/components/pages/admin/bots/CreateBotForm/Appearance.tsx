@@ -22,8 +22,6 @@ export default function Appearance() {
   const bgLightVal = watch('bg_light')
   const bgDarkVal = watch('bg_dark')
 
-  console.log(bgLightVal, bgDarkVal)
-
   const nameVal = watch('name')
   useEffect(() => {
     if (nameVal) setValue('embedding_url', slugify(nameVal))

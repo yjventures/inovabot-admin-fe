@@ -5,9 +5,10 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 import * as React from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 import FormFieldError from './form-field-error'
+// Start of Selection
 import FormLabel from './form-label'
 
-interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
+interface SliderProps extends Omit<React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>, 'defaultValue'> {
   containerClassName?: string
   name: string
   defaultValue?: number[]
@@ -28,13 +29,16 @@ const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, S
       control,
       formState: { errors }
     } = useFormContext()
+
+    // Using `useController` to handle the form state for the slider.
     const {
       field: { value, onChange }
     } = useController({ name, control: control, defaultValue, rules: { required } })
+
     return (
       <div className={containerClassName}>
         <FormLabel
-          label={`${label} ${value ? `(${value})` : ''} `}
+          label={`${label} ${value !== undefined ? `(${value})` : ''} `}
           labelClassName={labelClassName}
           name={id || name}
           required={required}
@@ -42,12 +46,11 @@ const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, S
         />
         <SliderPrimitive.Root
           ref={ref}
-          value={value}
-          onValueChange={onChange}
+          value={[value]} // Ensuring value is passed as an array for the slider
+          onValueChange={val => onChange(val[0])} // Destructuring the array to get the single value
           {...props}
           id={id || name}
           className={cn('relative flex w-full touch-none select-none items-center', className)}
-          {...props}
         >
           <SliderPrimitive.Track className='relative h-2 w-full grow overflow-hidden rounded-full bg-secondary'>
             <SliderPrimitive.Range className='absolute h-full bg-primary' />
@@ -59,6 +62,7 @@ const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, S
     )
   }
 )
+
 Slider.displayName = SliderPrimitive.Root.displayName
 
 export { Slider }

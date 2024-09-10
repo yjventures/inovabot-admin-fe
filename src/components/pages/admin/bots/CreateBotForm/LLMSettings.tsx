@@ -9,10 +9,11 @@ export default function LLMSettings() {
   return (
     <SingleAccordion value='llm-settings' label='LLM Settings'>
       <Input name='first_message' label='First Message' placeholder='First Message here...' />
-      <div className='flex items-center gap-x-2 w-full'>
+      <div className='flex items-center flex-col min-[450px]:flex-row gap-x-2 w-full'>
         <Slider
           name='temperature'
           label='Temperature'
+          defaultValue={0.5 as unknown as number[]}
           containerClassName='w-full'
           min={0}
           max={2}
@@ -22,6 +23,7 @@ export default function LLMSettings() {
         <Slider
           name='frequently_penalty'
           label='Frequently Penalty'
+          defaultValue={0.5 as unknown as number[]}
           containerClassName='w-full'
           min={-2}
           max={2}
@@ -29,10 +31,11 @@ export default function LLMSettings() {
           hint='Reduces repetition by penalizing frequent tokens'
         />
       </div>
-      <div className='flex items-center gap-x-2'>
+      <div className='flex items-center flex-col min-[450px]:flex-row gap-x-2'>
         <Slider
           name='top_p'
           label='Top Presence'
+          defaultValue={0.5 as unknown as number[]}
           containerClassName='w-full'
           min={0}
           max={1}

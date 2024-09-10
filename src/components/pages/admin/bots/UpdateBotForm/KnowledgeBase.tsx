@@ -30,15 +30,15 @@ export default function KnowledgeBase({ companyId, ...rest }: Props) {
         }
       />
 
-      <div className='flex gap-x-5 gap-y-3 justify-between'>
+      <div className='flex gap-x-5 flex-col md:flex-row gap-y-3 justify-between'>
         <DnDMultiUpload
           bot_id={id as string}
           accept='.pdf,.doc,.docx,.txt,.md'
-          containerClassName='max-w-md w-2/5'
+          containerClassName='max-w-full md:max-w-md w-full md:w-2/5'
           companyId={companyId}
         />
 
-        <div className='grid grid-cols-2 gap-3 w-3/5 items-start'>
+        <div className='grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3 w-full md:w-3/5 items-start'>
           {data?.data?.map(file => (
             <FileCard key={file._id} file={file} />
           ))}
