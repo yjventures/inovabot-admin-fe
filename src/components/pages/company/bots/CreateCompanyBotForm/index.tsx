@@ -24,6 +24,7 @@ export default function CreateCompanyBotForm() {
   const { handleSubmit, reset } = methods
 
   const [category, setcategory] = useState<string | undefined>(undefined)
+  const [language, setlanguage] = useState<'en' | 'ar'>('en')
 
   const [createBot, { isLoading, isSuccess, isError, error, data }] = useCreateBotMutation()
 
@@ -67,7 +68,7 @@ export default function CreateCompanyBotForm() {
           <General category={category} setcategory={setcategory} />
           <Appearance />
           <LLMSettings />
-          <Advanced />
+          <Advanced language={language} setlanguage={setlanguage} />
         </FormWrapper>
         <div className='w-1/2'>
           <ChatPreview />

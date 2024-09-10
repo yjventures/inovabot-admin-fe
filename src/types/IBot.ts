@@ -29,7 +29,7 @@ export interface IBot {
   avg_message_length?: number
   tone_and_style?: string
   framework?: string
-  language?: string
+  language: 'en' | 'ar'
   dark_mode?: boolean
   bot_avatar?: string
   user_avatar?: string

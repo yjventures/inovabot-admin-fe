@@ -1,4 +1,5 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+
 import { HelpCircle } from 'lucide-react'
 import { ReactNode } from 'react'
 
@@ -8,15 +9,16 @@ interface Props {
 
 export default function Hint({ children }: Props) {
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger>
-          <HelpCircle className='size-4 text-text-gray' />
-        </TooltipTrigger>
-        <TooltipContent>
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        {' '}
+        <HelpCircle className='size-4 text-text-gray' />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem className='max-w-80'>
           <p className='text-text-gray text-sm font-medium'>{children}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

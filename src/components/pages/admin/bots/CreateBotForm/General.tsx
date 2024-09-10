@@ -25,7 +25,7 @@ export default function General({ category, setcategory, company_id, setcompany_
 
   return (
     <SingleAccordion value='general' label='General'>
-      <div className='grid grid-cols-2 gap-x-2'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-2'>
         <div>
           <p className='text-sm font-medium mb-1.5 text-text-secondary'>Company*</p>
           <Popover open={open} onOpenChange={setOpen}>

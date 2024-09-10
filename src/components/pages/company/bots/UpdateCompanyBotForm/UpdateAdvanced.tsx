@@ -4,11 +4,26 @@ import { Input } from '@/components/reusable/form/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/reusable/form/select'
 import SingleAccordion from '@/components/reusable/form/single-accordion'
 import { Textarea } from '@/components/reusable/form/textarea'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
 import { formattingOrStructures, frameworkOrModels, toneAndStyles } from '@/constants/bot'
 
-export default function UpdateAdvanced() {
+interface Props {
+  language: 'en' | 'ar'
+  setlanguage: (language: 'en' | 'ar') => void
+}
+
+export default function UpdateAdvanced({ language, setlanguage }: Props) {
   return (
     <SingleAccordion value='advanced' label='Advanced'>
+      <div className='mb-4'>
+        <Label className='text-text-gray mb-2 inline-block'>Output should be in:</Label>
+        <div className='flex items-center gap-x-3'>
+          <p>English</p>
+          <Switch checked={language === 'ar'} onCheckedChange={e => setlanguage(e ? 'ar' : 'en')} />
+          <p>Arabic</p>
+        </div>
+      </div>
       <Input name='sounds_like' label='Sounds like' placeholder='Sounds like' />
       <Textarea name='context' label='Context' placeholder='Type Context here...' rows={4} />
       <Select name='tone_and_style' label='Tone & Style'>

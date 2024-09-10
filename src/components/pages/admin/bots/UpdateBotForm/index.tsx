@@ -9,7 +9,7 @@ import { useGetBotQuery, useUpdateBotMutation } from '@/redux/features/botsApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { PencilLine } from 'lucide-react'
 import { useParams, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { scroller } from 'react-scroll'
@@ -27,6 +27,9 @@ export default function UpdateBotForm() {
   const from = params.get('from')
   const push = usePush()
   const { id } = useParams()
+
+  const [language, setlanguage] = useState<'en' | 'ar'>('en')
+
   const { data, isSuccess } = useGetBotQuery(id as string)
   const methods = useForm()
   const { handleSubmit, reset } = methods
@@ -45,6 +48,7 @@ export default function UpdateBotForm() {
   useEffect(() => {
     if (isSuccess) {
       reset(data?.data)
+      setlanguage(data?.data?.language)
     }
   }, [data, isSuccess, reset])
 
@@ -88,7 +92,7 @@ export default function UpdateBotForm() {
         <FormWrapper className='w-full md:w-1/2 order-2 md:order-1'>
           <UpdateAppearance />
           <UpdateLLMSettings />
-          <UpdateAdvanced />
+          <UpdateAdvanced language={language} setlanguage={setlanguage} />
         </FormWrapper>
         <div className='w-full md:w-1/2 relative md:sticky right-0 top-0 md:top-20 scroll-pt-24 h-auto md:h-screen order-1 md:order-2 overflow-y-auto'>
           <ChatPreview />

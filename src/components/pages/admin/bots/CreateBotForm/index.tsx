@@ -24,6 +24,9 @@ export default function CreateBotForm() {
   const params = useSearchParams()
 
   const [company_id, setcompany_id] = useState('')
+  const [category, setcategory] = useState<string | undefined>(undefined)
+  const [language, setlanguage] = useState<'en' | 'ar'>('en')
+
   const methods = useForm<IBot>()
   const { handleSubmit, reset } = methods
 
@@ -31,16 +34,12 @@ export default function CreateBotForm() {
     if (params.has('companyId')) setcompany_id(params.get('companyId') as string)
   }, [params])
 
-  const [category, setcategory] = useState<string | undefined>(undefined)
-
   const [createBot, { isLoading, isSuccess, isError, error, data }] = useCreateBotMutation()
 
   const onSubmit = (data: IBot) => {
     if (!company_id) return toast.error('Please select a company!')
     if (!category) return toast.error('Please select a category!')
-    createBot({ ...data, company_id, category })
-
-    console.log(data)
+    createBot({ ...data, company_id, category, language })
   }
 
   const discardChanges = () => {
@@ -83,7 +82,7 @@ export default function CreateBotForm() {
           />
           <Appearance />
           <LLMSettings />
-          <Advanced />
+          <Advanced language={language} setlanguage={setlanguage} />
         </FormWrapper>
         <div className='w-full md:w-1/2 relative md:sticky right-0 top-0 md:top-20 scroll-pt-24 h-auto md:h-screen order-1 md:order-2 overflow-y-auto'>
           <ChatPreview />

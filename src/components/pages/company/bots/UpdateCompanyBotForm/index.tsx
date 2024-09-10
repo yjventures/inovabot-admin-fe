@@ -10,7 +10,7 @@ import { useGetBotQuery, useUpdateBotMutation } from '@/redux/features/botsApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { PencilLine } from 'lucide-react'
 import { useParams, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { scroller } from 'react-scroll'
@@ -30,7 +30,8 @@ export default function UpdateCompanyBotForm() {
   const { id } = useParams()
   const { data, isSuccess } = useGetBotQuery(id as string)
 
-  console.log(data?.totalStorage)
+  const [language, setlanguage] = useState<'en' | 'ar'>('en')
+
   const methods = useForm()
   const { handleSubmit, reset } = methods
 
@@ -48,6 +49,7 @@ export default function UpdateCompanyBotForm() {
   useEffect(() => {
     if (isSuccess) {
       reset(data?.data)
+      setlanguage(data?.data?.language)
     }
   }, [data, isSuccess, reset])
 
@@ -107,7 +109,7 @@ export default function UpdateCompanyBotForm() {
             </FormWrapper>
           </div>
           <FormWrapper className='w-1/2'>
-            <UpdateAdvanced />
+            <UpdateAdvanced language={language} setlanguage={setlanguage} />
           </FormWrapper>
         </div>
         <EmbeddedWidgets />
