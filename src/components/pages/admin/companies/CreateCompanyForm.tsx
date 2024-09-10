@@ -86,13 +86,13 @@ export default function CreateCompanyForm() {
           {logoVal ? (
             <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo', '')} aspect='square' />
           ) : (
-            <DnDUpload name='logo' label='Company Logo Light Mode' required description='(3000 x 300)' />
+            <DnDUpload name='logo' label='Company Logo Light Mode' required description='(300 x 3000)' />
           )}
 
           {darkLogoVal ? (
             <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('logo_dark', '')} aspect='square' />
           ) : (
-            <DnDUpload name='logo_dark' label='Company Logo Dark Mode' description='(3000 x 300)' />
+            <DnDUpload name='logo_dark' label='Company Logo Dark Mode' description='(300 x 3000)' />
           )}
         </div>
         <Input name='name' required label='Company Name' placeholder='Enter company name' />

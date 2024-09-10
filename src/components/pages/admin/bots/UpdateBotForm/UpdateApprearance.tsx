@@ -37,13 +37,13 @@ export default function UpdateAppearance() {
         {logoVal ? (
           <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo_light', '')} aspect='square' />
         ) : (
-          <DnDUpload name='logo_light' text='Light Mode Logo*' required description='(3000 x 300)' />
+          <DnDUpload name='logo_light' text='Light Mode Logo*' required description='(300 x 3000)' />
         )}
 
         {darkLogoVal ? (
           <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('logo_dark', '')} aspect='square' />
         ) : (
-          <DnDUpload name='logo_dark' text='Dark Mode Logo' description='(3000 x 300)' />
+          <DnDUpload name='logo_dark' text='Dark Mode Logo' description='(300 x 3000)' />
         )}
       </div>
 
