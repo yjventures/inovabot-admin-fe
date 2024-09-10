@@ -57,8 +57,8 @@ export default function CompanyInviteForm() {
         <MailCheck size={72} strokeWidth={0.8} className='text-emerald-primary' />
         <Typography variant='h4'>Check your email</Typography>
         <p className='text-text-gray'>
-          We&apos;ve send you an email with the verification link, please open it and click on the link and signup with
-          the temporary password
+          We&apos;ve send an email to the user with verification link, he can open it and click on the link and signup
+          with the temporary password
         </p>
       </FormWrapper>
     </div>
