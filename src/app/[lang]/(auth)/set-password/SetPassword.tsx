@@ -4,7 +4,7 @@ import Form from '@/components/reusable/form/form'
 import { Input } from '@/components/reusable/form/input'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
-import { BOT_URL } from '@/configs'
+import { LANDING_URL } from '@/configs'
 import usePush from '@/hooks/usePush'
 import { useResetPasswordMutation } from '@/redux/features/authApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
@@ -25,7 +25,7 @@ export default function SetPassword() {
   useEffect(() => {
     if (isSuccess) {
       toast.success('Password updated successfully')
-      redirect(`${BOT_URL.split('/bot')[0]}/login`)
+      redirect(`${LANDING_URL}/login`)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))

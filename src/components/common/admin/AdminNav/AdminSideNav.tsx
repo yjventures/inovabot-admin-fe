@@ -3,9 +3,11 @@
 import logo from '@/assets/images/common/logo.png'
 import { Button } from '@/components/ui/button'
 import { Img } from '@/components/ui/img'
+import { LANDING_URL } from '@/configs'
 import { AdminLink } from '@/constants/admin-nav-links'
 import usePush from '@/hooks/usePush'
 import { getCookie } from 'cookies-next'
+import { redirect } from 'next/navigation'
 import { Dispatch, SetStateAction } from 'react'
 import toast from 'react-hot-toast'
 import { useAppDispatch } from '../../../../redux/hooks/index'
@@ -28,7 +30,9 @@ export default function AdminSideNav({ currentLink, links, setnavbarOpen }: Prop
   const handleLogout = () => {
     logoutActions(dispatch, () => {
       toast.success('Logged out successfully!')
-      push('/')
+      setTimeout(() => {
+        redirect(`${LANDING_URL}/logout`)
+      }, 100)
     })
   }
 
