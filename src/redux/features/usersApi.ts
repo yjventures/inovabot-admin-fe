@@ -22,6 +22,7 @@ const usersApi = api.injectEndpoints({
       }),
       invalidatesTags: ['users']
     })
+    // getOwnProfile:
   })
 })
 

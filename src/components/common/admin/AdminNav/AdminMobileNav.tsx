@@ -2,14 +2,13 @@ import logo from '@/assets/images/common/logo.png'
 import { Button } from '@/components/ui/button'
 import { Img } from '@/components/ui/img'
 import LLink from '@/components/ui/llink'
-import { LANDING_URL } from '@/configs'
 import { AdminLink } from '@/constants/admin-nav-links'
+import usePush from '@/hooks/usePush'
 import { cn } from '@/lib/utils'
 import { useAppDispatch } from '@/redux/hooks'
 import { IUser } from '@/types/IUser'
 import { logoutActions } from '@/utils/auth/logoutActions'
 import { X } from 'lucide-react'
-import { redirect } from 'next/navigation'
 import { Dispatch, SetStateAction } from 'react'
 import toast from 'react-hot-toast'
 import AdminLinks from './AdminLinks'
@@ -25,12 +24,13 @@ interface Props {
 
 export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, currentLink, links }: Props) {
   const dispatch = useAppDispatch()
+  const push = usePush()
 
   const handleLogout = () => {
     logoutActions(dispatch, () => {
       toast.success('Logged out successfully!')
       setnavbarOpen(false)
-      redirect(`${LANDING_URL}/logout`)
+      push('/check-token?to=logout')
     })
   }
 
