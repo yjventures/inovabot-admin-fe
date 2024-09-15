@@ -105,6 +105,8 @@ export default function CompanyDetailsForCompnay() {
           <CardGrid className='mt-5'>
             {botsData?.data?.map(bot => (
               <BotCard
+                logo_light={bot.logo_light!}
+                logo_dark={bot.logo_dark!}
                 _id={bot?._id!}
                 key={bot._id}
                 name={bot.name!}

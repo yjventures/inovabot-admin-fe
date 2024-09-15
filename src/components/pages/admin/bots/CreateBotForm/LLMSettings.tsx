@@ -4,8 +4,14 @@ import { Input } from '@/components/reusable/form/input'
 import SingleAccordion from '@/components/reusable/form/single-accordion'
 import { Slider } from '@/components/reusable/form/slider'
 import { Textarea } from '@/components/reusable/form/textarea'
+import { useEffect } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 export default function LLMSettings() {
+  const { setValue } = useFormContext()
+  useEffect(() => {
+    setValue('max_token', 1000)
+  }, [setValue])
   return (
     <SingleAccordion value='llm-settings' label='LLM Settings'>
       <Input name='first_message' label='First Message' placeholder='First Message here...' />
@@ -21,8 +27,8 @@ export default function LLMSettings() {
           hint='Controls randomness; higher values make output more creative'
         />
         <Slider
-          name='frequently_penalty'
-          label='Frequently Penalty'
+          name='frequency_penalty'
+          label='Frequency Penalty'
           defaultValue={0.5 as unknown as number[]}
           containerClassName='w-full'
           min={-2}

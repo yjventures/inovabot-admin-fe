@@ -25,7 +25,7 @@ export default function Advanced({ language, setlanguage }: Props) {
         </div>
       </div>
       <Input name='sounds_like' label='Sounds like' placeholder='Sounds like' />
-      <Textarea name='context' label='context' placeholder='Type Context here...' rows={4} />
+      <Textarea name='context' label='Context' placeholder='Type Context here...' rows={4} />
       <Select name='tone_and_style' label='Tone & Style'>
         <SelectTrigger>
           <SelectValue placeholder='Tone And Style' />

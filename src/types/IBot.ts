@@ -18,7 +18,7 @@ export interface IBot {
   max_token?: number
   stream?: boolean
   top_p?: number
-  frequently_penalty?: number
+  frequency_penalty?: number
   unique_id?: string
   first_message?: string
   context?: string

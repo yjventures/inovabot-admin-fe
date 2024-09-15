@@ -20,8 +20,8 @@ export default function UpdateLLMSettings() {
           hint='Controls randomness; higher values make output more creative'
         />
         <Slider
-          name='frequently_penalty'
-          label='Frequently Penalty'
+          name='frequency_penalty'
+          label='Frequency Penalty'
           containerClassName='w-full'
           min={-2}
           max={2}

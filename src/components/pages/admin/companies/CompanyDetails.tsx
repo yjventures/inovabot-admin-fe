@@ -141,6 +141,8 @@ export default function CompanyDetails() {
             {botsData?.data?.map(bot => (
               <BotCard
                 _id={bot?._id!}
+                logo_light={bot?.logo_light}
+                logo_dark={bot?.logo_dark}
                 key={bot._id}
                 name={bot.name!}
                 category={bot.category!}
