@@ -4,7 +4,8 @@ import { AdminLink, platformAdminLinks } from '@/constants/admin-nav-links'
 import { companyAdminLinks } from '@/constants/admin-nav-links/company-admin-links'
 import { companyEditorLinks } from '@/constants/admin-nav-links/company-editor-links'
 import { companyViewerLinks } from '@/constants/admin-nav-links/company-viewer-links'
-import { IUser } from '@/types/IUser'
+import { useGetUserQuery } from '@/redux/features/usersApi'
+import { getUserId } from '@/utils/auth/getUserId'
 import { getCookie } from 'cookies-next'
 import { useEffect, useState } from 'react'
 import AdminMobileNav from './AdminMobileNav'
@@ -16,8 +17,9 @@ interface Props {
 }
 
 export default function AdminNav({ currentLink }: Props) {
-  //const { data } = useGetAdminPersonalInfoQuery()
-  const data = {} as IUser
+  const { data } = useGetUserQuery(getUserId())
+  console.log(data.user)
+  //const data = {} as IUser
   const [navbarOpen, setnavbarOpen] = useState(false)
 
   const [links, setlinks] = useState<AdminLink[]>([])
@@ -42,9 +44,9 @@ export default function AdminNav({ currentLink }: Props) {
   return (
     <>
       <AdminSideNav currentLink={currentLink} links={links} setnavbarOpen={setnavbarOpen} />
-      <AdminTopNav user={data} navbarOpen={navbarOpen} setnavbarOpen={setnavbarOpen} />
+      <AdminTopNav user={data?.user} navbarOpen={navbarOpen} setnavbarOpen={setnavbarOpen} />
       <AdminMobileNav
-        user={data}
+        user={data?.user}
         navbarOpen={navbarOpen}
         setnavbarOpen={setnavbarOpen}
         currentLink={currentLink}

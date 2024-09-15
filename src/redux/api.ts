@@ -44,6 +44,7 @@ const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
   tagTypes: [
+    'user',
     'users',
     'companies',
     'company',

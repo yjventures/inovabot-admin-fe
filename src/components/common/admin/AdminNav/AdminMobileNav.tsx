@@ -55,7 +55,7 @@ export default function AdminMobileNav({ user, navbarOpen, setnavbarOpen, curren
           />
         </div>
 
-        <UserInfo user={user} className='flex md:hidden mb-5' darkBg />
+        <UserInfo user={user} className='flex md:hidden mb-5' />
 
         <AdminLinks links={links} currentLink={currentLink} setnavbarOpen={setnavbarOpen} />
       </div>
