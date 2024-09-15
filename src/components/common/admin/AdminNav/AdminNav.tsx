@@ -18,8 +18,6 @@ interface Props {
 
 export default function AdminNav({ currentLink }: Props) {
   const { data } = useGetUserQuery(getUserId())
-  console.log(data.user)
-  //const data = {} as IUser
   const [navbarOpen, setnavbarOpen] = useState(false)
 
   const [links, setlinks] = useState<AdminLink[]>([])

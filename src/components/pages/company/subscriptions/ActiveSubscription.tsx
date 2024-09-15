@@ -38,7 +38,6 @@ export default function ActiveSubscription() {
   useEffect(() => {
     if (isUpdateSuccess) {
       toast.success('Subscription updated successfully!')
-      console.log(updateData)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
