@@ -1,14 +1,18 @@
 'use client'
 
+import DnDUpload from '@/components/reusable/form/dnd-upload'
+import ImagePreviewer from '@/components/reusable/form/image-previewer'
 import { Input } from '@/components/reusable/form/input'
 import SingleAccordion from '@/components/reusable/form/single-accordion'
 import { Button } from '@/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import { Label } from '@/components/ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { Dispatch, SetStateAction, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 interface Props {
   category: string | undefined
@@ -16,8 +20,12 @@ interface Props {
 }
 
 export default function TemplateAppearance({ category, setcategory }: Props) {
+  const { watch, setValue } = useFormContext()
   const { data: categoriesListData } = useGetCategoriesQuery({})
   const [catOpen, setcatOpen] = useState<boolean>(false)
+
+  const logoVal = watch('logo_light')
+  const darkLogoVal = watch('logo_dark')
   return (
     <div>
       <SingleAccordion value='template-appearance' label='General'>
@@ -58,6 +66,21 @@ export default function TemplateAppearance({ category, setcategory }: Props) {
               </Command>
             </PopoverContent>
           </Popover>
+        </div>
+
+        <Label className='mt-4 mb-2 inline-block text-lg'>Logo</Label>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-4'>
+          {logoVal ? (
+            <ImagePreviewer imgSrc={logoVal} onClick={() => setValue('logo_light', '')} aspect='square' />
+          ) : (
+            <DnDUpload name='logo_light' text='Light Mode Logo' description='(300 x 300)' />
+          )}
+
+          {darkLogoVal ? (
+            <ImagePreviewer imgSrc={darkLogoVal} onClick={() => setValue('logo_dark', '')} aspect='square' />
+          ) : (
+            <DnDUpload name='logo_dark' text='Dark Mode Logo' description='(300 x 300)' />
+          )}
         </div>
       </SingleAccordion>
     </div>
