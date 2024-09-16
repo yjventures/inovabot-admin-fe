@@ -11,9 +11,7 @@ import Templates from './Templates'
 
 export default function AllTemplates() {
   const [params, setparams] = useState<IParams>(initParams({}))
-  const [search, setSearch] = useState<string>('')
-
-  const { data, isLoading, isSuccess } = useGetTemplatesQuery({ ...params, search })
+  const { data, isLoading, isSuccess } = useGetTemplatesQuery(params)
   const [mode, setmode] = useState<TableMode>('grid')
   return (
     <div>

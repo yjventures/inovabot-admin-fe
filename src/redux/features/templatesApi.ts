@@ -23,7 +23,7 @@ const templatesApi = api.injectEndpoints({
       }),
       invalidatesTags: ['templates']
     }),
-    getTemplate: build.query<{ template: WithId<ITemplate>; totalStorage: number }, string>({
+    getTemplate: build.query<{ template: WithId<ITemplate> }, string>({
       query: id => ({
         url: apiURL(rootApi, 'get', id)
       }),
