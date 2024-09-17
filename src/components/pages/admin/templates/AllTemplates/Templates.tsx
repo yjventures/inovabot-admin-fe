@@ -2,7 +2,7 @@
 
 import Badge from '@/components/reusable/cards/badge'
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
-import CompanyCardSkeletons from '@/components/reusable/cards/Skeletons/company-card-skeletons'
+import TemplateCardSkeletons from '@/components/reusable/cards/Skeletons/Template-card-skeletons'
 import TemplateCard from '@/components/reusable/cards/template-card'
 import Intro from '@/components/reusable/common/intro'
 import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
@@ -45,7 +45,7 @@ export default function Templates({ mode, isLoading, isSuccess, data, params, se
 
   return (
     <>
-      <CompanyCardSkeletons isLoading={isLoading} />
+      <TemplateCardSkeletons isLoading={isLoading} />
 
       {isSuccess && data?.data?.length ? (
         mode == 'grid' ? (
