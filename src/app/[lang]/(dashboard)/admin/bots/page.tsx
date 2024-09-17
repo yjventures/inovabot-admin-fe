@@ -3,7 +3,7 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Tutorial from '@/components/reusable/dashboard/tutorial'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
-import { PlusSquare } from 'lucide-react'
+import { PlusSquare, SquareDashedMousePointer } from 'lucide-react'
 
 export const metadata = {
   title: 'All Bots | Inova'
@@ -15,11 +15,18 @@ export default function BotsPage() {
       <DashboardHeading
         title='Chat Assistants'
         extra={
-          <LLink href='/admin/bots/create'>
-            <Button variant='gradient' icon={<PlusSquare />}>
-              Create Assistant
-            </Button>
-          </LLink>
+          <>
+            <LLink href='/admin/bots/choose-template'>
+              <Button variant='gradient' icon={<SquareDashedMousePointer />}>
+                Choose Templates
+              </Button>
+            </LLink>
+            <LLink href='/admin/bots/create'>
+              <Button variant='gradient' icon={<PlusSquare />}>
+                Create Assistant
+              </Button>
+            </LLink>
+          </>
         }
       />
       <Tutorial

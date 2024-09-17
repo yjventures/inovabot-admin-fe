@@ -4,11 +4,12 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import { Button } from '@/components/ui/button'
+import LLink from '@/components/ui/llink'
 import usePush from '@/hooks/usePush'
 import { useCreateBotMutation } from '@/redux/features/botsApi'
 import { IBot } from '@/types/IBot'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, SquareDashedMousePointer } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -65,6 +66,11 @@ export default function CreateBotForm() {
             <Button variant='destructive' onClick={discardChanges}>
               Discard
             </Button>
+            <LLink href='/admin/bots/choose-template'>
+              <Button variant='gradient' icon={<SquareDashedMousePointer />}>
+                Choose Templates
+              </Button>
+            </LLink>
             <Button variant='gradient' icon={<ArrowRight />} iconPosition='right' type='submit' isLoading={isLoading}>
               Proceed to Knowledgebase
             </Button>
