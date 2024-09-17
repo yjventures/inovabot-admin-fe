@@ -4,11 +4,14 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import { Button } from '@/components/ui/button'
+import LLink from '@/components/ui/llink'
 import usePush from '@/hooks/usePush'
 import { useCreateBotMutation } from '@/redux/features/botsApi'
+import { useGetTemplateQuery } from '@/redux/features/templatesApi'
 import { IBot } from '@/types/IBot'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, SquareDashedMousePointer } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -20,11 +23,30 @@ import LLMSettings from './LLMSettings'
 
 export default function CreateCompanyBotForm() {
   const push = usePush()
+  const params = useSearchParams()
   const methods = useForm<IBot>()
   const { handleSubmit, reset } = methods
 
   const [category, setcategory] = useState<string | undefined>(undefined)
   const [language, setlanguage] = useState<'en' | 'ar'>('en')
+
+  const [templateId, settemplateId] = useState<string | undefined>(undefined)
+  const [skip, setskip] = useState<boolean>(true)
+  const { data: templateData, isSuccess: isTemplateSuccess } = useGetTemplateQuery(templateId, { skip })
+
+  useEffect(() => {
+    if (params.has('template')) {
+      settemplateId(params.get('template') as string)
+      setskip(false)
+    }
+  }, [params])
+
+  useEffect(() => {
+    if (isTemplateSuccess) {
+      reset(templateData?.template)
+      setlanguage(templateData?.template?.language)
+    }
+  }, [templateData, isTemplateSuccess, reset])
 
   const [createBot, { isLoading, isSuccess, isError, error, data }] = useCreateBotMutation()
 
@@ -56,6 +78,11 @@ export default function CreateCompanyBotForm() {
             <Button variant='destructive' onClick={discardChanges}>
               Discard
             </Button>
+            <LLink href='/company/bots/choose-template'>
+              <Button variant='gradient' icon={<SquareDashedMousePointer />}>
+                {templateId ? 'Choose another Template' : 'Choose Template'}
+              </Button>
+            </LLink>
             <Button variant='gradient' icon={<ArrowRight />} iconPosition='right' type='submit' isLoading={isLoading}>
               Proceed to Knowledgebase
             </Button>

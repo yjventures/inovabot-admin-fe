@@ -36,8 +36,6 @@ export default function CreateBotForm() {
   const [skip, setskip] = useState<boolean>(true)
   const { data: templateData, isSuccess: isTemplateSuccess } = useGetTemplateQuery(templateId, { skip })
 
-  console.log(templateData)
-
   useEffect(() => {
     if (params.has('template')) {
       settemplateId(params.get('template') as string)
@@ -86,7 +84,7 @@ export default function CreateBotForm() {
             </Button>
             <LLink href='/admin/bots/choose-template'>
               <Button variant='gradient' icon={<SquareDashedMousePointer />}>
-                Choose Templates
+                {templateId ? 'Choose another Template' : 'Choose Template'}
               </Button>
             </LLink>
             <Button variant='gradient' icon={<ArrowRight />} iconPosition='right' type='submit' isLoading={isLoading}>

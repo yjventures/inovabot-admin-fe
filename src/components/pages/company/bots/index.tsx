@@ -25,7 +25,7 @@ import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { IParams } from '@/types/common/IParams'
 import { formateDate } from '@/utils/date/formateDate'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { Eye, PencilLine, PlusSquare, Trash2 } from 'lucide-react'
+import { Eye, PencilLine, PlusSquare, SquareDashedMousePointer, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -59,11 +59,18 @@ export default function CompnayAllBots() {
         title='Chat Assistants'
         extra={
           getUserRole() !== 'viewer' && (
-            <LLink href='/company/bots/create'>
-              <Button variant='gradient' icon={<PlusSquare />}>
-                Create Assistant
-              </Button>
-            </LLink>
+            <>
+              <LLink href='/company/bots/choose-template'>
+                <Button variant='gradient' icon={<SquareDashedMousePointer />}>
+                  Choose Template
+                </Button>
+              </LLink>
+              <LLink href='/company/bots/create'>
+                <Button variant='gradient' icon={<PlusSquare />}>
+                  Create Assistant
+                </Button>
+              </LLink>
+            </>
           )
         }
       />
