@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
 import usePush from '@/hooks/usePush'
 import { useCreateBotMutation } from '@/redux/features/botsApi'
+import { useGetTemplateQuery } from '@/redux/features/templatesApi'
 import { IBot } from '@/types/IBot'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { ArrowRight, SquareDashedMousePointer } from 'lucide-react'
@@ -31,9 +32,26 @@ export default function CreateBotForm() {
   const methods = useForm<IBot>()
   const { handleSubmit, reset } = methods
 
+  const [templateId, settemplateId] = useState<string | undefined>(undefined)
+  const [skip, setskip] = useState<boolean>(true)
+  const { data: templateData, isSuccess: isTemplateSuccess } = useGetTemplateQuery(templateId, { skip })
+
+  console.log(templateData)
+
   useEffect(() => {
+    if (params.has('template')) {
+      settemplateId(params.get('template') as string)
+      setskip(false)
+    }
     if (params.has('companyId')) setcompany_id(params.get('companyId') as string)
   }, [params])
+
+  useEffect(() => {
+    if (isTemplateSuccess) {
+      reset(templateData?.template)
+      setlanguage(templateData?.template?.language)
+    }
+  }, [templateData, isTemplateSuccess, reset])
 
   const [createBot, { isLoading, isSuccess, isError, error, data }] = useCreateBotMutation()
 
