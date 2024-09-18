@@ -4,6 +4,7 @@ import { AdminLink, platformAdminLinks } from '@/constants/admin-nav-links'
 import { companyAdminLinks } from '@/constants/admin-nav-links/company-admin-links'
 import { companyEditorLinks } from '@/constants/admin-nav-links/company-editor-links'
 import { companyViewerLinks } from '@/constants/admin-nav-links/company-viewer-links'
+import { resellerAdminLinks } from '@/constants/admin-nav-links/reseller-admin-links'
 import { useGetUserQuery } from '@/redux/features/usersApi'
 import { getUserId } from '@/utils/auth/getUserId'
 import { getCookie } from 'cookies-next'
@@ -37,6 +38,8 @@ export default function AdminNav({ currentLink }: Props) {
       } else {
         setlinks(companyEditorLinks)
       }
+    } else if (userRole === 'reseller') {
+      setlinks(resellerAdminLinks)
     }
   }, [])
   return (

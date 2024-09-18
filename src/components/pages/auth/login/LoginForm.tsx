@@ -41,6 +41,8 @@ export default function LoginForm() {
         push('/admin/dashboard')
       } else if (['company-admin', 'user'].includes(userRole)) {
         push('/company/dashboard')
+      } else if (userRole === 'reseller') {
+        push('/reseller/dashboard')
       }
     }
 
