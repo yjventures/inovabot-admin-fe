@@ -20,16 +20,17 @@ export default function SetPassword() {
   const params = useSearchParams()
   const id = params.has('id') && params.get('id')
 
-  const [checkPassword, { isLoading, isSuccess, isError, error }] = useResetPasswordMutation()
+  const [checkPassword, { isLoading, isSuccess, isError, error, data }] = useResetPasswordMutation()
 
   useEffect(() => {
     if (isSuccess) {
       toast.success('Password updated successfully')
-      redirect(`${LANDING_URL}/login`)
+      if (data?.user?.type === 'reseller') push('/login')
+      else redirect(`${LANDING_URL}/login`)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isSuccess, isError, error, push])
+  }, [isSuccess, isError, error, push, data])
 
   const { handleSubmit, watch } = methods
 
