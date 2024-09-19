@@ -1,12 +1,5 @@
 'use client'
 
-import BotLinks from '@/components/pages/reseller/bots/UpdateBotForm/BotLinks'
-import EmbeddedWidgets from '@/components/pages/reseller/bots/UpdateBotForm/EmbeddedWidgets'
-import FAQ from '@/components/pages/reseller/bots/UpdateBotForm/FAQ'
-import KnowledgeBase from '@/components/pages/reseller/bots/UpdateBotForm/KnowledgeBase'
-import UpdateAdvanced from '@/components/pages/reseller/bots/UpdateBotForm/UpdateAdvanced'
-import UpdateAppearance from '@/components/pages/reseller/bots/UpdateBotForm/UpdateApprearance'
-import UpdateLLMSettings from '@/components/pages/reseller/bots/UpdateBotForm/UpdateLLMSettings'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
@@ -21,6 +14,13 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { scroller } from 'react-scroll'
 import ChatPreview from '../common/ChatPreview'
+import BotLinks from './BotLinks'
+import EmbeddedWidgets from './EmbeddedWidgets'
+import FAQ from './FAQ'
+import KnowledgeBase from './KnowledgeBase'
+import UpdateAdvanced from './UpdateAdvanced'
+import UpdateAppearance from './UpdateApprearance'
+import UpdateLLMSettings from './UpdateLLMSettings'
 
 export default function UpdateBotForm({ updateFrom = 'admin' }: { updateFrom?: 'admin' | 'reseller' }) {
   const params = useSearchParams()

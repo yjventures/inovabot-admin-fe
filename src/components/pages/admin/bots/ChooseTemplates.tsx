@@ -12,7 +12,7 @@ import { WithId } from '@/types/common/IResponse'
 import { ITemplate } from '@/types/Itemplate'
 import { useState } from 'react'
 
-export default function ChooseTemplates({ from }: { from: 'admin' | 'company' }) {
+export default function ChooseTemplates({ from }: { from: 'admin' | 'company' | 'reseller' }) {
   const [params, setparams] = useState<IParams>(initParams({}))
   const push = usePush()
   const { data, isLoading, isSuccess } = useGetTemplatesQuery(params)
