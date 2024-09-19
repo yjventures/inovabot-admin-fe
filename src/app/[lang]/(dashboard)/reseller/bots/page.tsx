@@ -16,12 +16,12 @@ export default function BotsPage() {
         title='Chat Assistants'
         extra={
           <>
-            <LLink href='/admin/bots/choose-template'>
+            <LLink href='/reseller/bots/choose-template'>
               <Button variant='gradient' icon={<SquareDashedMousePointer />}>
                 Choose Templates
               </Button>
             </LLink>
-            <LLink href='/admin/bots/create'>
+            <LLink href='/reseller/bots/create'>
               <Button variant='gradient' icon={<PlusSquare />}>
                 Create Assistant
               </Button>

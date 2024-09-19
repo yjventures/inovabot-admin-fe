@@ -92,10 +92,10 @@ export default function AllBots() {
           web_url={web_url}
           topCTASection={
             <div className='flex flex-wrap gap-x-3 gap-2'>
-              <LLink href={`/admin/bots/create?companyId=${company_id}`}>
+              <LLink href={`/reseller/bots/create?companyId=${company_id}`}>
                 <Button icon={<PlusSquare />}>Create a Bot</Button>
               </LLink>
-              <LLink href={`/admin/companies/${company_id}`}>
+              <LLink href={`/reseller/companies/${company_id}`}>
                 <Button variant='black'>View Details</Button>
               </LLink>
               <Popover open={open} onOpenChange={setOpen}>
@@ -209,7 +209,7 @@ export default function AllBots() {
                             <a href={url} target='_blank'>
                               <Eye />
                             </a>
-                            <LLink href={`/admin/bots/update/${bot?._id}`}>
+                            <LLink href={`/reseller/bots/update/${bot?._id}`}>
                               <PencilLine className='text-blue-primary' />
                             </LLink>
                             <Trash2

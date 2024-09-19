@@ -61,7 +61,7 @@ export default function CreateBotForm({ from = 'admin' }: { from?: 'admin' | 're
 
   const discardChanges = () => {
     reset()
-    push('/${from}/bots')
+    push(`/${from}/bots`)
   }
 
   useEffect(() => {
