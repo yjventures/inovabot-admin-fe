@@ -1,30 +1,31 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import CardWrapper from './commonn/card-wrapper'
-import { Img } from '@/components/ui/img'
-import Badge from './badge'
-import CardBetween from './commonn/card-between'
-import { formateDate } from '@/utils/date/formateDate'
 import companyPlaceholder from '@/assets/images/common/dashboard/company-placeholder.png'
-import CardCeparatorBorder from './commonn/card-separator-border'
-import CardPopover, { CardPopoverContent } from './commonn/card-popover'
+import { Img } from '@/components/ui/img'
+import LLink from '@/components/ui/llink'
+import { useLogo } from '@/hooks/useLogo'
+import { useDeleteCompanyMutation, useUpdateCompanyMutation } from '@/redux/features/companiesApi'
 import { ICompany } from '@/types/ICompany'
 import { WithId } from '@/types/common/IResponse'
-import { Eye, PencilLine, Plus, PlusCircle, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react'
-import LLink from '@/components/ui/llink'
-import { useDeleteCompanyMutation, useUpdateCompanyMutation } from '@/redux/features/companiesApi'
-import toast from 'react-hot-toast'
+import { formateDate } from '@/utils/date/formateDate'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import ConfirmationPrompt from '../dashboard/confirmation-prompt'
 import { formatValue } from '@/utils/misc/formatValue'
-import { useLogo } from '@/hooks/useLogo'
+import { Eye, PencilLine, PlusCircle, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import ConfirmationPrompt from '../dashboard/confirmation-prompt'
+import Badge from './badge'
+import CardBetween from './commonn/card-between'
+import CardPopover, { CardPopoverContent } from './commonn/card-popover'
+import CardCeparatorBorder from './commonn/card-separator-border'
+import CardWrapper from './commonn/card-wrapper'
 
 export interface CompanyCardProps {
   company: WithId<ICompany>
+  from?: 'admin' | 'reseller'
 }
 
-export default function CompanyCard({ company }: CompanyCardProps) {
+export default function CompanyCard({ company, from = 'admin' }: CompanyCardProps) {
   const [open, setopen] = useState<boolean>(false)
   const { logo, logo_dark, name, web_url, bots, recurring_type, last_subscribed, createdAt, active } = { ...company }
   const [UpdateCompany, { isSuccess, isError, error }] = useUpdateCompanyMutation()
@@ -47,7 +48,7 @@ export default function CompanyCard({ company }: CompanyCardProps) {
     <>
       <CardWrapper>
         <CardPopover>
-          <LLink href={`/admin/bots/create?companyId=${company._id}`}>
+          <LLink href={`/${from}/bots/create?companyId=${company._id}`}>
             <CardPopoverContent text='Create a bot' icon={<PlusCircle className='text-emerald-primary' />} />
           </LLink>
           {active ? (
@@ -63,10 +64,10 @@ export default function CompanyCard({ company }: CompanyCardProps) {
               onClick={() => UpdateCompany({ id: company._id, body: { active: true } })}
             />
           )}
-          <LLink href={`/admin/companies/${company._id}`}>
+          <LLink href={`/${from}/companies/${company._id}`}>
             <CardPopoverContent text='View Details' icon={<Eye className='text-text-primary' />} />
           </LLink>
-          <LLink href={`/admin/companies/update/${company._id}`}>
+          <LLink href={`/${from}/companies/update/${company._id}`}>
             <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
           </LLink>
           <CardPopoverContent

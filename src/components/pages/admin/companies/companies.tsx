@@ -1,26 +1,26 @@
 'use client'
 
+import Badge from '@/components/reusable/cards/badge'
 import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import CompanyCard from '@/components/reusable/cards/company-card'
+import CompanyCardSkeletons from '@/components/reusable/cards/Skeletons/company-card-skeletons'
+import Intro from '@/components/reusable/common/intro'
+import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
+import TableActions from '@/components/reusable/tables/table-actions'
+import { TableMode } from '@/components/reusable/tables/table-selector'
+import TableSorter from '@/components/reusable/tables/table-sorter'
+import LLink from '@/components/ui/llink'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { useLogo } from '@/hooks/useLogo'
+import { useDeleteCompanyMutation, useUpdateCompanyMutation } from '@/redux/features/companiesApi'
+import { IParams } from '@/types/common/IParams'
 import { IResponseWithMeta, WithId } from '@/types/common/IResponse'
 import { ICompany } from '@/types/ICompany'
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { formateDate } from '@/utils/date/formateDate'
-import { Eye, PencilLine, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react'
-import { TableMode } from '@/components/reusable/tables/table-selector'
-import Intro from '@/components/reusable/common/intro'
-import { IParams } from '@/types/common/IParams'
-import TableSorter from '@/components/reusable/tables/table-sorter'
-import TableActions from '@/components/reusable/tables/table-actions'
-import LLink from '@/components/ui/llink'
-import { useDeleteCompanyMutation, useUpdateCompanyMutation } from '@/redux/features/companiesApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { Eye, PencilLine, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
-import Badge from '@/components/reusable/cards/badge'
-import { useLogo } from '@/hooks/useLogo'
-import CompanyCardSkeletons from '@/components/reusable/cards/Skeletons/company-card-skeletons'
 
 interface Props {
   mode: TableMode
@@ -29,9 +29,11 @@ interface Props {
   data?: IResponseWithMeta<WithId<ICompany>[]>
   params: IParams
   setparams: Dispatch<SetStateAction<IParams>>
+  from: 'admin' | 'reseller'
 }
 
-export default function Companies({ mode, isLoading, isSuccess, data, params, setparams }: Props) {
+export default function Companies({ mode, isLoading, isSuccess, data, params, setparams, from }: Props) {
+  console.log(from)
   const [UpdateCompany, { isSuccess: isUpdateSuccess, isError, error }] = useUpdateCompanyMutation()
 
   const [deleteId, setdeleteId] = useState<string | undefined>(undefined)
@@ -59,7 +61,7 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
         mode == 'grid' ? (
           <CardGrid>
             {data?.data?.map((company: WithId<ICompany>) => (
-              <CompanyCard key={company._id} company={company} />
+              <CompanyCard key={company._id} company={company} from={from} />
             ))}
           </CardGrid>
         ) : (
@@ -130,14 +132,14 @@ export default function Companies({ mode, isLoading, isSuccess, data, params, se
                             onClick={() => UpdateCompany({ id: company._id, body: { active: true } })}
                           />
                         )}
-                        <LLink href={`/admin/companies/${company._id}`}>
+                        <LLink href={`/${from}/companies/${company._id}`}>
                           <Eye className='text-text-primary' />
                         </LLink>
-                        <LLink href={`/admin/companies/update/${company._id}`}>
+                        <LLink href={`/${from}/companies/update/${company._id}`}>
                           <PencilLine className='text-blue-primary' />
                         </LLink>
                         <Trash2
-                          className='text-error'
+                          className='text-error cursor-pointer'
                           onClick={() => {
                             setdeleteId(company._id)
                             setopen(true)

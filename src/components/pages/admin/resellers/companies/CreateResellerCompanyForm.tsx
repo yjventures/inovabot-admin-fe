@@ -37,7 +37,7 @@ export default function CreateResellerCompanyForm() {
   useEffect(() => {
     if (isCreateSuccess) {
       toast.success('Company created successfully')
-      push(`/reseller/companies/subscription?stripeCustomerId=${createData?.company?.stripe_customer_id}`)
+      push(`/reseller/companies/subscription?companyId=${createData?.company?._id}`)
     }
 
     if (isError) {

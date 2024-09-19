@@ -10,8 +10,21 @@ const resellersApi = api.injectEndpoints({
         method: 'POST',
         body
       })
+    }),
+    getAllSubscriptions: build.query({
+      query: params => ({
+        url: '/packages/get-all',
+        params
+      })
+    }),
+    subscribeToPackage: build.mutation({
+      query: payload => ({
+        url: '/subscription/create',
+        method: 'POST',
+        body: payload
+      })
     })
   })
 })
 
-export const { useInviteResellerMutation } = resellersApi
+export const { useInviteResellerMutation, useGetAllSubscriptionsQuery, useSubscribeToPackageMutation } = resellersApi
