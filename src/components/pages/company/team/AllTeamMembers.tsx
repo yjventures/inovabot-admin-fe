@@ -81,6 +81,8 @@ export default function AllTeamMembers() {
                 <TableCell>
                   {user?.type === 'company-admin'
                     ? 'Company Admin'
+                    : user?.type === 'reseller'
+                    ? 'Reseller'
                     : user?.company_position === 'editor'
                     ? 'Editor'
                     : 'Viewer'}
