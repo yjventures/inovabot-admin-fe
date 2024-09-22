@@ -1,0 +1,108 @@
+'use client'
+
+import CompanyIntoCard from '@/components/reusable/cards/company-intro-card'
+import { Button } from '@/components/ui/button'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import LLink from '@/components/ui/llink'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Skeleton } from '@/components/ui/skeleton'
+import { cn } from '@/lib/utils'
+import { useGetComanyListQuery, useGetCompanyQuery } from '@/redux/features/companiesApi'
+import { Check, ChevronsUpDown, PlusSquare } from 'lucide-react'
+import { useEffect, useState } from 'react'
+
+export default function ResellerTeamMembers() {
+  const [open, setOpen] = useState(false)
+  const [company_id, setcompany_id] = useState('')
+
+  const {
+    data: companyListData,
+    isSuccess: isCompanyListSuccess,
+    isLoading: isCompanyListLoading
+  } = useGetComanyListQuery({})
+
+  useEffect(() => {
+    if (isCompanyListSuccess) setcompany_id(companyListData?.data?.[0]?._id)
+  }, [isCompanyListSuccess, companyListData])
+
+  const [skip, setskip] = useState<boolean>(true)
+  const { data: companyData } = useGetCompanyQuery(company_id, { skip })
+
+  const { logo, name, web_url, address, description, createdAt, expires_at, payment_status } = {
+    ...companyData?.data
+  }
+
+  useEffect(() => {
+    if (company_id) {
+      setskip(false)
+    }
+  }, [company_id])
+
+  return (
+    <div>
+      {isCompanyListLoading ? <Skeleton className='w-full rounded-lg h-72' /> : null}
+      {isCompanyListSuccess ? (
+        <CompanyIntoCard
+          name={company_id === 'All' ? 'All Companies' : name!}
+          logo={company_id !== 'All' && logo}
+          payment_status={!!expires_at!}
+          createdAt={company_id !== 'All' && createdAt!}
+          expires_at={company_id !== 'All' && expires_at!}
+          description={company_id !== 'All' && description!}
+          address={company_id !== 'All' && address}
+          web_url={company_id !== 'All' && web_url}
+          topCTASection={
+            <div className='flex flex-wrap gap-x-3 gap-2'>
+              {company_id !== 'All' && (
+                <LLink href={`/reseller/team/invite?companyId=${company_id}`}>
+                  <Button icon={<PlusSquare />}>Invite a team member</Button>
+                </LLink>
+              )}
+
+              <LLink href={`/reseller/companies/${company_id}`}>
+                <Button variant='black'>View Details</Button>
+              </LLink>
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild className='truncate'>
+                  <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
+                    {company_id === 'All'
+                      ? 'All Companies'
+                      : company_id
+                      ? companyListData?.data.find(com => com._id === company_id)?.name
+                      : 'Select Company...'}
+                    <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className='w-[200px] p-0'>
+                  <Command>
+                    <CommandInput placeholder='Search company...' />
+                    <CommandList>
+                      <CommandEmpty>No company found.</CommandEmpty>
+                      <CommandGroup>
+                        {[{ _id: 'All', name: 'All' }, ...companyListData?.data]?.map(com => (
+                          <CommandItem
+                            key={com?._id}
+                            value={com?._id}
+                            onSelect={currentValue => {
+                              setcompany_id(currentValue === company_id ? '' : currentValue)
+                              setOpen(false)
+                            }}
+                          >
+                            <Check
+                              className={cn('mr-2 h-4 w-4', company_id === com?._id ? 'opacity-100' : 'opacity-0')}
+                            />
+                            {com?.name}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
+          }
+        />
+      ) : null}
+    </div>
+  )
+}

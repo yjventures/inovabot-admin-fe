@@ -4,10 +4,11 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import { Input } from '@/components/reusable/form/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/reusable/form/select'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
 import usePush from '@/hooks/usePush'
-import { useSendCompanyInvitationMutation } from '@/redux/features/companiesApi'
+import { useSendTeamInvitationMutation } from '@/redux/features/companiesApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { MailCheck, Send } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
@@ -18,28 +19,23 @@ import toast from 'react-hot-toast'
 interface FormData {
   name?: string
   email: string
-  company_id: string
+  role: 'editor' | 'viewer'
 }
 
-export default function CompanyInviteForm() {
+export default function InviteTeamForm() {
+  const params = useSearchParams()
+  const companyId = params?.get('company_id')
   const push = usePush()
 
   const methods = useForm<FormData>()
-  const { handleSubmit, setValue } = methods
-
-  const params = useSearchParams()
-  const company_id = params.has('companyId') && params.get('companyId')
+  const { handleSubmit, reset } = methods
 
   const [showEmailCheck, setshowEmailCheck] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (company_id) setValue('company_id', company_id)
-  }, [setValue, company_id])
-
-  const [sendInvitation, { isLoading, isSuccess, isError, error }] = useSendCompanyInvitationMutation()
+  const [sendInvitation, { isLoading, isSuccess, isError, error }] = useSendTeamInvitationMutation()
 
   const onSubmit = (data: FormData) => {
-    sendInvitation(data)
+    sendInvitation({ ...data, company_id: companyId as string })
   }
 
   useEffect(() => {
@@ -48,21 +44,22 @@ export default function CompanyInviteForm() {
       toast.success('Invitation sent successfully')
 
       setTimeout(() => {
-        setshowEmailCheck(true)
+        reset()
+        setshowEmailCheck(false)
       }, 5000)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isSuccess, isError, error, push])
+  }, [isSuccess, isError, error, push, reset])
 
   return showEmailCheck ? (
     <div className='flex items-center justify-center min-h-[70vh]'>
       <FormWrapper className='max-w-md flex flex-col justify-center items-center text-center text-balance gap-y-3'>
         <MailCheck size={72} strokeWidth={0.8} className='text-emerald-primary' />
-        <Typography variant='h4'>Invitation has been sent</Typography>
+        <Typography variant='h4'>Email has been sent</Typography>
         <p className='text-text-gray'>
-          We&apos;ve send an email to the user with verification link, he can open it and click on the link and signup
-          with the temporary password
+          We&apos;ve send the user an email with the verification link, please inform to open it and click on the link
+          and signup with the temporary password
         </p>
       </FormWrapper>
     </div>
@@ -73,6 +70,15 @@ export default function CompanyInviteForm() {
         <div className='max-w-md'>
           <Input name='name' label='Name' placeholder='Enter name' />
           <Input name='email' label='Email' type='email' placeholder='Enter email' required />
+          <Select name='role' label='Role' required>
+            <SelectTrigger className='max-w-sm'>
+              <SelectValue placeholder='Select a role' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='editor'>Editor</SelectItem>
+              <SelectItem value='viewer'>Viewer</SelectItem>
+            </SelectContent>
+          </Select>
           <Button variant='gradient' icon={<Send />} type='submit' isLoading={isLoading}>
             Send Invitation
           </Button>
