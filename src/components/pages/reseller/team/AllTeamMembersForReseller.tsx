@@ -6,7 +6,6 @@ import TableSkeleton from '@/components/reusable/tables/table-skeleton'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { initParams } from '@/constants/form/init-params'
-import { getUserRole } from '@/helpers/common'
 import { useUpdateCompanyMemberRoleMutation } from '@/redux/features/companiesApi'
 import { useDeleteUserMutation, useGetUsersQuery } from '@/redux/features/usersApi'
 import { IParams } from '@/types/common/IParams'
@@ -55,16 +54,17 @@ export default function AllTeamMembersForReseller({ company_id }: Props) {
   }, [isDeleteSuccess, isDeleteError, deleteError, refresh])
 
   return (
-    <div>
+    <div className='mt-8'>
       {isLoading ? <TableSkeleton /> : null}
-      {isSuccess ? (
+      {isSuccess && data?.data?.length ? (
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
+              <TableHead>Company Name</TableHead>
               <TableHead>Role</TableHead>
-              {getUserRole() === 'company-admin' && <TableHead>Actions</TableHead>}
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -72,17 +72,14 @@ export default function AllTeamMembersForReseller({ company_id }: Props) {
               <TableRow key={user?._id}>
                 <TableCell className='font-medium'>{user?.name}</TableCell>
                 <TableCell>{user?.email}</TableCell>
+                <TableCell>{user?.company?.name}</TableCell>
                 <TableCell>
-                  {user?.type === 'company-admin'
-                    ? 'Company Admin'
-                    : user?.company_position === 'editor'
-                    ? 'Editor'
-                    : 'Viewer'}
+                  {user?.type === 'reseller' ? 'Reseller' : user?.company_position === 'editor' ? 'Editor' : 'Viewer'}
                 </TableCell>
-                {getUserRole() == 'company-admin' && (
-                  <TableCell>
-                    <TableActions>
-                      {user.type === 'user' && (
+                <TableCell>
+                  <TableActions>
+                    {user?.type !== 'reseller' && (
+                      <>
                         <Button
                           icon={<UserPen />}
                           size='sm'
@@ -97,8 +94,7 @@ export default function AllTeamMembersForReseller({ company_id }: Props) {
                         >
                           Make {user?.company_position === 'editor' ? 'Viewer' : 'Editor'}
                         </Button>
-                      )}
-                      {user.type !== 'company-admin' && (
+
                         <Button
                           icon={<Trash2 />}
                           size='sm'
@@ -108,10 +104,10 @@ export default function AllTeamMembersForReseller({ company_id }: Props) {
                         >
                           Remove Member
                         </Button>
-                      )}
-                    </TableActions>
-                  </TableCell>
-                )}
+                      </>
+                    )}
+                  </TableActions>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

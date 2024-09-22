@@ -34,13 +34,9 @@ export const resellerAdminLinks: Array<AdminLink> = [
   {
     id: 4,
     label: 'Team',
-    hasChildren: true,
+    hasChildren: false,
     icon: Users,
-    href: '/reseller/team',
-    childrenLinks: [
-      { id: 1, label: 'View all', href: '/reseller/team' },
-      { id: 2, label: 'Add Team Member', href: '/reseller/team/invite' }
-    ]
+    href: '/reseller/team'
   },
   {
     id: 5,

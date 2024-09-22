@@ -8,7 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { useGetComanyListQuery, useGetCompanyQuery } from '@/redux/features/companiesApi'
-import { Check, ChevronsUpDown, PlusSquare } from 'lucide-react'
+import { Check, ChevronsUpDown, Send } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import AllTeamMembersForReseller from './AllTeamMembersForReseller'
 
@@ -56,7 +56,7 @@ export default function ResellerTeamMembers() {
             <div className='flex flex-wrap gap-x-3 gap-2'>
               {company_id !== 'All' && (
                 <LLink href={`/reseller/team/invite?companyId=${company_id}`}>
-                  <Button icon={<PlusSquare />}>Invite a team member</Button>
+                  <Button icon={<Send />}>Invite a team member</Button>
                 </LLink>
               )}
 

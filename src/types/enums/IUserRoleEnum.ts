@@ -1,1 +1,1 @@
-export type IUserRoleEnum = 'admin' | 'user' | 'super-admin' | 'company-admin'
+export type IUserRoleEnum = 'admin' | 'user' | 'super-admin' | 'company-admin' | 'reseller'
