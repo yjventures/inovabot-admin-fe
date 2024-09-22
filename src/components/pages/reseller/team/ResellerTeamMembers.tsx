@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import { useGetComanyListQuery, useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { Check, ChevronsUpDown, PlusSquare } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import AllTeamMembersForReseller from './AllTeamMembersForReseller'
 
 export default function ResellerTeamMembers() {
   const [open, setOpen] = useState(false)
@@ -22,8 +23,8 @@ export default function ResellerTeamMembers() {
   } = useGetComanyListQuery({})
 
   useEffect(() => {
-    if (isCompanyListSuccess) setcompany_id(companyListData?.data?.[0]?._id)
-  }, [isCompanyListSuccess, companyListData])
+    setcompany_id('All')
+  }, [])
 
   const [skip, setskip] = useState<boolean>(true)
   const { data: companyData } = useGetCompanyQuery(company_id, { skip })
@@ -103,6 +104,8 @@ export default function ResellerTeamMembers() {
           }
         />
       ) : null}
+
+      <AllTeamMembersForReseller company_id={company_id} />
     </div>
   )
 }
