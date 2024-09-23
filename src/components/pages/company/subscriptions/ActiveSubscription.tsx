@@ -80,7 +80,8 @@ export default function ActiveSubscription() {
                       updateSubscription({
                         price_id: tier.price[frequency.value].stripe_id,
                         package_id: tier._id,
-                        recurring_type: frequency.value
+                        recurring_type: frequency.value,
+                        company_id: getCompanyId()
                       })
                     }
                   >

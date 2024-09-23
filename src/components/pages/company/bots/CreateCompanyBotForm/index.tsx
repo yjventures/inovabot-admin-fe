@@ -5,6 +5,7 @@ import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
+import { getCompanyId } from '@/helpers/pages/companies'
 import usePush from '@/hooks/usePush'
 import { useCreateBotMutation } from '@/redux/features/botsApi'
 import { useGetTemplateQuery } from '@/redux/features/templatesApi'
@@ -52,7 +53,7 @@ export default function CreateCompanyBotForm() {
 
   const onSubmit = (data: IBot) => {
     if (!category) return toast.error('Please select a category!')
-    createBot({ ...data, category })
+    createBot({ ...data, category, company_id: getCompanyId() })
   }
 
   const discardChanges = () => {

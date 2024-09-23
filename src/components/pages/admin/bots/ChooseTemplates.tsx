@@ -10,9 +10,11 @@ import { useGetTemplatesQuery } from '@/redux/features/templatesApi'
 import { IParams } from '@/types/common/IParams'
 import { WithId } from '@/types/common/IResponse'
 import { ITemplate } from '@/types/Itemplate'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 export default function ChooseTemplates({ from }: { from: 'admin' | 'company' | 'reseller' }) {
+  const searchParams = useSearchParams()
   const [params, setparams] = useState<IParams>(initParams({}))
   const push = usePush()
   const { data, isLoading, isSuccess } = useGetTemplatesQuery(params)
@@ -27,7 +29,9 @@ export default function ChooseTemplates({ from }: { from: 'admin' | 'company' | 
               template={template}
               hidePopover
               className='cursor-pointer hover:shadow-lg transition-all duration-300'
-              onClick={() => push(`/${from}/bots/create?template=${template._id}`)}
+              onClick={() =>
+                push(`/${from}/bots/create?template=${template._id}&companyId=${searchParams.get('companyId')}`)
+              }
             />
           ))}
         </CardGrid>

@@ -82,7 +82,7 @@ export default function CreateBotForm({ from = 'admin' }: { from?: 'admin' | 're
             <Button variant='destructive' onClick={discardChanges}>
               Discard
             </Button>
-            <LLink href={`/${from}/bots/choose-template`}>
+            <LLink href={`/${from}/bots/choose-template?companyId=${company_id}`}>
               <Button variant='gradient' icon={<SquareDashedMousePointer />}>
                 {templateId ? 'Choose another Template' : 'Choose Template'}
               </Button>
