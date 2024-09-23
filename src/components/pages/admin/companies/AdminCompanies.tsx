@@ -32,7 +32,7 @@ interface Props {
   from?: 'admin' | 'reseller'
 }
 
-export default function Companies({ mode, isLoading, isSuccess, data, params, setparams, from = 'admin' }: Props) {
+export default function AdminCompanies({ mode, isLoading, isSuccess, data, params, setparams, from = 'admin' }: Props) {
   console.log(from)
   const [UpdateCompany, { isSuccess: isUpdateSuccess, isError, error }] = useUpdateCompanyMutation()
 

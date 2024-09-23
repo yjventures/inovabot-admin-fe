@@ -7,7 +7,7 @@ import { initParams } from '@/constants/form/init-params'
 import { useGetCompaniesQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
 import { useState } from 'react'
-import Companies from './Companies' //fix import
+import AdminCompanies from './AdminCompanies'
 
 export default function ViewAllCompanies({ from }: { from: 'admin' | 'reseller' }) {
   const [params, setparams] = useState<IParams>(initParams({}))
@@ -24,7 +24,7 @@ export default function ViewAllCompanies({ from }: { from: 'admin' | 'reseller' 
         placeholder='Search company by name...'
       />
 
-      <Companies
+      <AdminCompanies
         mode={mode}
         isLoading={isLoading}
         isSuccess={isSuccess}
