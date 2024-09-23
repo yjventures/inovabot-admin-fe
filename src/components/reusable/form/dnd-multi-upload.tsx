@@ -4,6 +4,8 @@ import animationData from '@/assets/lottie/imageUploading.json'
 import { Button } from '@/components/ui/button'
 import Overlay from '@/components/ui/overlay'
 import { cn } from '@/lib/utils'
+import { useUploadKnowledgeBaseMutation } from '@/redux/features/knowledgeBaseApi'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { ImageIcon, LucideProps } from 'lucide-react'
 import {
   ChangeEventHandler,
@@ -16,11 +18,6 @@ import {
 } from 'react'
 import toast from 'react-hot-toast'
 import FormLabel from './form-label'
-import axios from 'axios'
-import { API_URL } from '@/configs'
-import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { getToken } from '@/utils/auth/getToken'
-import { useUploadKnowledgeBaseMutation } from '@/redux/features/knowledgeBaseApi'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name?: string

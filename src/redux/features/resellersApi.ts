@@ -1,7 +1,5 @@
 import api from '../api'
 
-const rootApi = '/resellers'
-
 const resellersApi = api.injectEndpoints({
   endpoints: build => ({
     inviteReseller: build.mutation({

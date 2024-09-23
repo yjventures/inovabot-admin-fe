@@ -7,7 +7,7 @@ import { initParams } from '@/constants/form/init-params'
 import { useGetCompaniesQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
 import { useState } from 'react'
-import Companies from './companies' //fix import
+import Companies from './Companies' //fix import
 
 export default function ViewAllCompanies({ from }: { from: 'admin' | 'reseller' }) {
   const [params, setparams] = useState<IParams>(initParams({}))

@@ -5,6 +5,7 @@ import { CheckCircle, XCircle } from 'lucide-react'
 interface Props {
   title?: string
   open: boolean
+  // eslint-disable-next-line no-unused-vars
   onOpenChange: (open: boolean) => void
   cb: () => void
   isLoading?: boolean

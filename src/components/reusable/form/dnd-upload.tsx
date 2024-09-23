@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use client'
 
 import animationData from '@/assets/lottie/imageUploading.json'

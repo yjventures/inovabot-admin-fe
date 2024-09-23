@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-semi */
 import { API_URL } from '@/configs'
 import { calculateTokenExpiration } from '@/utils/auth/calculateTokenExpiration'
 import { getToken } from '@/utils/auth/getToken'

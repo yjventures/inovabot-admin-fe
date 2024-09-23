@@ -2,17 +2,17 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/reusable/form/select'
 
-import { useForm } from 'react-hook-form'
-import Form from '@/components/reusable/form/form'
-import DnDUpload from '@/components/reusable/form/dnd-upload'
-import { Input } from '@/components/reusable/form/input'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/reusable/form/textarea'
 import { Checkbox } from '@/components/reusable/form/checkbox'
+import DnDUpload from '@/components/reusable/form/dnd-upload'
+import Form from '@/components/reusable/form/form'
+import { Input } from '@/components/reusable/form/input'
+import { Textarea } from '@/components/reusable/form/textarea'
+import { Button } from '@/components/ui/button'
+import { useForm } from 'react-hook-form'
 
 export default function FormExample() {
   const methods = useForm()
-  const onSubmit = (data: any) => {}
+  const onSubmit = () => {}
 
   return (
     <Form methods={methods} onSubmit={methods.handleSubmit(onSubmit)} className='bg-foreground p-5 rounded-md'>

@@ -3,11 +3,12 @@
 import useDebounce from '@/hooks/useDebounce'
 import { cn } from '@/lib/utils'
 import { SearchIcon } from 'lucide-react'
-import React, { InputHTMLAttributes, useEffect, useState } from 'react'
+import { InputHTMLAttributes, useEffect, useState } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   searchValue: string
+  // eslint-disable-next-line no-unused-vars
   setsearchValue: (value: string) => void
   inputClassName?: string
 }

@@ -1,24 +1,17 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { FileQuestion } from 'lucide-react'
-import { useEffect, useState } from 'react'
 import Form from '@/components/reusable/form/form'
-import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import toast from 'react-hot-toast'
-import { useCreateFAQMutation } from '@/redux/features/faqApi'
 import { Input } from '@/components/reusable/form/input'
 import { Textarea } from '@/components/reusable/form/textarea'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { useCreateFAQMutation } from '@/redux/features/faqApi'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { FileQuestion } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 export default function FAQCreateModal() {
   const { id } = useParams()

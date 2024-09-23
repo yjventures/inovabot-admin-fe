@@ -16,7 +16,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
 }
 
-export default function Tutorial({ videoId, title, description, ctaLabel, ctaHref, className, ...props }: Props) {
+export default function Tutorial({ videoId, title, description, ctaLabel, className, ...props }: Props) {
   return (
     <section
       className={cn(

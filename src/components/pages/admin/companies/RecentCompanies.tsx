@@ -2,11 +2,11 @@
 
 import TableSearchSelector from '@/components/reusable/tables/table-search-selector'
 import { TableMode } from '@/components/reusable/tables/table-selector'
+import { initParams } from '@/constants/form/init-params'
 import { useGetCompaniesQuery } from '@/redux/features/companiesApi'
 import { IParams } from '@/types/common/IParams'
 import { useState } from 'react'
-import { initParams } from '@/constants/form/init-params'
-import Companies from './companies' //fix import -abrar
+import Companies from './Companies' //fix import -abrar
 
 export default function RecentCompanies() {
   const [params, setparams] = useState<IParams>(initParams({}))

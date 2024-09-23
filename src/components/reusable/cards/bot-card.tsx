@@ -29,16 +29,7 @@ interface Props {
   embedding_url: string
 }
 
-export default function BotCard({
-  logo_light,
-  logo_dark,
-  name,
-  category,
-  model,
-  createdAt,
-  embedding_url,
-  _id
-}: Props) {
+export default function BotCard({ logo_light, logo_dark, name, category, createdAt, embedding_url, _id }: Props) {
   const imgSrc = useLogo(logo_light!, logo_dark!)
   const [deleteBot, { isSuccess, isError, error }] = useDeleteBotMutation()
   const [open, setopen] = useState<boolean>(false)

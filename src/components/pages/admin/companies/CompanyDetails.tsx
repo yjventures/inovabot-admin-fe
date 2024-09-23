@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 'use client'
 
 import BotCard from '@/components/reusable/cards/bot-card'

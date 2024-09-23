@@ -10,6 +10,7 @@ import { formattingOrStructures, frameworkOrModels, toneAndStyles } from '@/cons
 
 interface Props {
   language: 'en' | 'ar'
+  // eslint-disable-next-line no-unused-vars
   setlanguage: (language: 'en' | 'ar') => void
 }
 

@@ -10,6 +10,7 @@ interface Props {
   label?: string
   labelClassName?: string
   name?: string
+  // eslint-disable-next-line no-unused-vars
   onCheckedChange?: (checked: boolean | 'indeterminate') => void
   id?: string
 }

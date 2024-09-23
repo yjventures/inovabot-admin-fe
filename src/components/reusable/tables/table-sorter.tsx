@@ -1,6 +1,6 @@
 import { IParams } from '@/types/common/IParams'
-import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react'
-import { Dispatch, SetStateAction, ReactNode, HTMLAttributes } from 'react'
+import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react'
+import { Dispatch, HTMLAttributes, ReactNode, SetStateAction } from 'react'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   params: IParams

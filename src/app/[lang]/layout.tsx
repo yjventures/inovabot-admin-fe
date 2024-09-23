@@ -1,10 +1,11 @@
-import type { Metadata } from 'next'
-import { Public_Sans as FontSans } from 'next/font/google'
-import '@/styles/globals.scss'
-import { cn } from '@/lib/utils'
-import { Toaster } from 'react-hot-toast'
 import ReduxProvider from '@/lib/redux/redux-provider'
 import { ThemeProvider } from '@/lib/theme/ThemeProvider'
+import { cn } from '@/lib/utils'
+import '@/styles/globals.scss'
+import type { Metadata } from 'next'
+import { Public_Sans as FontSans } from 'next/font/google'
+import { ReactNode } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
     <html suppressHydrationWarning>

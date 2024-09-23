@@ -1,9 +1,10 @@
 'use client'
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { ReactNode } from 'react'
 
 interface Props {
-  children: React.ReactNode
+  children: ReactNode
   attribute: 'class' | 'system'
   defaultTheme: 'light' | 'dark'
   enableSystem: boolean

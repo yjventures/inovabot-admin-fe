@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 'use client'
 
 import Badge from '@/components/reusable/cards/badge'

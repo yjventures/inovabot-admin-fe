@@ -48,15 +48,15 @@ export default function AllBots() {
   } = useGetComanyListQuery({})
 
   useEffect(() => {
-    if (isCompanyListSuccess) setcompany_id(companyListData?.data?.[0]?._id)
+    if (isCompanyListSuccess && companyListData?.data?.[0]?._id) {
+      setcompany_id(companyListData.data[0]._id)
+    }
   }, [isCompanyListSuccess, companyListData])
 
   const [skip, setskip] = useState<boolean>(true)
   const { data: companyData } = useGetCompanyQuery(company_id, { skip })
 
-  const { logo, name, web_url, address, description, createdAt, expires_at, payment_status } = {
-    ...companyData?.data
-  }
+  const { logo, name, web_url, address, description, createdAt, expires_at } = companyData?.data || {}
 
   useEffect(() => {
     if (company_id) {
@@ -82,12 +82,12 @@ export default function AllBots() {
       {isCompanyListLoading ? <Skeleton className='w-full rounded-lg h-72' /> : null}
       {isCompanyListSuccess ? (
         <CompanyIntoCard
-          name={name!}
+          name={name || ''}
           logo={logo}
-          payment_status={!!expires_at!}
-          createdAt={createdAt!}
-          expires_at={expires_at!}
-          description={description!}
+          payment_status={!!expires_at}
+          createdAt={createdAt || ''}
+          expires_at={expires_at || ''}
+          description={description || ''}
           address={address}
           web_url={web_url}
           topCTASection={
@@ -101,7 +101,9 @@ export default function AllBots() {
               <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild className='truncate'>
                   <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
-                    {company_id ? companyListData?.data.find(com => com._id === company_id)?.name : 'Select Company...'}
+                    {company_id && companyListData?.data
+                      ? companyListData.data.find(com => com._id === company_id)?.name || 'Select Company...'
+                      : 'Select Company...'}
                     <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
                   </Button>
                 </PopoverTrigger>
@@ -143,9 +145,9 @@ export default function AllBots() {
             ))}
           </div>
         ) : null}
-        {isCategorySuccess ? (
+        {isCategorySuccess && categoriesData?.categories ? (
           <div className='flex flex-wrap gap-x-3 gap-y-1.5'>
-            {[{ _id: '1', title: 'All' }, ...categoriesData?.categories]?.map(cat => (
+            {[{ _id: '1', title: 'All' }, ...categoriesData.categories].map(cat => (
               <Button
                 key={cat._id}
                 variant='outline'
@@ -165,21 +167,21 @@ export default function AllBots() {
 
       <BotCardSkeletons isLoading={isLoading} className='mt-5' />
 
-      {isSuccess ? (
-        botsData?.data?.length ? (
+      {isSuccess && botsData?.data ? (
+        botsData.data.length ? (
           mode === 'grid' ? (
             <CardGrid className='mt-5'>
-              {botsData?.data?.map(bot => (
+              {botsData.data.map(bot => (
                 <BotCard
                   logo_light={bot?.logo_light}
                   logo_dark={bot?.logo_dark}
-                  _id={bot?._id!}
+                  _id={bot?._id || ''}
                   key={bot._id}
-                  name={bot.name!}
-                  category={bot.category!}
-                  model={bot.model!}
-                  createdAt={String(bot.createdAt!)}
-                  embedding_url={bot.embedding_url!}
+                  name={bot.name || ''}
+                  category={bot.category || ''}
+                  model={bot.model || ''}
+                  createdAt={String(bot.createdAt || '')}
+                  embedding_url={bot.embedding_url || ''}
                 />
               ))}
             </CardGrid>
@@ -194,22 +196,22 @@ export default function AllBots() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {botsData?.data?.map(bot => {
+                  {botsData.data.map(bot => {
                     // eslint-disable-next-line react-hooks/rules-of-hooks
-                    const imgSrc = useLogo(bot?.logo_light!, bot?.logo_dark!)
-                    const url = `${BOT_URL}/${bot?.embedding_url}`
+                    const imgSrc = useLogo(bot?.logo_light || '', bot?.logo_dark || '')
+                    const url = `${BOT_URL}/${bot?.embedding_url || ''}`
                     return (
                       <TableRow key={bot?._id}>
                         <TableCell>
-                          <Intro title={bot?.name!} description={<Badge>{bot?.category}</Badge>} imgSrc={imgSrc} />
+                          <Intro title={bot?.name || ''} description={<Badge>{bot?.category}</Badge>} imgSrc={imgSrc} />
                         </TableCell>
-                        <TableCell>{formateDate(bot?.createdAt! as unknown as string, true)}</TableCell>
+                        <TableCell>{formateDate((bot?.createdAt as unknown as string) || '', true)}</TableCell>
                         <TableCell className='text-right'>
                           <TableActions>
                             <a href={url} target='_blank'>
                               <Eye />
                             </a>
-                            <LLink href={`/admin/bots/update/${bot?._id}`}>
+                            <LLink href={`/admin/bots/update/${bot?._id || ''}`}>
                               <PencilLine className='text-blue-primary' />
                             </LLink>
                             <Trash2
@@ -235,7 +237,7 @@ export default function AllBots() {
       <ConfirmationPrompt
         open={openPrompt}
         onOpenChange={setOpenPrompt}
-        cb={() => deleteBot(deleteId!)}
+        cb={() => deleteId && deleteBot(deleteId)}
         title='Are you sure to delete this bot?'
       />
     </div>

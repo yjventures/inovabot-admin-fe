@@ -29,7 +29,7 @@ interface CardPopoverContentProps extends HTMLAttributes<HTMLDivElement> {
   iconClassName?: string
 }
 
-export function CardPopoverContent({ text, icon, className, iconClassName, ...props }: CardPopoverContentProps) {
+export function CardPopoverContent({ text, icon, className, ...props }: CardPopoverContentProps) {
   return (
     <div
       className={cn('flex items-center justify-between gap-x-2 [&>svg]:size-5 cursor-pointer', className)}

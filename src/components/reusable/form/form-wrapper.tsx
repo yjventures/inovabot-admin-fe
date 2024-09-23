@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, ReactNode } from 'react'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export default function FormWrapper({ className, children, ...props }: Props) {

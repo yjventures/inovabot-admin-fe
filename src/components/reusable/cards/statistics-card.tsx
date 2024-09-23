@@ -1,8 +1,8 @@
 import Typography from '@/components/ui/typography'
-import { ChevronUp, LucideProps } from 'lucide-react'
-import CardWrapper from './commonn/card-wrapper'
+import { LucideProps } from 'lucide-react'
 import { ForwardRefExoticComponent, RefAttributes } from 'react'
 import CardIcon from './commonn/card-icon'
+import CardWrapper from './commonn/card-wrapper'
 
 interface Props {
   icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 'use client'
 
 import CompanyIntoCard from '@/components/reusable/cards/company-intro-card'
@@ -29,7 +30,7 @@ export default function ResellerTeamMembers() {
   const [skip, setskip] = useState<boolean>(true)
   const { data: companyData } = useGetCompanyQuery(company_id, { skip })
 
-  const { logo, name, web_url, address, description, createdAt, expires_at, payment_status } = {
+  const { logo, name, web_url, address, description, createdAt, expires_at } = {
     ...companyData?.data
   }
 

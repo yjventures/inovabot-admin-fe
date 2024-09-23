@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 interface XhrSourceOptions {
   method?: string
   headers?: Record<string, string>
   timeout?: number
-  body?: Document | XMLHttpRequestBodyInit | null
+  body?: Document | null
 }
 
 function sseevent(message: string): MessageEvent {

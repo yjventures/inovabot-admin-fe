@@ -29,10 +29,10 @@ interface Props {
   data?: IResponseWithMeta<WithId<ICompany>[]>
   params: IParams
   setparams: Dispatch<SetStateAction<IParams>>
-  from: 'admin' | 'reseller'
+  from?: 'admin' | 'reseller'
 }
 
-export default function Companies({ mode, isLoading, isSuccess, data, params, setparams, from }: Props) {
+export default function Companies({ mode, isLoading, isSuccess, data, params, setparams, from = 'admin' }: Props) {
   console.log(from)
   const [UpdateCompany, { isSuccess: isUpdateSuccess, isError, error }] = useUpdateCompanyMutation()
 

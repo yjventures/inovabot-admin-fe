@@ -1,3 +1,24 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:import/errors", "plugin:import/warnings"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/prop-types": "off",
+    "no-undef": "error", // Error on using variables that are not defined
+    "import/no-unresolved": "error" // Error on unresolved or missing imports
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "env": {
+    "browser": true, // Adds global objects like 'window', 'document', etc.
+    "es6": true, // Enables ES6 features like Promise, let, const, etc.
+    "node": true // Allows Node.js global variables and scoping
+  }
 }
