@@ -1,3 +1,5 @@
+'use client'
+
 import avatar from '@/assets/images/common/avatar.png'
 import {
   DropdownMenu,
@@ -7,11 +9,12 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Img } from '@/components/ui/img'
+import LLink from '@/components/ui/llink'
 import { cn } from '@/lib/utils'
 import { IUser } from '@/types/IUser'
 import { formatValue } from '@/utils/misc/formatValue'
 import { ChevronDown } from 'lucide-react'
-import UpdateProfileModal from './UpdateProfileModal'
+import { usePathname } from 'next/navigation'
 
 interface Props {
   user: IUser
@@ -20,6 +23,7 @@ interface Props {
 }
 
 export default function UserInfo({ user, className, darkBg }: Props) {
+  const pathname = usePathname()
   const role = user?.type
   return (
     <DropdownMenu>
@@ -38,7 +42,9 @@ export default function UserInfo({ user, className, darkBg }: Props) {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <UpdateProfileModal />
+        <LLink href={`/update-profile?prevPath=${pathname}`}>
+          <DropdownMenuItem>Update Profile</DropdownMenuItem>
+        </LLink>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Logout</DropdownMenuItem>
       </DropdownMenuContent>
