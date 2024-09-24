@@ -40,6 +40,8 @@ export default function AdminSideNav({ currentLink, links, setnavbarOpen }: Prop
       push('/admin/dashboard')
     } else if (['company-admin', 'user'].includes(userRole)) {
       push('/company/dashboard')
+    } else if (userRole === 'reseller') {
+      push('/reseller/dashboard')
     }
   }
 

@@ -8,6 +8,8 @@ export const getDashboardURLPath = (): string => {
     return '/company'
   } else if (['super-admin', 'admin'].includes(role)) {
     return '/admin'
+  } else if (role === 'reseller') {
+    return '/reseller'
   }
 }
 
@@ -19,6 +21,7 @@ export const getUserRole = () => {
   if (role === 'super-admin') return 'super-admin'
   else if (role === 'admin') return 'admin'
   else if (role === 'company-admin') return 'company-admin'
+  else if (role === 'reseller') return 'reseller'
   else if (role === 'user') {
     if (userData?.company_position === 'editor') return 'editor'
     else return 'viewer'
