@@ -116,8 +116,8 @@ export default function AllBots() {
                           <CommandItem
                             key={com?._id}
                             value={com?._id}
-                            onSelect={currentValue => {
-                              setcompany_id(currentValue === company_id ? '' : currentValue)
+                            onSelect={() => {
+                              setcompany_id(com?._id)
                               setOpen(false)
                             }}
                           >

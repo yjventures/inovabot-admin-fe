@@ -37,16 +37,16 @@ export default function General({ category, setcategory, company_id, setcompany_
             </PopoverTrigger>
             <PopoverContent className='p-0'>
               <Command>
-                <CommandInput placeholder='Search Compnay...' />
+                <CommandInput placeholder='Search Company...' />
                 <CommandList>
                   <CommandEmpty>No company found.</CommandEmpty>
                   <CommandGroup>
                     {companyListData?.data?.map(com => (
                       <CommandItem
                         key={com?._id}
-                        value={com?._id}
-                        onSelect={currentValue => {
-                          setcompany_id(currentValue === company_id ? '' : currentValue)
+                        value={com?.name}
+                        onSelect={() => {
+                          setcompany_id(com._id)
                           setOpen(false)
                         }}
                       >
@@ -80,8 +80,8 @@ export default function General({ category, setcategory, company_id, setcompany_
                       <CommandItem
                         key={cat?._id}
                         value={cat?.title}
-                        onSelect={currentValue => {
-                          setcategory(currentValue === category ? '' : currentValue)
+                        onSelect={() => {
+                          setcategory(cat?.title)
                           setcatOpen(false)
                         }}
                       >
