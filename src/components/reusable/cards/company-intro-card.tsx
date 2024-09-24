@@ -39,11 +39,13 @@ export default function CompanyIntoCard({
     <section className={cn('p-2 bg-foreground rounded-lg border border-border-primary', className)}>
       <div
         className={cn(
-          'w-full h-24 bg-gradient-to-b from-cyan-dark to-emerald-primary flex items-end justify-end relative rounded-lg',
+          'w-full min-h-24 bg-gradient-to-b from-cyan-dark to-emerald-primary flex items-end justify-end relative rounded-lg',
           gradientClassName
         )}
       >
-        <div className='mb-4 mr-4 z-10'>{topCTASection}</div>
+        <div className='my-4 mr-4 z-10 max-w-full w-2/3 ml-auto flex flex-wrap gap-x-3 gap-y-2 items-center justify-end'>
+          {topCTASection}
+        </div>
       </div>
 
       <div className='flex flex-wrap sm:flex-nowrap gap-x-3 mt-0 sm:-mt-16 z-10 isolate p-2 sm:p-4'>

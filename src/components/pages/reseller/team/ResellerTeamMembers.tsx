@@ -54,7 +54,7 @@ export default function ResellerTeamMembers() {
           address={company_id !== 'All' && address}
           web_url={company_id !== 'All' && web_url}
           topCTASection={
-            <div className='flex flex-wrap gap-x-3 gap-2'>
+            <>
               {company_id !== 'All' && (
                 <LLink href={`/reseller/team/invite?companyId=${company_id}`}>
                   <Button icon={<Send />}>Invite a team member</Button>
@@ -66,7 +66,7 @@ export default function ResellerTeamMembers() {
               </LLink>
               <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild className='truncate'>
-                  <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
+                  <Button variant='outline' role='combobox' aria-expanded={open} className='max-w-72 justify-between'>
                     {company_id === 'All'
                       ? 'All Companies'
                       : company_id
@@ -75,7 +75,7 @@ export default function ResellerTeamMembers() {
                     <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className='w-[200px] p-0'>
+                <PopoverContent className='max-w-72 p-0'>
                   <Command>
                     <CommandInput placeholder='Search company...' />
                     <CommandList>
@@ -101,7 +101,7 @@ export default function ResellerTeamMembers() {
                   </Command>
                 </PopoverContent>
               </Popover>
-            </div>
+            </>
           }
         />
       ) : null}
