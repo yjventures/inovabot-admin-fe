@@ -66,9 +66,7 @@ export default function General({ category, setcategory, company_id, setcompany_
           <Popover open={catOpen} onOpenChange={setcatOpen}>
             <PopoverTrigger asChild>
               <Button variant='outline' role='combobox' aria-expanded={catOpen} className='w-full justify-between'>
-                {category
-                  ? categoriesListData?.categories?.find(com => com.title === category)?.title
-                  : 'Select Category...'}
+                {category || 'Select Category...'}
                 <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
               </Button>
             </PopoverTrigger>
@@ -78,17 +76,17 @@ export default function General({ category, setcategory, company_id, setcompany_
                 <CommandList>
                   <CommandEmpty>No category found.</CommandEmpty>
                   <CommandGroup>
-                    {categoriesListData?.categories?.map(com => (
+                    {categoriesListData?.categories?.map(cat => (
                       <CommandItem
-                        key={com?._id}
-                        value={com?.title}
+                        key={cat?._id}
+                        value={cat?.title}
                         onSelect={currentValue => {
                           setcategory(currentValue === category ? '' : currentValue)
                           setcatOpen(false)
                         }}
                       >
-                        <Check className={cn('mr-2 h-4 w-4', category === com?.title ? 'opacity-100' : 'opacity-0')} />
-                        {com?.title}
+                        <Check className={cn('mr-2 h-4 w-4', category === cat?.title ? 'opacity-100' : 'opacity-0')} />
+                        {cat?.title}
                       </CommandItem>
                     ))}
                   </CommandGroup>
