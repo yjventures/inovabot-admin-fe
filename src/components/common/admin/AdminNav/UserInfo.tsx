@@ -10,11 +10,15 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Img } from '@/components/ui/img'
 import LLink from '@/components/ui/llink'
+import usePush from '@/hooks/usePush'
 import { cn } from '@/lib/utils'
+import { useAppDispatch } from '@/redux/hooks'
 import { IUser } from '@/types/IUser'
+import { logoutActions } from '@/utils/auth/logoutActions'
 import { formatValue } from '@/utils/misc/formatValue'
 import { ChevronDown } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 interface Props {
   user: IUser
@@ -25,6 +29,15 @@ interface Props {
 export default function UserInfo({ user, className, darkBg }: Props) {
   const pathname = usePathname()
   const role = user?.type
+  const push = usePush()
+  const dispatch = useAppDispatch()
+
+  const handleLogout = () => {
+    logoutActions(dispatch, () => {
+      toast.success('Logged out successfully!')
+      push('/check-token?to=logout')
+    })
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='text-left'>
@@ -46,7 +59,7 @@ export default function UserInfo({ user, className, darkBg }: Props) {
           <DropdownMenuItem>Update Profile</DropdownMenuItem>
         </LLink>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

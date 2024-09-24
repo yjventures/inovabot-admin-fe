@@ -1,15 +1,11 @@
 'use client'
 
 import logo from '@/assets/images/common/logo.png'
-import { Button } from '@/components/ui/button'
 import { Img } from '@/components/ui/img'
 import { AdminLink } from '@/constants/admin-nav-links'
 import usePush from '@/hooks/usePush'
 import { getCookie } from 'cookies-next'
 import { Dispatch, SetStateAction } from 'react'
-import toast from 'react-hot-toast'
-import { useAppDispatch } from '../../../../redux/hooks/index'
-import { logoutActions } from '../../../../utils/auth/logoutActions'
 import AdminLinks from './AdminLinks'
 
 interface Props {
@@ -20,17 +16,6 @@ interface Props {
 
 export default function AdminSideNav({ currentLink, links, setnavbarOpen }: Props) {
   const push = usePush()
-  const dispatch = useAppDispatch()
-
-  // const { data, isSuccess, isLoading } = useGetWebfrontQuery({ type: 'logo' })
-  //const title = data?.data?.title
-
-  const handleLogout = () => {
-    logoutActions(dispatch, () => {
-      toast.success('Logged out successfully!')
-      push('/check-token?to=logout')
-    })
-  }
 
   const redirectToDashboard = () => {
     const userData = getCookie('userData')
@@ -56,11 +41,11 @@ export default function AdminSideNav({ currentLink, links, setnavbarOpen }: Prop
         <AdminLinks links={links} currentLink={currentLink} setnavbarOpen={setnavbarOpen} />
       </div>
 
-      <div className='p-5 w-full'>
+      {/* <div className='p-5 w-full'>
         <Button onClick={handleLogout} className='w-full rounded-md h-12'>
           Log Out
         </Button>
-      </div>
+      </div> */}
     </nav>
   )
 }
