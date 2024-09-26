@@ -1,3 +1,24 @@
+import Analytics from '@/components/pages/admin/dashboard/Analytics'
+import DashboardButtons from '@/components/pages/admin/dashboard/DashboardButtons'
+import Tutorial from '@/components/reusable/dashboard/tutorial'
+
+export const metadata = {
+  title: 'Dashboard | Inova'
+}
+
 export default function DashboardPage() {
-  return <div>Admin Dashboard</div>
+  return (
+    <>
+      <Analytics />
+      <Tutorial
+        videoId='qXgYQgCRqz8'
+        title='Learn More'
+        description='about the importance of having an AI chatbot'
+        ctaLabel='Learn More'
+        ctaHref='/'
+        className='my-10'
+      />
+      <DashboardButtons />
+    </>
+  )
 }

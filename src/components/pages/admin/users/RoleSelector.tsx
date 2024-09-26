@@ -23,14 +23,14 @@ export default function RoleSelector({ setparams, roles }: Props) {
   }
 
   return (
-    <div className='flex flex-wrap gap-1 border rounded-lg p-1 shadow-md bg-foreground'>
+    <div className='flex flex-wrap gap-1 border rounded-lg p-1 shadow-sm bg-foreground'>
       {roles.map(role => (
         <Button
           key={role.value}
           size='sm'
           onClick={() => handleRole(role)}
-          variant={selectedRole.value === role.value ? 'black' : 'outline'}
-          className='h-8'
+          variant={selectedRole.value === role.value ? 'secondary' : 'unstyled'}
+          className='h-8 rounded-md px-3'
         >
           {role.label}
         </Button>

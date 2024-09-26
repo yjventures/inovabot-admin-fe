@@ -9,8 +9,14 @@ const dashboardsApi = api.injectEndpoints({
         url: `${rootApi}/dashboard-search`,
         params: { name }
       })
+    }),
+    dashboardAnalytics: build.query({
+      query: filter => ({
+        url: `${rootApi}/analytics`,
+        params: { filter }
+      })
     })
   })
 })
 
-export const { useDashboardSearchQuery } = dashboardsApi
+export const { useDashboardSearchQuery, useDashboardAnalyticsQuery } = dashboardsApi
