@@ -8,6 +8,7 @@ import TableSkeleton from '@/components/reusable/tables/table-skeleton'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { initParams } from '@/constants/form/init-params'
+import { getUserRole } from '@/helpers/common'
 import { useDeleteUserMutation, useGetUsersQuery } from '@/redux/features/usersApi'
 import { IParams } from '@/types/common/IParams'
 import { WithId } from '@/types/common/IResponse'
@@ -21,13 +22,11 @@ import toast from 'react-hot-toast'
 import RoleSelector from './RoleSelector'
 
 const roles = [
-  { label: 'All', value: '' },
-  { label: 'Admins', value: 'admin' },
-  { label: 'Company Admins', value: 'company-admin' },
-  { label: 'Resellers', value: 'reseller' }
+  { label: 'Super Admins', value: 'super-admin' },
+  { label: 'Admins', value: 'admin' }
 ]
 
-export default function AllUsers() {
+export default function AllAdmins() {
   const [search, setsearch] = useState<string>('')
 
   type Params = IParams & { search: string; type?: string }
@@ -47,8 +46,7 @@ export default function AllUsers() {
 
   useEffect(() => {
     if (isDeleteSuccess) {
-      toast.success('User deleted successfully')
-      // refresh()
+      toast.success('Admin deleted successfully')
     }
     if (isDeleteError) toast.error(rtkErrorMessage(deleteError))
   }, [isDeleteSuccess, isDeleteError, deleteError])
@@ -73,8 +71,6 @@ export default function AllUsers() {
             <TableRow>
               <TableHead>User</TableHead>
               <TableHead>Created At</TableHead>
-              <TableHead>Company Details</TableHead>
-              <TableHead>Subscription Expires</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -91,22 +87,9 @@ export default function AllUsers() {
                   </div>
                 </TableCell>
                 <TableCell>{formateDate(user?.createdAt)}</TableCell>
+
                 <TableCell>
-                  {user?.type === 'company-admin'
-                    ? user?.company[0]?.name
-                    : user?.type === 'reseller'
-                    ? `Total ${(user as any).number_of_company} Companies`
-                    : 'N/A'}
-                </TableCell>
-                <TableCell>
-                  {user?.type === 'company-admin' && user?.company?.[0]?.expires_at
-                    ? formateDate(user?.company?.[0]?.expires_at)
-                    : user?.type !== 'company-admin'
-                    ? 'N/A'
-                    : 'Not subscribed'}
-                </TableCell>
-                <TableCell>
-                  {user?.type !== 'super-admin' ? (
+                  {user?.type !== 'super-admin' && getUserRole() === 'super-admin' ? (
                     <TableActions>
                       <Button
                         icon={<Trash2 />}

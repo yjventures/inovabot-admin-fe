@@ -2,7 +2,6 @@
 
 import CardAvatar from '@/components/reusable/cards/commonn/card-avatar'
 import Search from '@/components/reusable/tables/search'
-import TableActions from '@/components/reusable/tables/table-actions'
 import TablePagination from '@/components/reusable/tables/table-pagination'
 import TableSkeleton from '@/components/reusable/tables/table-skeleton'
 import { Button } from '@/components/ui/button'
@@ -18,20 +17,12 @@ import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { Trash2 } from 'lucide-react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import RoleSelector from './RoleSelector'
 
-const roles = [
-  { label: 'All', value: '' },
-  { label: 'Admins', value: 'admin' },
-  { label: 'Company Admins', value: 'company-admin' },
-  { label: 'Resellers', value: 'reseller' }
-]
-
-export default function AllUsers() {
+export default function AllResellers() {
   const [search, setsearch] = useState<string>('')
 
   type Params = IParams & { search: string; type?: string }
-  const [params, setParams] = useState<Params>({ ...initParams({}), search })
+  const [params, setParams] = useState<Params>({ ...initParams({}), search, type: 'reseller' })
 
   useEffect(() => {
     setParams(prevParams => ({ ...prevParams, search }))
@@ -47,7 +38,7 @@ export default function AllUsers() {
 
   useEffect(() => {
     if (isDeleteSuccess) {
-      toast.success('User deleted successfully')
+      toast.success('Reseller deleted successfully')
       // refresh()
     }
     if (isDeleteError) toast.error(rtkErrorMessage(deleteError))
@@ -62,8 +53,6 @@ export default function AllUsers() {
           placeholder='Search by user name'
           className='max-w-sm'
         />
-
-        <RoleSelector setparams={setParams} roles={roles} />
       </div>
 
       {isLoading ? <TableSkeleton /> : null}
@@ -73,8 +62,7 @@ export default function AllUsers() {
             <TableRow>
               <TableHead>User</TableHead>
               <TableHead>Created At</TableHead>
-              <TableHead>Company Details</TableHead>
-              <TableHead>Subscription Expires</TableHead>
+              <TableHead>Total companies</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -91,34 +79,18 @@ export default function AllUsers() {
                   </div>
                 </TableCell>
                 <TableCell>{formateDate(user?.createdAt)}</TableCell>
+                <TableCell>{(user as any).number_of_company}</TableCell>
+
                 <TableCell>
-                  {user?.type === 'company-admin'
-                    ? user?.company[0]?.name
-                    : user?.type === 'reseller'
-                    ? `Total ${(user as any).number_of_company} Companies`
-                    : 'N/A'}
-                </TableCell>
-                <TableCell>
-                  {user?.type === 'company-admin' && user?.company?.[0]?.expires_at
-                    ? formateDate(user?.company?.[0]?.expires_at)
-                    : user?.type !== 'company-admin'
-                    ? 'N/A'
-                    : 'Not subscribed'}
-                </TableCell>
-                <TableCell>
-                  {user?.type !== 'super-admin' ? (
-                    <TableActions>
-                      <Button
-                        icon={<Trash2 />}
-                        size='sm'
-                        variant='destructive'
-                        isLoading={isDeleteLoading}
-                        onClick={() => removeMember(user?._id)}
-                      >
-                        Delete User
-                      </Button>
-                    </TableActions>
-                  ) : null}
+                  <Button
+                    icon={<Trash2 />}
+                    size='sm'
+                    variant='destructive'
+                    isLoading={isDeleteLoading}
+                    onClick={() => removeMember(user?._id)}
+                  >
+                    Delete User
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

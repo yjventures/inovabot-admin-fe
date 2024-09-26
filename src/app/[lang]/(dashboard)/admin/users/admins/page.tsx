@@ -1,3 +1,4 @@
+import AllAdmins from '@/components/pages/admin/users/AllAdmins'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
@@ -20,6 +21,7 @@ export default function AdminsPage() {
           </LLink>
         }
       />
+      <AllAdmins />
     </div>
   )
 }

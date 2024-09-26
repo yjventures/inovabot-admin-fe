@@ -1,3 +1,4 @@
+import AllResellers from '@/components/pages/admin/resellers/AllResellers'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
@@ -11,7 +12,7 @@ export default function AdminResellersPage() {
   return (
     <>
       <DashboardHeading
-        title='Resellers'
+        title='All Resellers'
         extra={
           <LLink href='/admin/resellers/invite'>
             <Button variant='gradient' icon={<PlusSquare />}>
@@ -20,6 +21,8 @@ export default function AdminResellersPage() {
           </LLink>
         }
       />
+
+      <AllResellers />
     </>
   )
 }

@@ -8,16 +8,13 @@ type Params = IParams & { search: string; type?: string }
 
 interface Props {
   setparams: Dispatch<SetStateAction<Params>>
+  roles: {
+    label: string
+    value: string
+  }[]
 }
 
-const roles = [
-  { label: 'All', value: '' },
-  { label: 'Admins', value: 'admin' },
-  { label: 'Company Admins', value: 'company-admin' },
-  { label: 'Resellers', value: 'reseller' }
-]
-
-export default function RoleSelector({ setparams }: Props) {
+export default function RoleSelector({ setparams, roles }: Props) {
   const [selectedRole, setselectedRole] = useState(roles[0])
   const handleRole = userRole => {
     setselectedRole(userRole)
