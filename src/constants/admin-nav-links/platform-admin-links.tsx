@@ -1,4 +1,4 @@
-import { BaggageClaim, Blocks, BookUser, Boxes, ChartBarStacked, MessagesSquare, TextSelect } from 'lucide-react'
+import { BaggageClaim, Blocks, BookUser, Boxes, ChartBarStacked, MessagesSquare, TextSelect, Users } from 'lucide-react'
 import { AdminLink } from '.'
 
 export const platformAdminLinks: Array<AdminLink> = [
@@ -70,5 +70,16 @@ export const platformAdminLinks: Array<AdminLink> = [
     hasChildren: false,
     icon: ChartBarStacked,
     href: '/admin/bot-categories'
+  },
+  {
+    id: 8,
+    label: 'Users',
+    hasChildren: true,
+    icon: Users,
+    href: '/admin/users',
+    childrenLinks: [
+      { id: 1, label: 'View All', href: '/admin/users' },
+      { id: 2, label: 'Admins', href: '/admin/users/admins' }
+    ]
   }
 ]

@@ -9,7 +9,7 @@ import {
 import { Img } from '@/components/ui/img'
 import { cn } from '@/lib/utils'
 import { IUser } from '@/types/IUser'
-import { formatValue } from '@/utils/misc/formatValue'
+import { genUserRole } from '@/utils/auth/genUserRole'
 import { ChevronDown } from 'lucide-react'
 import UpdateProfileModal from './UpdateProfileModal'
 
@@ -20,7 +20,6 @@ interface Props {
 }
 
 export default function UserInfo({ user, className, darkBg }: Props) {
-  const role = user?.type
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='text-left'>
@@ -32,7 +31,7 @@ export default function UserInfo({ user, className, darkBg }: Props) {
           )}
           <div className={cn('flex flex-col', { 'text-foreground': darkBg })}>
             <p className='text-sm'>Hello {user?.name}</p>
-            <p className='text-xs text-text-primary-muted'>{formatValue(role, true)}</p>
+            <p className='text-xs text-text-primary-muted'>{genUserRole(user)}</p>
           </div>
           <ChevronDown className={cn('w-4.5 h-4.5 text-secondary-foreground', { 'text-foreground': darkBg })} />
         </div>

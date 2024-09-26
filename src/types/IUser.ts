@@ -8,4 +8,5 @@ export interface IUser {
   image?: string
   type: IUserRoleEnum
   company_position: 'editor' | 'viewer' | ''
+  createdAt: string
 }

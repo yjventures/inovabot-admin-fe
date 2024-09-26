@@ -35,8 +35,21 @@ const usersApi = api.injectEndpoints({
         body
       }),
       invalidatesTags: ['user']
+    }),
+    inviteAdmin: build.mutation({
+      query: body => ({
+        url: 'invitation/invite-admin',
+        method: 'POST',
+        body
+      })
     })
   })
 })
 
-export const { useGetUsersQuery, useDeleteUserMutation, useGetUserQuery, useUpdateProfileMutation } = usersApi
+export const {
+  useGetUsersQuery,
+  useDeleteUserMutation,
+  useGetUserQuery,
+  useUpdateProfileMutation,
+  useInviteAdminMutation
+} = usersApi
