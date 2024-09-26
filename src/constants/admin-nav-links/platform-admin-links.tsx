@@ -66,13 +66,6 @@ export const platformAdminLinks: Array<AdminLink> = [
   },
   {
     id: 7,
-    label: 'Bot Categories',
-    hasChildren: false,
-    icon: ChartBarStacked,
-    href: '/admin/bot-categories'
-  },
-  {
-    id: 8,
     label: 'Users',
     hasChildren: true,
     icon: Users,
@@ -81,5 +74,12 @@ export const platformAdminLinks: Array<AdminLink> = [
       { id: 1, label: 'View All', href: '/admin/users' },
       { id: 2, label: 'Admins', href: '/admin/users/admins' }
     ]
+  },
+  {
+    id: 8,
+    label: 'Bot Categories',
+    hasChildren: false,
+    icon: ChartBarStacked,
+    href: '/admin/bot-categories'
   }
 ]
