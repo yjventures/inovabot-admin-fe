@@ -48,7 +48,7 @@ export default function CompanyInviteForm() {
       toast.success('Invitation sent successfully')
 
       setTimeout(() => {
-        setshowEmailCheck(true)
+        setshowEmailCheck(false)
       }, 5000)
     }
 

@@ -91,7 +91,7 @@ export default function AllBots() {
           address={address}
           web_url={web_url}
           topCTASection={
-            <div className='flex flex-wrap gap-x-3 gap-2'>
+            <>
               <LLink href={`/admin/bots/create?companyId=${company_id}`}>
                 <Button icon={<PlusSquare />}>Create a Bot</Button>
               </LLink>
@@ -100,25 +100,28 @@ export default function AllBots() {
               </LLink>
               <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild className='truncate'>
-                  <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
-                    {company_id && companyListData?.data
-                      ? companyListData.data.find(com => com._id === company_id)?.name || 'Select Company...'
-                      : 'Select Company...'}
+                  <Button
+                    variant='outline'
+                    role='combobox'
+                    aria-expanded={open}
+                    className='w-full max-w-72 justify-between'
+                  >
+                    {company_id ? companyListData?.data.find(com => com._id === company_id)?.name : 'Select Company...'}
                     <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className='w-[200px] p-0'>
+                <PopoverContent className='p-0 max-w-72'>
                   <Command>
-                    <CommandInput placeholder='Search company...' />
+                    <CommandInput placeholder='Search Company...' />
                     <CommandList>
                       <CommandEmpty>No company found.</CommandEmpty>
                       <CommandGroup>
                         {companyListData?.data?.map(com => (
                           <CommandItem
                             key={com?._id}
-                            value={com?._id}
-                            onSelect={currentValue => {
-                              setcompany_id(currentValue === company_id ? '' : currentValue)
+                            value={com?.name}
+                            onSelect={() => {
+                              setcompany_id(com._id)
                               setOpen(false)
                             }}
                           >
@@ -133,7 +136,7 @@ export default function AllBots() {
                   </Command>
                 </PopoverContent>
               </Popover>
-            </div>
+            </>
           }
         />
       ) : null}

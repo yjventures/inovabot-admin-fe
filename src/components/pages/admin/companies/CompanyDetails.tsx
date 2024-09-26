@@ -96,7 +96,7 @@ export default function CompanyDetails() {
             ) : null
           }
           topCTASection={
-            <div className='flex flex-wrap gap-x-3 gap-2'>
+            <>
               <LLink href={`/admin/bots/create?companyId=${id}`}>
                 <Button icon={<PlusSquare />}>Add New Bot</Button>
               </LLink>
@@ -106,7 +106,7 @@ export default function CompanyDetails() {
               <Button icon={<Trash2 />} variant='destructive' onClick={() => setopen(true)}>
                 Delete Company
               </Button>
-            </div>
+            </>
           }
         />
       ) : null}

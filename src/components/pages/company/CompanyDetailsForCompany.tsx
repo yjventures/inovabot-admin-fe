@@ -72,7 +72,7 @@ export default function CompanyDetailsForCompnay() {
             ) : null
           }
           topCTASection={
-            <div className='flex flex-wrap gap-x-3 gap-2'>
+            <>
               {getUserRole() !== 'viewer' && (
                 <LLink href={'/company/bots/create'}>
                   <Button icon={<PlusSquare />}>Add New Bot</Button>
@@ -83,7 +83,7 @@ export default function CompanyDetailsForCompnay() {
                   <Button icon={<PencilLine />}>Update Company</Button>
                 </LLink>
               )}
-            </div>
+            </>
           }
         />
       ) : null}

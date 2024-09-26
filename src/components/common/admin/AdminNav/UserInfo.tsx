@@ -1,3 +1,5 @@
+'use client'
+
 import avatar from '@/assets/images/common/avatar.png'
 import {
   DropdownMenu,
@@ -7,11 +9,16 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Img } from '@/components/ui/img'
+import LLink from '@/components/ui/llink'
+import usePush from '@/hooks/usePush'
 import { cn } from '@/lib/utils'
+import { useAppDispatch } from '@/redux/hooks'
 import { IUser } from '@/types/IUser'
 import { genUserRole } from '@/utils/auth/genUserRole'
+import { logoutActions } from '@/utils/auth/logoutActions'
 import { ChevronDown } from 'lucide-react'
-import UpdateProfileModal from './UpdateProfileModal'
+import { usePathname } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 interface Props {
   user: IUser
@@ -20,6 +27,16 @@ interface Props {
 }
 
 export default function UserInfo({ user, className, darkBg }: Props) {
+  const pathname = usePathname()
+  const push = usePush()
+  const dispatch = useAppDispatch()
+
+  const handleLogout = () => {
+    logoutActions(dispatch, () => {
+      toast.success('Logged out successfully!')
+      push('/check-token?to=logout')
+    })
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='text-left'>
@@ -37,9 +54,11 @@ export default function UserInfo({ user, className, darkBg }: Props) {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <UpdateProfileModal />
+        <LLink href={`/update-profile?prevPath=${pathname}`}>
+          <DropdownMenuItem>Update Profile</DropdownMenuItem>
+        </LLink>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

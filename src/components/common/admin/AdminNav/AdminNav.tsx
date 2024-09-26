@@ -32,14 +32,14 @@ export default function AdminNav({ currentLink }: Props) {
       setlinks(platformAdminLinks)
     } else if (['company-admin'].includes(userRole)) {
       setlinks(companyAdminLinks)
+    } else if (userRole === 'reseller') {
+      setlinks(resellerAdminLinks)
     } else if (userRole === 'user') {
       if (user?.company_position === 'viewer') {
         setlinks(companyViewerLinks)
       } else {
         setlinks(companyEditorLinks)
       }
-    } else if (userRole === 'reseller') {
-      setlinks(resellerAdminLinks)
     }
   }, [])
   return (
