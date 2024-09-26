@@ -1,5 +1,8 @@
 import Analytics from '@/components/pages/admin/dashboard/Analytics'
 import DashboardButtons from '@/components/pages/admin/dashboard/DashboardButtons'
+import RecentBots from '@/components/pages/admin/dashboard/RecentBots'
+import RecentCompanies from '@/components/pages/admin/dashboard/RecentCompanies'
+import RecentTemplates from '@/components/pages/admin/dashboard/RecentTemplates'
 import Tutorial from '@/components/reusable/dashboard/tutorial'
 
 export const metadata = {
@@ -19,6 +22,10 @@ export default function DashboardPage() {
         className='my-10'
       />
       <DashboardButtons />
+
+      <RecentTemplates />
+      <RecentBots />
+      <RecentCompanies />
     </>
   )
 }
