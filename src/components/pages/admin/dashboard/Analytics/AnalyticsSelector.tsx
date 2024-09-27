@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Dispatch, SetStateAction } from 'react'
+import { AnalyticsParams } from '.'
 
 const times = [
   { label: 'All Date', value: undefined },
@@ -10,19 +11,19 @@ const times = [
 ]
 
 interface Props {
-  filter: string
-  setfilter: Dispatch<SetStateAction<string>>
+  params: AnalyticsParams
+  setparams: Dispatch<SetStateAction<AnalyticsParams>>
 }
 
-export default function AnalyticsSelector({ filter, setfilter }: Props) {
+export default function AnalyticsSelector({ params, setparams }: Props) {
   return (
     <div className='flex flex-wrap gap-1 border rounded-lg p-1 shadow-sm bg-foreground'>
       {times.map(time => (
         <Button
           key={time.value}
           size='sm'
-          onClick={() => setfilter(time.value)}
-          variant={filter === time.value ? 'secondary' : 'unstyled'}
+          onClick={() => setparams({ ...params, filter: time.value })}
+          variant={params.filter === time.value ? 'secondary' : 'unstyled'}
           className='h-8 rounded-md px-3'
         >
           {time.label}

@@ -14,9 +14,15 @@ import { Bot, Building2, FileText } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import AnalyticsSelector from './AnalyticsSelector'
 
+export interface AnalyticsParams {
+  filter: string | undefined
+  company_id?: string
+}
+
 export default function Analytics() {
-  const [time, settime] = useState<string | undefined>(undefined)
-  const [params, setparams] = useState<{ time: string; company_id?: string }>({ time })
+  const [params, setparams] = useState<AnalyticsParams>({ filter: undefined })
+
+  useEffect
 
   useEffect(() => {
     if (['company-admin', 'editor', 'viewer'].includes(getUserRole())) {
@@ -27,7 +33,6 @@ export default function Analytics() {
   const { data, isLoading, isSuccess } = useDashboardAnalyticsQuery(params)
   const { data: userData, isLoading: isUserLoading, isSuccess: isUserSuccess } = useGetUserQuery(getUserId())
 
-  console.log(data)
   return (
     <div>
       {isUserLoading && (
@@ -44,7 +49,7 @@ export default function Analytics() {
               See the Analytics and the other important data in the dashboard
             </p>
           </div>
-          <AnalyticsSelector filter={time} setfilter={settime} />
+          <AnalyticsSelector params={params} setparams={setparams} />
         </div>
       )}
 
