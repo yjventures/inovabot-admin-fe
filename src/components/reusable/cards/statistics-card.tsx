@@ -9,22 +9,23 @@ interface Props {
   title: string
   number: string
   iconGradientClassName?: string
+  difference?: string
 }
 
-export default function StatisticsCard({ icon: Icon, title, number, iconGradientClassName }: Props) {
+export default function StatisticsCard({ icon: Icon, title, number, iconGradientClassName, difference }: Props) {
   return (
     <CardWrapper>
       <div className='flex items-start justify-between'>
         <div className='space-y-2'>
           <p className='text-base font-medium text-text-secondary'>{title}</p>
           <Typography variant='h3' className='font-medium'>
-            {number || 0}
+            {number}
           </Typography>
         </div>
         <CardIcon iconGradientClassName={iconGradientClassName} icon={Icon} />
       </div>
 
-      <p className='text-text-primary-muted mt-4'>+20 today</p>
+      <p className='text-text-primary-muted mt-4'>{difference} today</p>
     </CardWrapper>
   )
 }

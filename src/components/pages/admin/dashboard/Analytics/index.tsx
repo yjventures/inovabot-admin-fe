@@ -1,21 +1,21 @@
 'use client'
 
+import CardGrid from '@/components/reusable/cards/commonn/card-grid'
+import StatisticsCardSkeletons from '@/components/reusable/cards/Skeletons/statistics-card-skeletons'
 import StatisticsCard from '@/components/reusable/cards/statistics-card'
 import { Skeleton } from '@/components/ui/skeleton'
 import Typography from '@/components/ui/typography'
 import { useDashboardAnalyticsQuery } from '@/redux/features/dashboardsApi'
 import { useGetUserQuery } from '@/redux/features/usersApi'
 import { getUserId } from '@/utils/auth/getUserId'
-import { Bot } from 'lucide-react'
+import { Bot, Building2, FileText } from 'lucide-react'
 import { useState } from 'react'
 import AnalyticsSelector from './AnalyticsSelector'
 
 export default function Analytics() {
-  const [time, settime] = useState<string | undefined>('all')
-  const { data } = useDashboardAnalyticsQuery(time)
+  const [time, settime] = useState<string | undefined>(undefined)
+  const { data, isLoading, isSuccess } = useDashboardAnalyticsQuery(time)
   const { data: userData, isLoading: isUserLoading, isSuccess: isUserSuccess } = useGetUserQuery(getUserId())
-
-  console.log(userData)
 
   console.log(data)
   return (
@@ -38,12 +38,34 @@ export default function Analytics() {
         </div>
       )}
 
-      <div className='grid grid-cols-4 gap-x-6 mt-6'>
-        <StatisticsCard title='Total Bots' icon={Bot} iconGradientClassName='from-violet-600 to-cyan-300' number='10' />
-        <StatisticsCard title='Total Bots' icon={Bot} iconGradientClassName='from-violet-600 to-cyan-300' number='10' />
-        <StatisticsCard title='Total Bots' icon={Bot} iconGradientClassName='from-violet-600 to-cyan-300' number='10' />
-        <StatisticsCard title='Total Bots' icon={Bot} iconGradientClassName='from-violet-600 to-cyan-300' number='10' />
-      </div>
+      <StatisticsCardSkeletons isLoading={isLoading} className='mt-6' />
+
+      {isSuccess && (
+        <CardGrid total={3} className='mt-6'>
+          <StatisticsCard
+            title='Total Bots'
+            icon={Bot}
+            iconGradientClassName='from-violet-600 to-cyan-300'
+            number={data?.botCount}
+            difference={data?.botDifference}
+          />
+
+          <StatisticsCard
+            title='Companies'
+            icon={Building2}
+            iconGradientClassName='from-violet-600 to-cyan-300'
+            number={data?.companyCount}
+            difference={data?.comapanyDifference}
+          />
+          <StatisticsCard
+            title='Documents'
+            icon={FileText}
+            iconGradientClassName='from-violet-600 to-cyan-300'
+            number={data?.fileCount}
+            difference={data?.fileDifference}
+          />
+        </CardGrid>
+      )}
     </div>
   )
 }
