@@ -11,9 +11,9 @@ const dashboardsApi = api.injectEndpoints({
       })
     }),
     dashboardAnalytics: build.query({
-      query: filter => ({
+      query: params => ({
         url: `${rootApi}/analytics`,
-        params: { filter }
+        params
       })
     })
   })

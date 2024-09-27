@@ -5,16 +5,26 @@ import StatisticsCardSkeletons from '@/components/reusable/cards/Skeletons/stati
 import StatisticsCard from '@/components/reusable/cards/statistics-card'
 import { Skeleton } from '@/components/ui/skeleton'
 import Typography from '@/components/ui/typography'
+import { getUserRole } from '@/helpers/common'
+import { getCompanyId } from '@/helpers/pages/companies'
 import { useDashboardAnalyticsQuery } from '@/redux/features/dashboardsApi'
 import { useGetUserQuery } from '@/redux/features/usersApi'
 import { getUserId } from '@/utils/auth/getUserId'
 import { Bot, Building2, FileText } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AnalyticsSelector from './AnalyticsSelector'
 
 export default function Analytics() {
   const [time, settime] = useState<string | undefined>(undefined)
-  const { data, isLoading, isSuccess } = useDashboardAnalyticsQuery(time)
+  const [params, setparams] = useState<{ time: string; company_id?: string }>({ time })
+
+  useEffect(() => {
+    if (['company-admin', 'editor', 'viewer'].includes(getUserRole())) {
+      setparams({ ...params, company_id: getCompanyId() })
+    }
+  }, [params])
+
+  const { data, isLoading, isSuccess } = useDashboardAnalyticsQuery(params)
   const { data: userData, isLoading: isUserLoading, isSuccess: isUserSuccess } = useGetUserQuery(getUserId())
 
   console.log(data)

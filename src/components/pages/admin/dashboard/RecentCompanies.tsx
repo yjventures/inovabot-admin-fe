@@ -37,17 +37,21 @@ export default function RecentCompanies() {
 
       <CompanyCardSkeletons isLoading={isLoading} className='mt-5' limit={5} />
 
-      {isSuccess && (
-        <CardGrid>
-          {data?.data?.map((company: WithId<ICompany>) => (
-            <CompanyCard
-              key={company._id}
-              company={company}
-              from={['super-admin', 'admin'].includes(getUserRole()) ? 'admin' : 'reseller'}
-            />
-          ))}
-        </CardGrid>
-      )}
+      {isSuccess ? (
+        data?.data?.length ? (
+          <CardGrid>
+            {data?.data?.map((company: WithId<ICompany>) => (
+              <CompanyCard
+                key={company._id}
+                company={company}
+                from={['super-admin', 'admin'].includes(getUserRole()) ? 'admin' : 'reseller'}
+              />
+            ))}
+          </CardGrid>
+        ) : (
+          <p className='italic text-lg mt-5 text-text-secondary'>No companies created yet</p>
+        )
+      ) : null}
     </div>
   )
 }

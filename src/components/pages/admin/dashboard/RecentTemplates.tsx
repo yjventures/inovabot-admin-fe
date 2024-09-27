@@ -7,7 +7,7 @@ import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
 import { initParams } from '@/constants/form/init-params'
-import { getDashboardURLPath } from '@/helpers/common'
+import { getDashboardURLPath, getUserRole } from '@/helpers/common'
 import { useGetTemplatesQuery } from '@/redux/features/templatesApi'
 import { WithId } from '@/types/common/IResponse'
 import { ITemplate } from '@/types/Itemplate'
@@ -25,24 +25,30 @@ export default function RecentTemplates() {
             <LLink href={`${getDashboardURLPath()}/templates`}>
               <Button variant='outline'>View All</Button>
             </LLink>
-            <LLink href={`${getDashboardURLPath()}/templates/create`}>
-              <Button variant='gradient' icon={<PlusSquare />}>
-                Add New
-              </Button>
-            </LLink>
+            {['super-admin', 'admin'].includes(getUserRole()) && (
+              <LLink href={`${getDashboardURLPath()}/templates/create`}>
+                <Button variant='gradient' icon={<PlusSquare />}>
+                  Add New
+                </Button>
+              </LLink>
+            )}
           </>
         }
       />
 
       <TemplateCardSkeletons isLoading={isLoading} limit={5} className='mt-5' />
 
-      {isSuccess && (
-        <CardGrid total={3} className='mt-5'>
-          {data?.data?.map((template: WithId<ITemplate>) => (
-            <TemplateCard key={template._id} template={template} />
-          ))}
-        </CardGrid>
-      )}
+      {isSuccess ? (
+        data?.data?.length ? (
+          <CardGrid total={3} className='mt-5'>
+            {data?.data?.map((template: WithId<ITemplate>) => (
+              <TemplateCard key={template._id} template={template} />
+            ))}
+          </CardGrid>
+        ) : (
+          <p className='italic text-lg mt-5 text-text-secondary'>No tempates created yet</p>
+        )
+      ) : null}
     </div>
   )
 }
