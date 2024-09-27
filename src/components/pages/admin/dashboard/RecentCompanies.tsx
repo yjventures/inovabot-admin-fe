@@ -20,7 +20,7 @@ export default function RecentCompanies() {
     <div className='mt-8'>
       <DashboardHeading
         variant='h3'
-        title='Recent Bots'
+        title='Recent Companies'
         extra={
           <>
             <LLink href={`${getDashboardURLPath()}/companies`}>

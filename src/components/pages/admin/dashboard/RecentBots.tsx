@@ -9,23 +9,10 @@ import LLink from '@/components/ui/llink'
 import { initParams } from '@/constants/form/init-params'
 import { getDashboardURLPath } from '@/helpers/common'
 import { useGetBotsQuery } from '@/redux/features/botsApi'
-import { useGetComanyListQuery } from '@/redux/features/companiesApi'
-import { IParams } from '@/types/common/IParams'
 import { PlusSquare } from 'lucide-react'
-import { useEffect, useState } from 'react'
-
-type Params = IParams & { category: string; company_id: string }
 
 export default function RecentBots() {
-  const [company_id, setcompany_id] = useState('')
-
-  const { data: companyListData, isSuccess: isCompanyListSuccess } = useGetComanyListQuery({})
-
-  useEffect(() => {
-    if (isCompanyListSuccess) setcompany_id(companyListData?.data?.[0]?._id)
-  }, [isCompanyListSuccess, companyListData])
-
-  const params: Params = { ...initParams({ limit: 5 }), company_id, category: 'All' }
+  const params = { ...initParams({ limit: 5 }), category: 'All' }
 
   const { data: botsData, isSuccess, isLoading } = useGetBotsQuery(params)
 
