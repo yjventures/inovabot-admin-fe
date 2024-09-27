@@ -22,13 +22,11 @@ export interface AnalyticsParams {
 export default function Analytics() {
   const [params, setparams] = useState<AnalyticsParams>({ filter: undefined })
 
-  useEffect
-
   useEffect(() => {
     if (['company-admin', 'editor', 'viewer'].includes(getUserRole())) {
-      setparams({ ...params, company_id: getCompanyId() })
+      setparams(prevParams => ({ ...prevParams, company_id: getCompanyId() }))
     }
-  }, [params])
+  }, [])
 
   const { data, isLoading, isSuccess } = useDashboardAnalyticsQuery(params)
   const { data: userData, isLoading: isUserLoading, isSuccess: isUserSuccess } = useGetUserQuery(getUserId())
