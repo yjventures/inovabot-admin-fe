@@ -43,6 +43,7 @@ export default function UdpatePackageForm() {
       setValue('monthly_price', data?.package?.price?.monthly?.price)
       setValue('yearly_price', data?.package?.price?.yearly?.price)
       data?.package?.features?.map((feat: any) => {
+        console.log(feat)
         setValue(feat.keyword, feat.value)
       })
     }
