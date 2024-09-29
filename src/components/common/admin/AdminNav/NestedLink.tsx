@@ -27,7 +27,7 @@ const NestedLink = ({ link, currentLink, setnavbarOpen }: Props) => {
   const [value, setvalue] = useState<string | undefined>(undefined)
 
   const isNestedActive = (link: { childrenLinks: Array<NestedChildLink> }) => {
-    return link.childrenLinks.map(l => `/${locale}${l.href}`).includes(pathname)
+    return link.childrenLinks.some(l => pathname === `/${locale}${l.href}`) // Match exactly with the current path
   }
 
   return (
@@ -82,7 +82,7 @@ const NestedLink = ({ link, currentLink, setnavbarOpen }: Props) => {
             >
               <button
                 className={cn('w-full rounded-lg text-text-primary text-left hover:font-bold', {
-                  'font-bold': pathname.includes(childLink.href)
+                  'font-bold': pathname === `/${locale}` + childLink.href
                 })}
                 onClick={() => setCookie('currentNavLink', childLink.href)}
               >
