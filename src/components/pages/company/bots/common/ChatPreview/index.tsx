@@ -76,7 +76,7 @@ export default function ChatPreview() {
       </div>
       <div className={cn('w-full h-px bg-gray-primary', { 'bg-black': isDark })} />
 
-      <div className='space-y-5 py-5'>
+      <div className={cn('space-y-5 py-5 bg-gray-primary', { 'bg-gray-800': isDark })}>
         <RightChat
           message={first_message || 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, hic.'}
           imgSrc={user_logo}

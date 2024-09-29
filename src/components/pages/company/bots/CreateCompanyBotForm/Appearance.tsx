@@ -82,9 +82,9 @@ export default function Appearance() {
         <ColorInput name='secondary_color' label='Secondary Color' required defaultValue='#e1e1f9' />
         <ColorInput name='font_color' label='Font Color' required defaultValue='#000000' />
 
-        <ColorInput name='primary_color_dark' label='Primary Color (Dark)' required defaultValue='#9eb0ff' />
-        <ColorInput name='secondary_color_dark' label='Secondary Color (Dark)' required defaultValue='#e1e1f9' />
-        <ColorInput name='font_color_dark' label='Font Color (Dark)' required defaultValue='#000000' />
+        <ColorInput name='primary_color_dark' label='Primary Color (Dark)' required defaultValue='#0369a1' />
+        <ColorInput name='secondary_color_dark' label='Secondary Color (Dark)' required defaultValue='#0f766e' />
+        <ColorInput name='font_color_dark' label='Font Color (Dark)' required defaultValue='#f1f5f9' />
       </div>
     </SingleAccordion>
   )
