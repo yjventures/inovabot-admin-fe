@@ -10,10 +10,10 @@ import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
 import usePush from '@/hooks/usePush'
 import { useGetPackageQuery, useUpdatePackageMutation } from '@/redux/features/packagesApi'
+import { useEffect, useState } from 'react'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { PencilLine } from 'lucide-react'
 import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { frequencies } from './AllPackages'
@@ -31,7 +31,7 @@ export default function UdpatePackageForm() {
   const monthly_price = watch('monthly_price')
   const yearly_price = watch('yearly_price')
   const priority_support = watch('priority_support')
-  const embed_widgets = watch('embed_widgets')
+  const embed_widgets = watch('embed_widget')
   const display_images = watch('display_images')
   const custom_domain = watch('custom_domain')
   const total_file_storage = watch('total_file_storage')
@@ -43,7 +43,7 @@ export default function UdpatePackageForm() {
       setValue('monthly_price', data?.package?.price?.monthly?.price)
       setValue('yearly_price', data?.package?.price?.yearly?.price)
       data?.package?.features?.map((feat: any) => {
-        console.log(feat)
+        console.log({ name: feat.keyword, value: feat.value })
         setValue(feat.keyword, feat.value)
       })
     }
@@ -174,7 +174,7 @@ export default function UdpatePackageForm() {
 
             <p className='text-xl font-medium mt-4 mb-2 text-text-heading'>Features</p>
             <Checkbox name='priority_support' label='Priority Support' />
-            <Checkbox name='embed_widgets' label='Embed Widgets' />
+            <Checkbox name='embed_widget' label='Embed Widgets' />
             <Checkbox name='display_images' label='Display Images' />
             <Checkbox name='custom_domain' label='Custom Domain' />
             <Input name='total_file_storage' placeholder='Enter Storage Limit' label='Storage Limit' required />

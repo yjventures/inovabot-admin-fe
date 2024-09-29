@@ -27,7 +27,7 @@ export default function CreatePackageForm() {
   const monthly_price = watch('monthly_price')
   const yearly_price = watch('yearly_price')
   const priority_support = watch('priority_support')
-  const embed_widgets = watch('embed_widgets')
+  const embed_widgets = watch('embed_widget')
   const display_images = watch('display_images')
   const custom_domain = watch('custom_domain')
   const total_file_storage = watch('total_file_storage')
@@ -158,7 +158,7 @@ export default function CreatePackageForm() {
 
             <p className='text-xl font-medium mt-4 mb-2 text-text-heading'>Features</p>
             <Checkbox name='priority_support' label='Priority Support' />
-            <Checkbox name='embed_widgets' label='Embed Widgets' />
+            <Checkbox name='embed_widget' label='Embed Widgets' />
             <Checkbox name='display_images' label='Display Images' />
             <Checkbox name='custom_domain' label='Custom Domain' />
             <Input name='total_file_storage' placeholder='Enter Storage Limit' label='Storage Limit' required />
