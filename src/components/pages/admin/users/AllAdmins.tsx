@@ -30,7 +30,7 @@ export default function AllAdmins() {
   const [search, setsearch] = useState<string>('')
 
   type Params = IParams & { search: string; type?: string }
-  const [params, setParams] = useState<Params>({ ...initParams({}), search })
+  const [params, setParams] = useState<Params>({ ...initParams({}), search, type: 'super-admin' })
 
   useEffect(() => {
     setParams(prevParams => ({ ...prevParams, search }))

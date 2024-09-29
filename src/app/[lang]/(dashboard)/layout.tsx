@@ -1,5 +1,6 @@
 import AdminNav from '@/components/common/admin/AdminNav/AdminNav'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
 
 interface Props {
@@ -9,6 +10,13 @@ interface Props {
 export default function DashboardLayout({ children }: Props) {
   const allCookies = cookies()
   const currentNavLink = allCookies.get('currentNavLink')?.value
+  const token = allCookies.get('refreshToken')?.value
+
+  const isAuth = !!token
+  if (!isAuth) {
+    redirect('/login')
+  }
+
   return (
     <div suppressHydrationWarning>
       <AdminNav currentLink={currentNavLink} />

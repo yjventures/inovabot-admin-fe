@@ -21,18 +21,18 @@ export default function RecentTemplates() {
         variant='h3'
         title='Quick Start Templates'
         extra={
-          <>
-            <LLink href={`${getDashboardURLPath()}/templates`}>
-              <Button variant='outline'>View All</Button>
-            </LLink>
-            {['super-admin', 'admin'].includes(getUserRole()) && (
+          ['super-admin', 'admin'].includes(getUserRole()) && (
+            <>
+              <LLink href={`${getDashboardURLPath()}/templates`}>
+                <Button variant='outline'>View All</Button>
+              </LLink>
               <LLink href={`${getDashboardURLPath()}/templates/create`}>
                 <Button variant='gradient' icon={<PlusSquare />}>
                   Add New
                 </Button>
               </LLink>
-            )}
-          </>
+            </>
+          )
         }
       />
 

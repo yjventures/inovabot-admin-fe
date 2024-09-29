@@ -83,7 +83,7 @@ export default function AdminCompanies({ mode, isLoading, isSuccess, data, param
                     Bots
                   </TableSorter>
                 </TableHead>
-                <TableHead className='text-right'>Payment</TableHead>
+                {/* <TableHead className='text-right'>Payment</TableHead> */}
                 <TableHead>
                   <TableSorter params={params} setparams={setparams} sortField='status'>
                     Status
@@ -108,7 +108,7 @@ export default function AdminCompanies({ mode, isLoading, isSuccess, data, param
                     </TableCell>
                     <TableCell>{formateDate(company.createdAt, true)}</TableCell>
                     <TableCell>{company.bots}</TableCell>
-                    <TableCell className='text-right'>${company.payment_amount}</TableCell>
+                    {/* <TableCell className='text-right'>${company.payment_amount}</TableCell> */}
                     <TableCell>
                       {company.active ? (
                         <Badge variant='emerald'>Active</Badge>
