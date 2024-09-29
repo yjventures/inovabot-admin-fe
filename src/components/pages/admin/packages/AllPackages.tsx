@@ -46,7 +46,7 @@ export default function AllPackages() {
 
       <PackagesKkeletons isLoading={isLoading} />
       {isSuccess ? (
-        <CardGrid total='packages'>
+        <CardGrid total={3}>
           {data?.data?.map((tier: WithId<IPackage>) => (
             <PriceCard key={tier._id} tier={tier} frequency={frequency} />
           ))}
