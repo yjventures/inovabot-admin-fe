@@ -118,7 +118,7 @@ export default function CreateCompanyForm() {
             />
             <p className='text-text text-sm sm:text-xl'>Billed Anually</p>
           </div>
-          <CardGrid total={4}>
+          <CardGrid total={3}>
             {isLoading
               ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className='rounded-lg w-full h-96' />)
               : null}
