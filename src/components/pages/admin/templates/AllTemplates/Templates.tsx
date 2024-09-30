@@ -111,7 +111,7 @@ export default function Templates({ mode, isLoading, isSuccess, data, params, se
         )
       ) : null}
 
-      {isSuccess && !data?.data?.length && <p className='mt-10 italic text-text-gray'>No Company Yet</p>}
+      {isSuccess && !data?.data?.length && <p className='mt-10 italic text-text-gray'>No templates yet</p>}
 
       <ConfirmationPrompt
         open={open}

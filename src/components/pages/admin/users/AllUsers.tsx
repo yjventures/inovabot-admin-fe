@@ -68,62 +68,71 @@ export default function AllUsers() {
 
       {isLoading ? <TableSkeleton /> : null}
       {isSuccess ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>User</TableHead>
-              <TableHead>Created At</TableHead>
-              <TableHead>Company Details</TableHead>
-              <TableHead>Subscription Expires</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data?.data?.map((user: WithId<IUser & { company?: { name: string } }>) => (
-              <TableRow key={user?._id}>
-                <TableCell>
-                  <div className='flex items-center gap-3'>
-                    <CardAvatar imgSrc={user?.image} name={user?.name} className='size-12' nameClassName='text-base' />
-                    <div className='flex flex-col'>
-                      <p className='text-sm'>{user?.name}</p>
-                      <p className='text-xs text-text-primary-muted'>{genUserRole(user)}</p>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>{formateDate(user?.createdAt)}</TableCell>
-                <TableCell>
-                  {user?.type === 'company-admin'
-                    ? user?.company[0]?.name
-                    : user?.type === 'reseller'
-                    ? `Total ${(user as any).number_of_company} Companies`
-                    : 'N/A'}
-                </TableCell>
-                <TableCell>
-                  {user?.type === 'company-admin' && user?.company?.[0]?.expires_at
-                    ? formateDate(user?.company?.[0]?.expires_at)
-                    : user?.type !== 'company-admin'
-                    ? 'N/A'
-                    : 'Not subscribed'}
-                </TableCell>
-                <TableCell>
-                  {user?.type !== 'super-admin' ? (
-                    <TableActions>
-                      <Button
-                        icon={<Trash2 />}
-                        size='sm'
-                        variant='destructive'
-                        isLoading={isDeleteLoading}
-                        onClick={() => removeMember(user?._id)}
-                      >
-                        Delete User
-                      </Button>
-                    </TableActions>
-                  ) : null}
-                </TableCell>
+        data?.data?.length ? (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>User</TableHead>
+                <TableHead>Created At</TableHead>
+                <TableHead>Company Details</TableHead>
+                <TableHead>Subscription Expires</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {data?.data?.map((user: WithId<IUser & { company?: { name: string } }>) => (
+                <TableRow key={user?._id}>
+                  <TableCell>
+                    <div className='flex items-center gap-3'>
+                      <CardAvatar
+                        imgSrc={user?.image}
+                        name={user?.name}
+                        className='size-12'
+                        nameClassName='text-base'
+                      />
+                      <div className='flex flex-col'>
+                        <p className='text-sm'>{user?.name}</p>
+                        <p className='text-xs text-text-primary-muted'>{genUserRole(user)}</p>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>{formateDate(user?.createdAt)}</TableCell>
+                  <TableCell>
+                    {user?.type === 'company-admin'
+                      ? user?.company[0]?.name
+                      : user?.type === 'reseller'
+                      ? `Total ${(user as any).number_of_company} Companies`
+                      : 'N/A'}
+                  </TableCell>
+                  <TableCell>
+                    {user?.type === 'company-admin' && user?.company?.[0]?.expires_at
+                      ? formateDate(user?.company?.[0]?.expires_at)
+                      : user?.type !== 'company-admin'
+                      ? 'N/A'
+                      : 'Not subscribed'}
+                  </TableCell>
+                  <TableCell>
+                    {user?.type !== 'super-admin' ? (
+                      <TableActions>
+                        <Button
+                          icon={<Trash2 />}
+                          size='sm'
+                          variant='destructive'
+                          isLoading={isDeleteLoading}
+                          onClick={() => removeMember(user?._id)}
+                        >
+                          Delete User
+                        </Button>
+                      </TableActions>
+                    ) : null}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <p className='mt-10 italic text-text-secondary'>No users yet</p>
+        )
       ) : null}
 
       <TablePagination

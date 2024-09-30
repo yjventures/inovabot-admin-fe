@@ -56,62 +56,66 @@ export default function AllTeamMembersForReseller({ company_id }: Props) {
   return (
     <div className='mt-8'>
       {isLoading ? <TableSkeleton /> : null}
-      {isSuccess && data?.data?.length ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Company Name</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data?.data?.map(user => (
-              <TableRow key={user?._id}>
-                <TableCell className='font-medium'>{user?.name}</TableCell>
-                <TableCell>{user?.email}</TableCell>
-                <TableCell>{user?.company?.name}</TableCell>
-                <TableCell>
-                  {user?.type === 'reseller' ? 'Reseller' : user?.company_position === 'editor' ? 'Editor' : 'Viewer'}
-                </TableCell>
-                <TableCell>
-                  <TableActions>
-                    {user?.type !== 'reseller' && (
-                      <>
-                        <Button
-                          icon={<UserPen />}
-                          size='sm'
-                          variant='default'
-                          onClick={() =>
-                            updateRole({
-                              user_id: user?._id,
-                              role_name: user?.company_position === 'editor' ? 'viewer' : 'editor'
-                            })
-                          }
-                          isLoading={isUpdateLoading}
-                        >
-                          Make {user?.company_position === 'editor' ? 'Viewer' : 'Editor'}
-                        </Button>
-
-                        <Button
-                          icon={<Trash2 />}
-                          size='sm'
-                          variant='destructive'
-                          isLoading={isDeleteLoading}
-                          onClick={() => removeMember(user?._id!)}
-                        >
-                          Remove Member
-                        </Button>
-                      </>
-                    )}
-                  </TableActions>
-                </TableCell>
+      {isSuccess ? (
+        data?.data?.length ? (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Company Name</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {data?.data?.map(user => (
+                <TableRow key={user?._id}>
+                  <TableCell className='font-medium'>{user?.name}</TableCell>
+                  <TableCell>{user?.email}</TableCell>
+                  <TableCell>{user?.company?.name}</TableCell>
+                  <TableCell>
+                    {user?.type === 'reseller' ? 'Reseller' : user?.company_position === 'editor' ? 'Editor' : 'Viewer'}
+                  </TableCell>
+                  <TableCell>
+                    <TableActions>
+                      {user?.type !== 'reseller' && (
+                        <>
+                          <Button
+                            icon={<UserPen />}
+                            size='sm'
+                            variant='default'
+                            onClick={() =>
+                              updateRole({
+                                user_id: user?._id,
+                                role_name: user?.company_position === 'editor' ? 'viewer' : 'editor'
+                              })
+                            }
+                            isLoading={isUpdateLoading}
+                          >
+                            Make {user?.company_position === 'editor' ? 'Viewer' : 'Editor'}
+                          </Button>
+
+                          <Button
+                            icon={<Trash2 />}
+                            size='sm'
+                            variant='destructive'
+                            isLoading={isDeleteLoading}
+                            onClick={() => removeMember(user?._id!)}
+                          >
+                            Remove Member
+                          </Button>
+                        </>
+                      )}
+                    </TableActions>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <p className='mt-10 italic text-text-secondary'>No team members yet</p>
+        )
       ) : null}
 
       <TablePagination

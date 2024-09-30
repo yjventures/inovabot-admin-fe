@@ -57,45 +57,54 @@ export default function AllResellers() {
 
       {isLoading ? <TableSkeleton /> : null}
       {isSuccess ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>User</TableHead>
-              <TableHead>Created At</TableHead>
-              <TableHead>Total companies</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data?.data?.map((user: WithId<IUser & { company?: { name: string } }>) => (
-              <TableRow key={user?._id}>
-                <TableCell>
-                  <div className='flex items-center gap-3'>
-                    <CardAvatar imgSrc={user?.image} name={user?.name} className='size-12' nameClassName='text-base' />
-                    <div className='flex flex-col'>
-                      <p className='text-sm'>{user?.name}</p>
-                      <p className='text-xs text-text-primary-muted'>{genUserRole(user)}</p>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>{formateDate(user?.createdAt)}</TableCell>
-                <TableCell>{(user as any).number_of_company}</TableCell>
-
-                <TableCell>
-                  <Button
-                    icon={<Trash2 />}
-                    size='sm'
-                    variant='destructive'
-                    isLoading={isDeleteLoading}
-                    onClick={() => removeMember(user?._id)}
-                  >
-                    Delete User
-                  </Button>
-                </TableCell>
+        data?.data?.length ? (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>User</TableHead>
+                <TableHead>Created At</TableHead>
+                <TableHead>Total companies</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {data?.data?.map((user: WithId<IUser & { company?: { name: string } }>) => (
+                <TableRow key={user?._id}>
+                  <TableCell>
+                    <div className='flex items-center gap-3'>
+                      <CardAvatar
+                        imgSrc={user?.image}
+                        name={user?.name}
+                        className='size-12'
+                        nameClassName='text-base'
+                      />
+                      <div className='flex flex-col'>
+                        <p className='text-sm'>{user?.name}</p>
+                        <p className='text-xs text-text-primary-muted'>{genUserRole(user)}</p>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>{formateDate(user?.createdAt)}</TableCell>
+                  <TableCell>{(user as any).number_of_company}</TableCell>
+
+                  <TableCell>
+                    <Button
+                      icon={<Trash2 />}
+                      size='sm'
+                      variant='destructive'
+                      isLoading={isDeleteLoading}
+                      onClick={() => removeMember(user?._id)}
+                    >
+                      Delete User
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <p className='mt-10 italic text-text-secondary'>No resellers yet</p>
+        )
       ) : null}
 
       <TablePagination

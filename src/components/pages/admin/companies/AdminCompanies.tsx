@@ -155,7 +155,7 @@ export default function AdminCompanies({ mode, isLoading, isSuccess, data, param
         )
       ) : null}
 
-      {isSuccess && !data?.data?.length && <p className='mt-10 italic text-text-gray'>No Company Yet</p>}
+      {isSuccess && !data?.data?.length && <p className='mt-10 italic text-text-gray'>No companies created yet</p>}
 
       <ConfirmationPrompt
         open={open}

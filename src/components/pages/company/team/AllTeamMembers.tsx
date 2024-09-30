@@ -64,66 +64,70 @@ export default function AllTeamMembers() {
       />
       {isLoading ? <TableSkeleton /> : null}
       {isSuccess ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              {getUserRole() === 'company-admin' && <TableHead>Actions</TableHead>}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data?.data?.map(user => (
-              <TableRow key={user?._id}>
-                <TableCell className='font-medium'>{user?.name}</TableCell>
-                <TableCell>{user?.email}</TableCell>
-                <TableCell>
-                  {user?.type === 'company-admin'
-                    ? 'Company Admin'
-                    : user?.type === 'reseller'
-                    ? 'Reseller'
-                    : user?.company_position === 'editor'
-                    ? 'Editor'
-                    : 'Viewer'}
-                </TableCell>
-                {getUserRole() == 'company-admin' && (
-                  <TableCell>
-                    <TableActions>
-                      {user.type === 'user' && (
-                        <Button
-                          icon={<UserPen />}
-                          size='sm'
-                          variant='default'
-                          onClick={() =>
-                            updateRole({
-                              user_id: user?._id,
-                              role_name: user?.company_position === 'editor' ? 'viewer' : 'editor'
-                            })
-                          }
-                          isLoading={isUpdateLoading}
-                        >
-                          Make {user?.company_position === 'editor' ? 'Viewer' : 'Editor'}
-                        </Button>
-                      )}
-                      {user.type !== 'company-admin' && (
-                        <Button
-                          icon={<Trash2 />}
-                          size='sm'
-                          variant='destructive'
-                          isLoading={isDeleteLoading}
-                          onClick={() => removeMember(user?._id!)}
-                        >
-                          Remove Member
-                        </Button>
-                      )}
-                    </TableActions>
-                  </TableCell>
-                )}
+        data?.data?.length ? (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Role</TableHead>
+                {getUserRole() === 'company-admin' && <TableHead>Actions</TableHead>}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {data?.data?.map(user => (
+                <TableRow key={user?._id}>
+                  <TableCell className='font-medium'>{user?.name}</TableCell>
+                  <TableCell>{user?.email}</TableCell>
+                  <TableCell>
+                    {user?.type === 'company-admin'
+                      ? 'Company Admin'
+                      : user?.type === 'reseller'
+                      ? 'Reseller'
+                      : user?.company_position === 'editor'
+                      ? 'Editor'
+                      : 'Viewer'}
+                  </TableCell>
+                  {getUserRole() == 'company-admin' && (
+                    <TableCell>
+                      <TableActions>
+                        {user.type === 'user' && (
+                          <Button
+                            icon={<UserPen />}
+                            size='sm'
+                            variant='default'
+                            onClick={() =>
+                              updateRole({
+                                user_id: user?._id,
+                                role_name: user?.company_position === 'editor' ? 'viewer' : 'editor'
+                              })
+                            }
+                            isLoading={isUpdateLoading}
+                          >
+                            Make {user?.company_position === 'editor' ? 'Viewer' : 'Editor'}
+                          </Button>
+                        )}
+                        {user.type !== 'company-admin' && (
+                          <Button
+                            icon={<Trash2 />}
+                            size='sm'
+                            variant='destructive'
+                            isLoading={isDeleteLoading}
+                            onClick={() => removeMember(user?._id!)}
+                          >
+                            Remove Member
+                          </Button>
+                        )}
+                      </TableActions>
+                    </TableCell>
+                  )}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <p className='mt-10 italic text-text-secondary'>No team members yet</p>
+        )
       ) : null}
 
       <TablePagination

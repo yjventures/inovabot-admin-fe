@@ -46,11 +46,15 @@ export default function AllPackages() {
 
       <PackagesKkeletons isLoading={isLoading} />
       {isSuccess ? (
-        <CardGrid total={3}>
-          {data?.data?.map((tier: WithId<IPackage>) => (
-            <PriceCard key={tier._id} tier={tier} frequency={frequency} />
-          ))}
-        </CardGrid>
+        data?.data?.length ? (
+          <CardGrid total={3}>
+            {data?.data?.map((tier: WithId<IPackage>) => (
+              <PriceCard key={tier._id} tier={tier} frequency={frequency} />
+            ))}
+          </CardGrid>
+        ) : (
+          <p className='mt-10 italic text-text-secondary'>No packages created yet</p>
+        )
       ) : null}
 
       <TablePagination metadata={data?.metadata!} setparams={setparams} params={params} />
