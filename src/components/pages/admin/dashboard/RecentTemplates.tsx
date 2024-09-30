@@ -42,7 +42,11 @@ export default function RecentTemplates() {
         data?.data?.length ? (
           <CardGrid total={3} className='mt-5'>
             {data?.data?.map((template: WithId<ITemplate>) => (
-              <TemplateCard key={template._id} template={template} />
+              <TemplateCard
+                key={template._id}
+                template={template}
+                hidePopover={!['super-admin', 'admin'].includes(getUserRole())}
+              />
             ))}
           </CardGrid>
         ) : (

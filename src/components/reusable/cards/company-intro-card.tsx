@@ -2,7 +2,6 @@ import companyPlaceholder from '@/assets/images/common/dashboard/company-placeho
 import { Img } from '@/components/ui/img'
 import { cn } from '@/lib/utils'
 import { formateDate } from '@/utils/date/formateDate'
-import { Flag, Share2 } from 'lucide-react'
 import React, { ReactNode } from 'react'
 import Badge from './badge'
 
@@ -87,10 +86,10 @@ export default function CompanyIntoCard({
             <p className='text-sm font-semibold'>{formateDate(createdAt, true)}</p>
           </div>
 
-          <div className='flex items-center gap-x-2'>
+          {/* <div className='flex items-center gap-x-2'>
             <Flag fill='currentColor' size={20} className='text-text-gray-light' />
             <Share2 fill='currentColor' size={20} className='text-text-gray-light' />
-          </div>
+          </div> */}
         </div>
       </div>
 
