@@ -15,6 +15,8 @@ export default function CheckToken() {
   const [isLoading, setisLoading] = useState(true)
   const params = useSearchParams()
 
+  const rememberMe = params.get('rememberMe') === 'true'
+
   const checkTokenFn = useCallback(async () => {
     try {
       const res = await axios.post(`${API_URL}/auth/login`, { type: 'refresh', refreshToken: params.get('token') })
@@ -22,12 +24,19 @@ export default function CheckToken() {
         setisLoading(false)
         const { refreshToken, accessToken, ...userData } = res?.data?.user || {}
         if (refreshToken && accessToken) {
-          setCookie('refreshToken', refreshToken, { maxAge: calculateTokenExpiration(refreshToken) })
-          setCookie('accessToken', accessToken, { maxAge: calculateTokenExpiration(accessToken) })
+          if (rememberMe) {
+            setCookie('refreshToken', refreshToken, { maxAge: calculateTokenExpiration(refreshToken) })
+            setCookie('accessToken', accessToken, { maxAge: calculateTokenExpiration(accessToken) })
+            setCookie('userData', JSON.stringify(userData), {
+              maxAge: calculateTokenExpiration(refreshToken)
+            })
+          } else {
+            setCookie('refreshToken', refreshToken)
+            setCookie('accessToken', accessToken)
+            setCookie('userData', JSON.stringify(userData))
+          }
         }
-        setCookie('userData', JSON.stringify(userData), {
-          maxAge: calculateTokenExpiration(refreshToken)
-        })
+
         const userRole = res?.data?.user?.type
         if (['super-admin', 'admin'].includes(userRole)) {
           push('/admin/dashboard')
@@ -42,7 +51,7 @@ export default function CheckToken() {
       console.error(error)
       push('/login')
     }
-  }, [params, push])
+  }, [params, push, rememberMe])
 
   useEffect(() => {
     if (params.has('token')) {
