@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import LLink from '@/components/ui/llink'
 import usePush from '@/hooks/usePush'
 import { useCreateBotMutation } from '@/redux/features/botsApi'
+import { useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { useGetTemplateQuery } from '@/redux/features/templatesApi'
 import { IBot } from '@/types/IBot'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
@@ -43,6 +44,8 @@ export default function CreateBotForm({ from = 'admin' }: { from?: 'admin' | 're
     }
     if (params.has('companyId')) setcompany_id(params.get('companyId') as string)
   }, [params])
+
+  const { data: companyData } = useGetCompanyQuery(company_id)
 
   useEffect(() => {
     if (isTemplateSuccess) {
@@ -87,7 +90,14 @@ export default function CreateBotForm({ from = 'admin' }: { from?: 'admin' | 're
                 {templateId ? 'Choose another Template' : 'Choose Template'}
               </Button>
             </LLink>
-            <Button variant='gradient' icon={<ArrowRight />} iconPosition='right' type='submit' isLoading={isLoading}>
+            <Button
+              variant='gradient'
+              icon={<ArrowRight />}
+              iconPosition='right'
+              type='submit'
+              isLoading={isLoading}
+              disabled={!companyData?.data?.payment_status}
+            >
               Proceed to Knowledgebase
             </Button>
           </>

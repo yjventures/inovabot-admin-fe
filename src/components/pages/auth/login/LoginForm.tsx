@@ -1,5 +1,6 @@
 'use client'
 
+import { Checkbox } from '@/components/reusable/form/checkbox'
 import Form from '@/components/reusable/form/form'
 import { Input } from '@/components/reusable/form/input'
 import { Button } from '@/components/ui/button'
@@ -16,6 +17,7 @@ import toast from 'react-hot-toast'
 export default function LoginForm() {
   const push = usePush()
   const methods = useForm()
+  const rememberMe = methods.watch('rememberMe')
   const [login, { isLoading, isSuccess, isError, error, data }] = useLoginMutation()
   const onSubmit = (data: any) => {
     login(data)
@@ -28,15 +30,21 @@ export default function LoginForm() {
       const { refreshToken, accessToken, ...userData } = data?.user || {}
 
       if (refreshToken && accessToken) {
-        setCookie('refreshToken', refreshToken, { maxAge: calculateTokenExpiration(refreshToken) })
-        setCookie('accessToken', accessToken, { maxAge: calculateTokenExpiration(accessToken) })
+        if (rememberMe) {
+          setCookie('refreshToken', refreshToken, { maxAge: calculateTokenExpiration(refreshToken) })
+          setCookie('accessToken', accessToken, { maxAge: calculateTokenExpiration(accessToken) })
+          setCookie('userData', JSON.stringify(userData), {
+            maxAge: calculateTokenExpiration(refreshToken)
+          })
+        } else {
+          setCookie('refreshToken', refreshToken)
+          setCookie('accessToken', accessToken)
+          setCookie('userData', JSON.stringify(userData))
+        }
       }
 
-      setCookie('userData', JSON.stringify(userData), {
-        maxAge: calculateTokenExpiration(refreshToken)
-      })
-
       const userRole = data?.user?.type
+
       if (['super-admin', 'admin'].includes(userRole)) {
         push('/admin/dashboard')
       } else if (['company-admin', 'user'].includes(userRole)) {
@@ -47,7 +55,7 @@ export default function LoginForm() {
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isSuccess, isError, error, push, data])
+  }, [isSuccess, isError, error, push, data, rememberMe])
 
   return (
     <div className='flex flex-col min-h-screen justify-center items-center max-w-md w-full'>
@@ -57,6 +65,7 @@ export default function LoginForm() {
         </Typography>
         <Input name='email' label='Email' type='email' placeholder='Enter your email' required />
         <Input name='password' label='Password' placeholder='********' type='password' required />
+        <Checkbox name='rememberMe' label='Remember Me' containerClassName='mb-4' />
         <Button type='submit' isLoading={isLoading}>
           Login
         </Button>

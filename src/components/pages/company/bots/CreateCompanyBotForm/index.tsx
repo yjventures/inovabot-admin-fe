@@ -8,6 +8,7 @@ import LLink from '@/components/ui/llink'
 import { getCompanyId } from '@/helpers/pages/companies'
 import usePush from '@/hooks/usePush'
 import { useCreateBotMutation } from '@/redux/features/botsApi'
+import { useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { useGetTemplateQuery } from '@/redux/features/templatesApi'
 import { IBot } from '@/types/IBot'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
@@ -51,6 +52,8 @@ export default function CreateCompanyBotForm() {
 
   const [createBot, { isLoading, isSuccess, isError, error, data }] = useCreateBotMutation()
 
+  const { data: companyData } = useGetCompanyQuery(getCompanyId())
+
   const onSubmit = (data: IBot) => {
     if (!category) return toast.error('Please select a category!')
     createBot({ ...data, category, company_id: getCompanyId() })
@@ -84,7 +87,14 @@ export default function CreateCompanyBotForm() {
                 {templateId ? 'Choose another Template' : 'Choose Template'}
               </Button>
             </LLink>
-            <Button variant='gradient' icon={<ArrowRight />} iconPosition='right' type='submit' isLoading={isLoading}>
+            <Button
+              variant='gradient'
+              icon={<ArrowRight />}
+              iconPosition='right'
+              type='submit'
+              isLoading={isLoading}
+              disabled={!companyData?.data?.payment_status}
+            >
               Proceed to Knowledgebase
             </Button>
           </>
