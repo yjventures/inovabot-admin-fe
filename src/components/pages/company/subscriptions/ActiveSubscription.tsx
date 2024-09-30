@@ -30,17 +30,19 @@ export default function ActiveSubscription() {
       companyData?.data?.price_id
   )
 
-  const [
-    updateSubscription,
-    { isLoading: isUpdateLoading, isSuccess: isUpdateSuccess, isError, error, data: updateData }
-  ] = useUpdateSubscriptionMutation()
+  const [updateSubscription, { isSuccess: isUpdateSuccess, isError, error, data: updateData }] =
+    useUpdateSubscriptionMutation()
 
   useEffect(() => {
     if (isUpdateSuccess) {
+      toast.dismiss()
       toast.success('Subscription updated successfully!')
     }
 
-    if (isError) toast.error(rtkErrorMessage(error))
+    if (isError) {
+      toast.dismiss()
+      toast.error(rtkErrorMessage(error))
+    }
   }, [isUpdateSuccess, isError, error, updateData])
 
   return (
@@ -75,15 +77,15 @@ export default function ActiveSubscription() {
                   <Button
                     variant='gradient'
                     className='w-full'
-                    isLoading={isUpdateLoading}
-                    onClick={() =>
+                    onClick={() => {
+                      toast.loading('Updating subscription...')
                       updateSubscription({
                         price_id: tier.price[frequency.value].stripe_id,
                         package_id: tier._id,
                         recurring_type: frequency.value,
                         company_id: getCompanyId()
                       })
-                    }
+                    }}
                   >
                     {activePackage?.price?.[frequency.value]?.price && tier?.price?.[frequency.value]?.price
                       ? frequency.value !== companyData?.data?.recurring_type && activePackage?._id === tier?._id

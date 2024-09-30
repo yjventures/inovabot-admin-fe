@@ -4,6 +4,7 @@ import CardAvatar from '@/components/reusable/cards/commonn/card-avatar'
 import Search from '@/components/reusable/tables/search'
 import TablePagination from '@/components/reusable/tables/table-pagination'
 import TableSkeleton from '@/components/reusable/tables/table-skeleton'
+import TableSorter from '@/components/reusable/tables/table-sorter'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { initParams } from '@/constants/form/init-params'
@@ -31,10 +32,8 @@ export default function AllResellers() {
   const { data, isLoading, isSuccess } = useGetUsersQuery(params)
 
   // deleting users
-  const [
-    removeMember,
-    { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }
-  ] = useDeleteUserMutation()
+  const [removeMember, { isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }] =
+    useDeleteUserMutation()
 
   useEffect(() => {
     if (isDeleteSuccess) {
@@ -61,8 +60,21 @@ export default function AllResellers() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>User</TableHead>
-                <TableHead>Created At</TableHead>
+                <TableHead>
+                  <TableSorter params={params} setparams={setParams} sortField='name'>
+                    User
+                  </TableSorter>
+                </TableHead>
+                <TableHead>
+                  <TableSorter params={params} setparams={setParams} sortField='email'>
+                    Email
+                  </TableSorter>
+                </TableHead>
+                <TableHead>
+                  <TableSorter params={params} setparams={setParams} sortField='createdAt'>
+                    Created At
+                  </TableSorter>
+                </TableHead>
                 <TableHead>Total companies</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
@@ -84,17 +96,12 @@ export default function AllResellers() {
                       </div>
                     </div>
                   </TableCell>
+                  <TableCell>{user?.email}</TableCell>
                   <TableCell>{formateDate(user?.createdAt)}</TableCell>
                   <TableCell>{(user as any).number_of_company}</TableCell>
 
                   <TableCell>
-                    <Button
-                      icon={<Trash2 />}
-                      size='sm'
-                      variant='destructive'
-                      isLoading={isDeleteLoading}
-                      onClick={() => removeMember(user?._id)}
-                    >
+                    <Button icon={<Trash2 />} size='sm' variant='destructive' onClick={() => removeMember(user?._id)}>
                       Delete User
                     </Button>
                   </TableCell>

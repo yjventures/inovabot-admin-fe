@@ -43,7 +43,21 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       register,
       formState: { errors }
     } = useFormContext()
-    const inputProps = name ? { ...register(name, { required, ...hookFormConfig }), ...props } : { ...props }
+    const inputProps = name
+      ? {
+          ...register(name, {
+            required,
+            ...hookFormConfig,
+            onChange: e => {
+              const { value } = e.target
+              if (type === 'email') {
+                e.target.value = value.trim().toLowerCase()
+              }
+            }
+          }),
+          ...props
+        }
+      : { ...props }
 
     const [showPassword, setshowPassword] = React.useState(false)
 
