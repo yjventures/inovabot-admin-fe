@@ -12,7 +12,7 @@ export default function Error({ error, reset }) {
   }, [error])
 
   return (
-    <div className={cn('min-h-screen flex flex-col items-center justify-center gap-y-4')}>
+    <div className={cn('min-h-screen flex flex-col items-center justify-center gap-y-4 text-center container')}>
       <h1 className='text-9xl font-light text-destructive'>Error</h1>
       <Typography variant='h1' className='font-semibold text-text-secondary'>
         Something went wrong!

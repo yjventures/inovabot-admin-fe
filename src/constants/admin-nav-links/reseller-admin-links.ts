@@ -1,4 +1,4 @@
-import { BaggageClaim, Blocks, MessagesSquare, Users } from 'lucide-react'
+import { BaggageClaim, Blocks, Boxes, MessagesSquare, Users } from 'lucide-react'
 import { AdminLink } from '.'
 
 export const resellerAdminLinks: Array<AdminLink> = [
@@ -37,12 +37,12 @@ export const resellerAdminLinks: Array<AdminLink> = [
     hasChildren: false,
     icon: Users,
     href: '/reseller/team'
+  },
+  {
+    id: 5,
+    label: 'Subscriptions',
+    hasChildren: false,
+    icon: Boxes,
+    href: '/reseller/subscriptions'
   }
-  // {
-  //   id: 5,
-  //   label: 'Subscriptions',
-  //   hasChildren: false,
-  //   icon: Boxes,
-  //   href: '/reseller/subscriptions'
-  // }
 ]

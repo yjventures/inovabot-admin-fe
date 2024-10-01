@@ -7,7 +7,7 @@ export const metadata = { title: '404 | Page not found' }
 
 export default function NotFound() {
   return (
-    <div className={cn('min-h-screen flex flex-col items-center justify-center gap-y-4')}>
+    <div className={cn('min-h-screen flex flex-col items-center justify-center gap-y-4 text-center container')}>
       <h1 className='text-9xl font-light'>404</h1>
       <Typography variant='h1' className='font-semibold text-text-secondary'>
         Page not found
