@@ -11,14 +11,17 @@ import { getCompanyId } from '@/helpers/pages/companies'
 import { cn } from '@/lib/utils'
 import { useGetCompanyQuery } from '@/redux/features/companiesApi'
 import { useGetPackagesQuery, useUpdateSubscriptionMutation } from '@/redux/features/packagesApi'
+import { useSubscribeToPackageMutation } from '@/redux/features/resellersApi'
 import { WithId } from '@/types/common/IResponse'
 import { IPackage } from '@/types/IPackage'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { redirect } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { frequencies } from '../../admin/packages/AllPackages'
 
 export default function ActiveSubscription() {
+  // Get packages data
   const { data, isLoading, isSuccess } = useGetPackagesQuery(initParams({ limit: 100, sortOrder: 'asc' }))
   const [frequency, setFrequency] = useState(frequencies[0])
   const companyId = getCompanyId()
@@ -30,6 +33,29 @@ export default function ActiveSubscription() {
       companyData?.data?.price_id
   )
 
+  // Subscribe to package
+  const [
+    subscribe,
+    { isSuccess: isSubscribeSuccess, isError: isSubscribeError, error: subscribeError, data: subscribeData }
+  ] = useSubscribeToPackageMutation()
+
+  const subscribeFn = tier => {
+    toast.success('Initializing subscription...')
+    const packageData = tier.price[frequency.value]
+    subscribe({
+      price_id: packageData.stripe_id,
+      package_id: tier._id,
+      recurring_type: frequency.value,
+      company_id: getCompanyId()
+    })
+  }
+
+  useEffect(() => {
+    if (isSubscribeSuccess) redirect(subscribeData?.stripeSession)
+    if (isSubscribeError) toast.error(rtkErrorMessage(subscribeError))
+  }, [isSubscribeSuccess, isSubscribeError, subscribeError, subscribeData])
+
+  // Update subscription
   const [updateSubscription, { isSuccess: isUpdateSuccess, isError, error, data: updateData }] =
     useUpdateSubscriptionMutation()
 
@@ -69,33 +95,42 @@ export default function ActiveSubscription() {
                   activePackage?._id === tier._id && frequency.value === companyData?.data?.recurring_type
               })}
               child={
-                activePackage?._id === tier._id && frequency.value === companyData?.data?.recurring_type ? (
-                  <Button variant='outline' className='w-full' disabled>
-                    Selected
+                activePackage ? (
+                  activePackage?._id === tier._id && frequency.value === companyData?.data?.recurring_type ? (
+                    <Button variant='outline' className='w-full' disabled>
+                      Selected
+                    </Button>
+                  ) : (
+                    getUserRole() === 'company-admin' && (
+                      <Button
+                        variant='gradient'
+                        className='w-full'
+                        onClick={() => {
+                          toast.loading('Updating subscription...')
+                          updateSubscription({
+                            price_id: tier.price[frequency.value].stripe_id,
+                            package_id: tier._id,
+                            recurring_type: frequency.value,
+                            company_id: getCompanyId()
+                          })
+                        }}
+                      >
+                        {activePackage?.price?.[frequency.value]?.price && tier?.price?.[frequency.value]?.price
+                          ? frequency.value !== companyData?.data?.recurring_type && activePackage?._id === tier?._id
+                            ? 'Update Frequency'
+                            : Number(activePackage?.price?.[frequency.value]?.price) >
+                              Number(tier?.price?.[frequency.value]?.price)
+                            ? 'Downgrade'
+                            : 'Upgrade'
+                          : 'Select'}
+                      </Button>
+                    )
+                  )
+                ) : (
+                  <Button onClick={() => subscribeFn(tier)} variant='gradient' className='w-full'>
+                    Subscribe
                   </Button>
-                ) : getUserRole() === 'company-admin' ? (
-                  <Button
-                    variant='gradient'
-                    className='w-full'
-                    onClick={() => {
-                      toast.loading('Updating subscription...')
-                      updateSubscription({
-                        price_id: tier.price[frequency.value].stripe_id,
-                        package_id: tier._id,
-                        recurring_type: frequency.value,
-                        company_id: getCompanyId()
-                      })
-                    }}
-                  >
-                    {activePackage?.price?.[frequency.value]?.price && tier?.price?.[frequency.value]?.price
-                      ? frequency.value !== companyData?.data?.recurring_type && activePackage?._id === tier?._id
-                        ? 'Update Frequency'
-                        : activePackage?.price?.[frequency.value]?.price > tier?.price?.[frequency.value]?.price
-                        ? 'Downgrade'
-                        : 'Upgrade'
-                      : 'Select'}
-                  </Button>
-                ) : null
+                )
               }
             />
           ))}{' '}
