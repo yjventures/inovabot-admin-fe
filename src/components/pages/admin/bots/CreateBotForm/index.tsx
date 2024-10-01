@@ -98,7 +98,7 @@ export default function CreateBotForm({ from = 'admin' }: { from?: 'admin' | 're
               isLoading={isLoading}
               disabled={!companyData?.data?.payment_status}
             >
-              Proceed to Knowledgebase
+              {companyData?.data?.payment_status ? 'Proceed to Knowledgebase' : 'Subscribe First'}
             </Button>
           </>
         }

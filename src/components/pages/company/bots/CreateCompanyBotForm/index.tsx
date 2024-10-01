@@ -95,7 +95,7 @@ export default function CreateCompanyBotForm() {
               isLoading={isLoading}
               disabled={!companyData?.data?.payment_status}
             >
-              Proceed to Knowledgebase
+              {companyData?.data?.payment_status ? 'Proceed to Knowledgebase' : 'Subscribe First'}
             </Button>
           </>
         }
