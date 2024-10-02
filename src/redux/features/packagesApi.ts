@@ -56,7 +56,8 @@ const packagesApi = api.injectEndpoints({
       query: () => ({
         url: '/subscription/cancel',
         method: 'POST'
-      })
+      }),
+      invalidatesTags: ['company']
     })
   })
 })
