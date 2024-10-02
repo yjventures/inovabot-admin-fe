@@ -51,6 +51,12 @@ const packagesApi = api.injectEndpoints({
         body
       }),
       invalidatesTags: ['company']
+    }),
+    cancelSubscription: build.mutation({
+      query: () => ({
+        url: '/subscription/cancel',
+        method: 'POST'
+      })
     })
   })
 })
@@ -61,5 +67,6 @@ export const {
   useCreatePackageMutation,
   useUpdatePackageMutation,
   useDeletePackageMutation,
-  useUpdateSubscriptionMutation
+  useUpdateSubscriptionMutation,
+  useCancelSubscriptionMutation
 } = packagesApi
