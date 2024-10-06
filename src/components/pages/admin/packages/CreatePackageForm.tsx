@@ -9,13 +9,13 @@ import { Input } from '@/components/reusable/form/input'
 import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
 import usePush from '@/hooks/usePush'
+import { useCreatePackageMutation } from '@/redux/features/packagesApi'
+import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { PlusSquare } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { frequencies } from './AllPackages'
-import { useCreatePackageMutation } from '@/redux/features/packagesApi'
 import toast from 'react-hot-toast'
-import { rtkErrorMessage } from '@/utils/error/errorMessage'
+import { frequencies } from './AllPackages'
 
 export default function CreatePackageForm() {
   const push = usePush()
@@ -24,6 +24,7 @@ export default function CreatePackageForm() {
 
   const name = watch('name')
   const description = watch('description')
+  const hidden = watch('hidden')
   const monthly_price = watch('monthly_price')
   const yearly_price = watch('yearly_price')
   const priority_support = watch('priority_support')
@@ -36,6 +37,7 @@ export default function CreatePackageForm() {
   const packageDetails = {
     name,
     description,
+    hidden,
     price: {
       monthly: {
         price: monthly_price,
@@ -137,6 +139,7 @@ export default function CreatePackageForm() {
               required
               rows={4}
             />
+            <Checkbox name='hidden' label='Hidden package' />
 
             <p className='text-xl font-medium mt-4 mb-2 text-text-heading'>Pricing</p>
             <Input

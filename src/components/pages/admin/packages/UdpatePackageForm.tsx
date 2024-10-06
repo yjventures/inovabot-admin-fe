@@ -10,10 +10,10 @@ import { Textarea } from '@/components/reusable/form/textarea'
 import { Button } from '@/components/ui/button'
 import usePush from '@/hooks/usePush'
 import { useGetPackageQuery, useUpdatePackageMutation } from '@/redux/features/packagesApi'
-import { useEffect, useState } from 'react'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { PencilLine } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { frequencies } from './AllPackages'
@@ -28,6 +28,7 @@ export default function UdpatePackageForm() {
 
   const name = watch('name')
   const description = watch('description')
+  const hidden = watch('hidden')
   const monthly_price = watch('monthly_price')
   const yearly_price = watch('yearly_price')
   const priority_support = watch('priority_support')
@@ -52,6 +53,7 @@ export default function UdpatePackageForm() {
   const packageDetails = {
     name,
     description,
+    hidden,
     price: {
       monthly: {
         price: monthly_price,
@@ -153,6 +155,7 @@ export default function UdpatePackageForm() {
               required
               rows={4}
             />
+            <Checkbox name='hidden' label='Hidden package' />
 
             <p className='text-xl font-medium mt-4 mb-2 text-text-heading'>Pricing</p>
             <Input
