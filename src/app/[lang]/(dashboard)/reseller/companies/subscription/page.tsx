@@ -8,7 +8,7 @@ export const metadata = {
 export default function ResellerCompanySubscriptionPage() {
   return (
     <div>
-      <main className='container'>
+      <main>
         <Typography
           variant='h2'
           className='text-balance text-center pb-5 leading-loose text-2xl md:text-3xl lg:text-5xl max-w-full'

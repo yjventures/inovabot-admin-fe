@@ -12,19 +12,24 @@ import { initParams } from '@/constants/form/init-params'
 import { getCompanyId } from '@/helpers/pages/companies'
 import { cn } from '@/lib/utils'
 import { useGetComanyListQuery, useGetCompanyQuery } from '@/redux/features/companiesApi'
-import { useGetPackagesQuery, useUpdateSubscriptionMutation } from '@/redux/features/packagesApi'
+import {
+  useCancelSubscriptionMutation,
+  useGetPackagesQuery,
+  useUpdateSubscriptionMutation
+} from '@/redux/features/packagesApi'
 import { useSubscribeToPackageMutation } from '@/redux/features/resellersApi'
 import { WithId } from '@/types/common/IResponse'
 import { IPackage } from '@/types/IPackage'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { Check, ChevronsUpDown } from 'lucide-react'
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { frequencies } from '../../admin/packages/AllPackages'
 
 export default function ResellerActiveSubscription() {
   // Getting company list
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [company_id, setcompany_id] = useState('')
   const { data: companyListData, isSuccess: isCompanyListSuccess } = useGetComanyListQuery({})
@@ -82,6 +87,20 @@ export default function ResellerActiveSubscription() {
       toast.error(rtkErrorMessage(error))
     }
   }, [isUpdateSuccess, isError, error, updateData])
+
+  // Cancel subscription
+  const [
+    cancelSubscription,
+    { isLoading: isCancelLoading, isSuccess: isCancelSuccess, isError: isCancelError, error: cancelError }
+  ] = useCancelSubscriptionMutation()
+
+  useEffect(() => {
+    if (isCancelSuccess) {
+      toast.success('Subscription cancelled successfully')
+      router.refresh()
+    }
+    if (isCancelError) toast.error(rtkErrorMessage(cancelError))
+  }, [isCancelSuccess, isCancelError, cancelError, router])
 
   return (
     <div className='bg-foreground p-6 rounded-xl'>
@@ -143,8 +162,13 @@ export default function ResellerActiveSubscription() {
               child={
                 activePackage ? (
                   activePackage?._id === tier._id && frequency.value === companyData?.data?.recurring_type ? (
-                    <Button variant='outline' className='w-full' disabled>
-                      Selected
+                    <Button
+                      variant='destructive'
+                      className='w-full'
+                      isLoading={isCancelLoading}
+                      onClick={cancelSubscription}
+                    >
+                      Cancel Subscription
                     </Button>
                   ) : (
                     <Button
