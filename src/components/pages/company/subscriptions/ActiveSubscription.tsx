@@ -39,7 +39,7 @@ export default function ActiveSubscription() {
   )
 
   // if active package is not free, hide it from the list
-  const isActivePackageFree = activePackage.hidden
+  const isActivePackageFree = activePackage?.hidden
   const filteredPackages = isActivePackageFree ? data?.data : data?.data?.filter(pkg => !pkg.hidden)
 
   // Subscribe to package
