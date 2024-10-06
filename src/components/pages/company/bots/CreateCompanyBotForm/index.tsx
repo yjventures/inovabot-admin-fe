@@ -45,7 +45,9 @@ export default function CreateCompanyBotForm() {
 
   useEffect(() => {
     if (isTemplateSuccess) {
-      reset(templateData?.template)
+      // eslint-disable-next-line no-unused-vars
+      const { _id, ...withoutId } = { ...templateData?.template }
+      reset(withoutId)
       setlanguage(templateData?.template?.language)
     }
   }, [templateData, isTemplateSuccess, reset])
