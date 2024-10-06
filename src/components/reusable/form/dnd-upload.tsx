@@ -7,13 +7,21 @@ import Overlay from '@/components/ui/overlay'
 import { cn } from '@/lib/utils'
 import { uploadFile } from '@/utils/files/uploadFile'
 import { ImageIcon, LucideProps } from 'lucide-react'
-import { ChangeEventHandler, DragEventHandler, ForwardRefExoticComponent, RefAttributes, useRef, useState } from 'react'
+import {
+  ChangeEventHandler,
+  DragEventHandler,
+  ForwardRefExoticComponent,
+  InputHTMLAttributes,
+  RefAttributes,
+  useRef,
+  useState
+} from 'react'
 import { useFormContext } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import FormFieldError from './form-field-error'
 import FormLabel from './form-label'
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string
   icon?: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
   text?: string

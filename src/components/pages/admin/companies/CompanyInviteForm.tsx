@@ -10,7 +10,7 @@ import usePush from '@/hooks/usePush'
 import { useSendCompanyInvitationMutation } from '@/redux/features/companiesApi'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { MailCheck, Send } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -23,6 +23,7 @@ interface FormData {
 
 export default function CompanyInviteForm() {
   const push = usePush()
+  const router = useRouter()
 
   const methods = useForm<FormData>()
   const { handleSubmit, setValue } = methods
@@ -48,12 +49,12 @@ export default function CompanyInviteForm() {
       toast.success('Invitation sent successfully')
 
       setTimeout(() => {
-        setshowEmailCheck(false)
+        router.back()
       }, 5000)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isSuccess, isError, error, push])
+  }, [isSuccess, isError, error, push, router])
 
   return showEmailCheck ? (
     <div className='flex items-center justify-center min-h-[70vh]'>
