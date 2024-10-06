@@ -43,6 +43,11 @@ export default function ResellerActiveSubscription() {
       pkg?.price?.[companyData?.data?.recurring_type as keyof IPackage['price']]?.stripe_id ===
       companyData?.data?.price_id
   )
+
+  // if active package is not free, hide it from the list
+  const isActivePackageFree = activePackage.hidden
+  const filteredPackages = isActivePackageFree ? data?.data : data?.data?.filter(pkg => !pkg.hidden)
+
   // Subscribe to package
   const [
     subscribe,
@@ -125,7 +130,7 @@ export default function ResellerActiveSubscription() {
       </div>
       {isSuccess ? (
         <CardGrid total='packages'>
-          {data?.data?.map((tier: WithId<IPackage>) => (
+          {filteredPackages?.map((tier: WithId<IPackage>) => (
             <PriceCard
               key={tier._id}
               tier={tier}

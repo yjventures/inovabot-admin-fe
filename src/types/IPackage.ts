@@ -25,4 +25,5 @@ export interface IPackage {
   features: IPackageFeature[]
   createdAt: string
   updatedAt: string
+  hidden: boolean
 }
