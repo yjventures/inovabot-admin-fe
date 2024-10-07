@@ -15,7 +15,7 @@ export default function EmbeddingWidget({ label, slug, isPopup = false }: Props)
 
   // Define the iframe styles based on the type of embedding
   const iframeStyle = isPopup
-    ? 'position:fixed;bottom:0;right:0;width:350px;height:500px;z-index:1000;border-radius:10px;box-shadow:0px 0px 10px rgba(0,0,0,0.3);'
+    ? 'position:fixed;bottom:20px;right:20px;width:350px;height:500px;z-index:1000;border-radius:10px;box-shadow:0px 0px 10px rgba(0,0,0,0.3);'
     : 'position:absolute;top:0;left:0;width:100%;height:100vh;'
 
   const code: string = `<style>
