@@ -71,7 +71,45 @@
 
   .dark {
     --background: #212121;
-    --foreground: 210 20% 98%;
+    --foreground: #322e2e;
+    --foreground-border: #444444;
+    --foreground-border-light: #555555;
+
+    --text-heading: #f1f1f1;
+    --text-primary: #c2c2c2;
+    --text-secondary: #a3a3a3;
+    --text-gray-light: #7d7d7d;
+    --text-gray: #6a6a6a;
+    --text-gray-dark: #525252;
+
+    --gray-primary: #2e2e2e;
+    --gray-secondary: #3a3a3a;
+
+    --pink-primary: #c27ba6;
+
+    --emerald-light: #1c423c;
+    --emerald-primary: #1da88e;
+    --emerald-dark: #166c57;
+
+    --cyan-light: #133c44;
+    --cyan-primary: #76a1ae;
+    --cyan-dark: #1793d9;
+
+    --blue-light: #242a48;
+    --blue-primary: #1b4fba;
+    --blue-dark: #2432c7;
+
+    --magenta-light: #3e2e49;
+    --magenta-primary: #7674a8;
+    --magenta-dark: #6b21a5;
+
+    --orange-light: #452817;
+    --orange-primary: #f27c43;
+    --orange-dark: #b34710;
+
+    --error-light: #562a2a;
+    --error: #d52e3f;
+
     --card: 224 71.4% 4.1%;
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
