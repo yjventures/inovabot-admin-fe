@@ -1,5 +1,6 @@
 'use client'
 
+import ThemeSwitcher from '@/components/reusable/common/theme_switcher'
 import { IUser } from '@/types/IUser'
 import { AlignRight } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
@@ -27,6 +28,7 @@ export default function AdminTopNav({ user, navbarOpen, setnavbarOpen }: Props) 
 
         {/* <div className='w-px h-10 bg-gray-primary bg-opacity-40' /> */}
 
+        <ThemeSwitcher />
         <UserInfo user={user} className='hidden md:flex mr-3' />
 
         <AlignRight
