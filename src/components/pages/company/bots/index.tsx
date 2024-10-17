@@ -17,7 +17,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { BOT_URL } from '@/configs'
 import { initParams } from '@/constants/form/init-params'
-import { getUserRole } from '@/helpers/common'
+import { getDashboardURLPath, getUserRole } from '@/helpers/common'
 import { getCompanyId } from '@/helpers/pages/companies'
 import { useLogo } from '@/hooks/useLogo'
 import { cn } from '@/lib/utils'
@@ -26,7 +26,7 @@ import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
 import { IParams } from '@/types/common/IParams'
 import { formateDate } from '@/utils/date/formateDate'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { Eye, PencilLine, PlusSquare, SquareDashedMousePointer, Trash2 } from 'lucide-react'
+import { Eye, MessagesSquare, PencilLine, PlusSquare, SquareDashedMousePointer, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -149,6 +149,9 @@ export default function CompnayAllBots() {
                             <a href={url} target='_blank'>
                               <Eye />
                             </a>
+                            <LLink href={`${getDashboardURLPath()}/bots/${bot?._id}/threads`}>
+                              <MessagesSquare className='text-cyan-dark' />
+                            </LLink>
                             {getUserRole() !== 'viewer' && (
                               <>
                                 <LLink href={`/company/bots/update/${bot?._id}`}>

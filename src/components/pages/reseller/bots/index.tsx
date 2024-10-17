@@ -19,6 +19,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { BOT_URL } from '@/configs'
 import { initParams } from '@/constants/form/init-params'
+import { getDashboardURLPath } from '@/helpers/common'
 import { useLogo } from '@/hooks/useLogo'
 import { cn } from '@/lib/utils'
 import { useDeleteBotMutation, useGetBotsQuery } from '@/redux/features/botsApi'
@@ -27,7 +28,7 @@ import { useGetComanyListQuery, useGetCompanyQuery } from '@/redux/features/comp
 import { IParams } from '@/types/common/IParams'
 import { formateDate } from '@/utils/date/formateDate'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { Check, ChevronsUpDown, Eye, PencilLine, PlusSquare, Trash2 } from 'lucide-react'
+import { Check, ChevronsUpDown, Eye, MessagesSquare, PencilLine, PlusSquare, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -210,6 +211,9 @@ export default function AllBots() {
                             <a href={url} target='_blank'>
                               <Eye />
                             </a>
+                            <LLink href={`${getDashboardURLPath()}/bots/${bot?._id}/threads`}>
+                              <MessagesSquare className='text-cyan-dark' />
+                            </LLink>
                             <LLink href={`/reseller/bots/update/${bot?._id}`}>
                               <PencilLine className='text-blue-primary' />
                             </LLink>
