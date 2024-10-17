@@ -12,8 +12,6 @@ export default function GlobalSearch() {
 
   const { data, isSuccess } = useDashboardSearchQuery(debouncedVal)
 
-  console.log(debouncedVal)
-
   const [showResults, setshowResults] = useState<boolean>(false)
 
   useEffect(() => {
@@ -28,7 +26,6 @@ export default function GlobalSearch() {
     }
   }, [data, isSuccess, debouncedVal])
 
-  console.log(data)
   return (
     <div className='hidden md:flex items-center gap-2 w-1/2 max-w-96 p-2 bg-gray50-foreground rounded-full border-gray50-border'>
       <label htmlFor='search'>

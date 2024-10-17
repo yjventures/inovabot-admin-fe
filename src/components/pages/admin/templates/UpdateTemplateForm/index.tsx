@@ -30,7 +30,6 @@ export default function UpdateTemplateForm() {
 
   useEffect(() => {
     if (isGetSuccess) {
-      console.log(data?.template?.category)
       reset(data.template)
       setcategory(data.template.category)
       setlanguage(data.template.language)

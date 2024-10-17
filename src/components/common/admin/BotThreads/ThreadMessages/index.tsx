@@ -20,7 +20,6 @@ export default function ThreadMessages({ currThread, threadSidebarOpen, setthrea
   const { id } = useParams()
   const { data: botData } = useGetBotQuery(id as string)
   const { data } = useGetThreadMessagesQuery(currThread, { skip: !currThread })
-  console.log(data)
 
   const { theme } = useTheme()
   const isDark = theme === 'dark'
@@ -90,7 +89,7 @@ export default function ThreadMessages({ currThread, threadSidebarOpen, setthrea
       <div className={cn('w-full h-px bg-gray-primary', { 'bg-black': isDark })} />
 
       <div
-        className={cn('space-y-5 py-5', {
+        className={cn('space-y-5 py-5 min-h-[calc(100%_-_65px)]', {
           'bg-gray-primary': !isDark && !bg_light,
           'bg-gray-800': isDark && !bg_dark
         })}

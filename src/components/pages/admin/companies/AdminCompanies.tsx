@@ -33,7 +33,6 @@ interface Props {
 }
 
 export default function AdminCompanies({ mode, isLoading, isSuccess, data, params, setparams, from = 'admin' }: Props) {
-  console.log(from)
   const [UpdateCompany, { isSuccess: isUpdateSuccess, isError, error }] = useUpdateCompanyMutation()
 
   const [deleteId, setdeleteId] = useState<string | undefined>(undefined)

@@ -70,8 +70,6 @@ export default function ResellerActiveSubscription() {
     if (isSubscribeError) toast.error(rtkErrorMessage(subscribeError))
   }, [isSubscribeSuccess, isSubscribeError, subscribeError, subscribeData])
 
-  console.log(activePackage)
-
   // Update subscription
   const [updateSubscription, { isSuccess: isUpdateSuccess, isError, error, data: updateData }] =
     useUpdateSubscriptionMutation()

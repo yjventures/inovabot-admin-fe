@@ -31,8 +31,6 @@ export default function UpdateProfile() {
   const methods = useForm()
   const { handleSubmit, watch, reset, setValue } = methods
 
-  console.log(data)
-
   useEffect(() => {
     if (isSuccess) {
       reset(data?.user)
