@@ -56,7 +56,7 @@ export default function ThreadMessages({ currThread, threadSidebarOpen, setthrea
       className={cn(
         'bg-cover bg-center flex-1 pl-0 transition-all duration-300 bg-fixed relative h-[calc(100vh_-_80px)] overflow-auto',
         {
-          'pl-60': threadSidebarOpen
+          'pl-0 sm:pl-60': threadSidebarOpen
         }
       )}
     >

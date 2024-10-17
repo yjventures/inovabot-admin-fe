@@ -24,7 +24,7 @@ export default function ThreadsSidebar({ currThread, setcurrThread, threadSideba
   return (
     <div
       className={cn(
-        'w-60 bg-gray-secondary h-[calc(100vh_-_80px)] overflow-y-auto fixed transition-all duration-300 py-3 z-10',
+        'w-60 bg-gray-secondary h-[calc(100vh_-_80px)] overflow-y-auto fixed transition-all duration-300 py-3 z-30',
         {
           'w-0 overflow-hidden': !threadSidebarOpen
         }
