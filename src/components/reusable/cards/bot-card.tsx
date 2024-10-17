@@ -7,7 +7,7 @@ import { useLogo } from '@/hooks/useLogo'
 import { useDeleteBotMutation } from '@/redux/features/botsApi'
 import { formateDate } from '@/utils/date/formateDate'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { Eye, PencilLine, Trash2 } from 'lucide-react'
+import { Eye, MessagesSquare, PencilLine, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import ConfirmationPrompt from '../dashboard/confirmation-prompt'
@@ -50,11 +50,16 @@ export default function BotCard({ logo_light, logo_dark, name, category, created
             <Eye className='size-5' />
           </a>
 
+          <LLink href={`${getDashboardURLPath()}/bots/${_id}/threads`}>
+            <CardPopoverContent text='View threads' icon={<MessagesSquare className='text-cyan-dark' />} />
+          </LLink>
+
           {getUserRole() !== 'viewer' && (
             <>
-              <LLink href={`/${getDashboardURLPath()}/bots/update/${_id}`}>
+              <LLink href={`${getDashboardURLPath()}/bots/update/${_id}`}>
                 <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
               </LLink>
+
               <CardPopoverContent
                 text='Delete'
                 icon={<Trash2 className='text-destructive' />}

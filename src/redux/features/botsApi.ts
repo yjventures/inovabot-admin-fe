@@ -43,9 +43,21 @@ const botsApi = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: ['bots']
+    }),
+    getAllThread: build.query({
+      query: params => ({
+        url: '/threads/get-all',
+        params
+      })
     })
   })
 })
 
-export const { useGetBotsQuery, useCreateBotMutation, useGetBotQuery, useUpdateBotMutation, useDeleteBotMutation } =
-  botsApi
+export const {
+  useGetBotsQuery,
+  useCreateBotMutation,
+  useGetBotQuery,
+  useUpdateBotMutation,
+  useDeleteBotMutation,
+  useGetAllThreadQuery
+} = botsApi
