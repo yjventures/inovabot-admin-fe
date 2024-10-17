@@ -28,7 +28,13 @@ export default function LeftChat({ message, imgSrc, sources, isDark }: Props) {
             color: isDark ? font_color_dark : font_color
           }}
         >
-          <p className='text-sm'>{message}</p>
+          <div
+            dangerouslySetInnerHTML={{ __html: message }}
+            style={{
+              color: isDark ? font_color_dark : font_color
+            }}
+            className={cn('prose max-w-full text-sm prose-headings:my-3 prose-p:my-1')}
+          />
         </CardWrapper>
       </div>
     </div>

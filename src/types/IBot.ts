@@ -37,4 +37,11 @@ export interface IBot {
   updatedAt?: Date
   category?: string
   embedding_url: string
+  bg_light?: string
+  bg_dark?: string
+  primary_color_dark?: string
+  font_color_dark?: string
+  secondary_color_dark?: string
+  user_logo: string
+  bot_logo: string
 }

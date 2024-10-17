@@ -49,6 +49,11 @@ const botsApi = api.injectEndpoints({
         url: '/threads/get-all',
         params
       })
+    }),
+    getThreadMessages: build.query({
+      query: threadId => ({
+        url: `/threads/messages/${threadId}`
+      })
     })
   })
 })
@@ -59,5 +64,6 @@ export const {
   useGetBotQuery,
   useUpdateBotMutation,
   useDeleteBotMutation,
-  useGetAllThreadQuery
+  useGetAllThreadQuery,
+  useGetThreadMessagesQuery
 } = botsApi
