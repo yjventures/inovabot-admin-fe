@@ -20,6 +20,7 @@ import { BOT_URL } from '@/configs'
 import { initParams } from '@/constants/form/init-params'
 import { getDashboardURLPath } from '@/helpers/common'
 import { useLogo } from '@/hooks/useLogo'
+import usePush from '@/hooks/usePush'
 import { cn } from '@/lib/utils'
 import { useDeleteBotMutation, useGetBotsQuery } from '@/redux/features/botsApi'
 import { useGetCategoriesQuery } from '@/redux/features/categoriesApi'
@@ -28,12 +29,15 @@ import { IParams } from '@/types/common/IParams'
 import { formateDate } from '@/utils/date/formateDate'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
 import { Check, ChevronsUpDown, Eye, MessagesSquare, PencilLine, PlusSquare, Trash2 } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Params = IParams & { company_id: string; category: string }
 
 export default function AllBots() {
+  const push = usePush()
+  const searchParams = useSearchParams()
   const [open, setOpen] = useState(false)
   const [company_id, setcompany_id] = useState('')
 
@@ -49,21 +53,19 @@ export default function AllBots() {
   } = useGetComanyListQuery({})
 
   useEffect(() => {
-    if (isCompanyListSuccess && companyListData?.data?.[0]?._id) {
-      setcompany_id(companyListData.data[0]._id)
+    if (searchParams.has('companyId')) {
+      setcompany_id(searchParams.get('companyId'))
+    } else if (isCompanyListSuccess && !company_id) {
+      const firstCompanyId = companyListData?.data?.[0]?._id
+      if (firstCompanyId) {
+        setcompany_id(firstCompanyId)
+      }
     }
-  }, [isCompanyListSuccess, companyListData])
+  }, [isCompanyListSuccess, companyListData, push, searchParams, company_id])
 
-  const [skip, setskip] = useState<boolean>(true)
-  const { data: companyData } = useGetCompanyQuery(company_id, { skip })
+  const { data: companyData } = useGetCompanyQuery(company_id, { skip: !company_id })
 
   const { logo, name, web_url, address, description, createdAt, expires_at } = companyData?.data || {}
-
-  useEffect(() => {
-    if (company_id) {
-      setskip(false)
-    }
-  }, [company_id])
 
   const params: Params = { ...initParams({}), company_id, search, category }
 
@@ -122,7 +124,7 @@ export default function AllBots() {
                             key={com?._id}
                             value={com?.name}
                             onSelect={() => {
-                              setcompany_id(com._id)
+                              setcompany_id(com?._id)
                               setOpen(false)
                             }}
                           >
@@ -186,6 +188,7 @@ export default function AllBots() {
                   model={bot.model || ''}
                   createdAt={String(bot.createdAt || '')}
                   embedding_url={bot.embedding_url || ''}
+                  company_id={company_id}
                 />
               ))}
             </CardGrid>
@@ -218,7 +221,7 @@ export default function AllBots() {
                             <LLink href={`${getDashboardURLPath()}/bots/${bot?._id}/threads`}>
                               <MessagesSquare className='text-cyan-dark' />
                             </LLink>
-                            <LLink href={`/admin/bots/update/${bot?._id || ''}`}>
+                            <LLink href={`/admin/bots/update/${bot?._id || ''}?companyId=${company_id}`}>
                               <PencilLine className='text-blue-primary' />
                             </LLink>
                             <Trash2

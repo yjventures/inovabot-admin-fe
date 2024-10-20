@@ -27,9 +27,19 @@ interface Props {
   model: string
   createdAt: string
   embedding_url: string
+  company_id?: string
 }
 
-export default function BotCard({ logo_light, logo_dark, name, category, createdAt, embedding_url, _id }: Props) {
+export default function BotCard({
+  logo_light,
+  logo_dark,
+  name,
+  category,
+  createdAt,
+  embedding_url,
+  _id,
+  company_id
+}: Props) {
   const imgSrc = useLogo(logo_light!, logo_dark!)
   const [deleteBot, { isSuccess, isError, error }] = useDeleteBotMutation()
   const [open, setopen] = useState<boolean>(false)
@@ -56,7 +66,7 @@ export default function BotCard({ logo_light, logo_dark, name, category, created
 
           {getUserRole() !== 'viewer' && (
             <>
-              <LLink href={`${getDashboardURLPath()}/bots/update/${_id}`}>
+              <LLink href={`${getDashboardURLPath()}/bots/update/${_id}?companyId=${company_id}`}>
                 <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
               </LLink>
 

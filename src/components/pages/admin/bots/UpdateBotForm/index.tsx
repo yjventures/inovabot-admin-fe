@@ -66,11 +66,11 @@ export default function UpdateBotForm({ updateFrom = 'admin' }: { updateFrom?: '
   useEffect(() => {
     if (isBotUdpateSuccess) {
       toast.success('Bot updated successfully!')
-      push(`/${updateFrom}/bots`)
+      push(`/${updateFrom}/bots?companyId=${params.get('companyId')}`)
     }
 
     if (isError) toast.error(rtkErrorMessage(error))
-  }, [isBotUdpateSuccess, isError, error, push, updateFrom])
+  }, [isBotUdpateSuccess, isError, error, push, updateFrom, params])
 
   return (
     <Form methods={methods} onSubmit={handleSubmit(onSubmit)}>
