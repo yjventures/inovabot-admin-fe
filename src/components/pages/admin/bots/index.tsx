@@ -55,6 +55,7 @@ export default function AllBots() {
   useEffect(() => {
     if (searchParams.has('companyId')) {
       setcompany_id(searchParams.get('companyId'))
+      push('/admin/bots')
     } else if (isCompanyListSuccess && !company_id) {
       const firstCompanyId = companyListData?.data?.[0]?._id
       if (firstCompanyId) {

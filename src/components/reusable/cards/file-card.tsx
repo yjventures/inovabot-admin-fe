@@ -44,7 +44,7 @@ const FileCard = ({ file, variant = 'horizontal' }: Props) => {
   return (
     <>
       <CardWrapper
-        className={cn('flex items-center gap-x-2 gap-y-3 justify-between', {
+        className={cn('flex items-center gap-x-2 gap-y-3 justify-between h-full p-2', {
           'flex-row': variant === 'horizontal',
           'flex-col': variant === 'vertical'
         })}
@@ -64,9 +64,9 @@ const FileCard = ({ file, variant = 'horizontal' }: Props) => {
           />
         </CardPopover>
         <FileText className='size-14 min-w-14 text-text-gray-light' strokeWidth={1} />
-        <div className={cn('flex-1', { 'text-center': variant === 'vertical' })}>
-          <p className='text-lg'>{name}</p>
-          <p className='text-sm font-medium text-text-gray'>{formatFileSize(size)}</p>
+        <div className={cn('flex-1 space-y-1', { 'text-center': variant === 'vertical' })}>
+          <p className='text-sm font-medium break-all overflow-hidden hyphens-manual'>{name}</p>
+          <p className='text-xs font-medium text-text-gray'>{formatFileSize(size)}</p>
         </div>
         {/* {variant === 'horizontal' ? (
           <Download

@@ -31,7 +31,11 @@ export default function LeftChat({ message, imgSrc, sources, isDark }: Props) {
           <div
             dangerouslySetInnerHTML={{ __html: message }}
             style={{
-              color: isDark ? font_color_dark : font_color
+              color: isDark ? font_color_dark : font_color,
+              // @ts-ignore
+              '--tw-prose-body': isDark ? font_color_dark : font_color,
+              '--tw-prose-headings': isDark ? font_color_dark : font_color,
+              '--tw-prose-bullets': isDark ? font_color_dark : font_color
             }}
             className={cn('prose max-w-full text-sm prose-headings:my-3 prose-p:my-1')}
           />
