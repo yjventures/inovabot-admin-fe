@@ -22,7 +22,7 @@ import FormFieldError from './form-field-error'
 import FormLabel from './form-label'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  name: string
+  name?: string
   icon?: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
   text?: string
   buttonLabel?: string
@@ -51,12 +51,13 @@ const DnDUpload = ({
   cb = () => {},
   ...rest
 }: Props) => {
+  const formContext = useFormContext()
   const {
     register,
     setValue,
     trigger,
     formState: { errors }
-  } = useFormContext()
+  } = formContext || {}
 
   const [file, setFile] = useState<File | null>(null)
   const [isUploading, setIsUploading] = useState(false)
@@ -89,14 +90,15 @@ const DnDUpload = ({
     try {
       setIsUploading(true)
       const fileURL = await uploadFile(file)
+      cb(fileURL)
       if (typeof fileURL === 'string') {
-        setValue(name, fileURL, { shouldValidate: true, shouldDirty: true })
+        if (name) setValue(name, fileURL, { shouldValidate: true, shouldDirty: true })
       } else if (fileURL.code === 'ERR_NETWORK') {
         toast.error('Network Error, try again!')
       } else {
         toast.error('Something went wrong, try again!')
       }
-      trigger(name) // Manually trigger validation for the field
+      if (name) trigger(name) // Manually trigger validation for the field
       setIsUploading(false)
       if (inputBtnRef.current) inputBtnRef.current.value = ''
     } catch (error) {
@@ -150,7 +152,7 @@ const DnDUpload = ({
           </Button>
         </div>
 
-        <input type='hidden' {...register(name, { required })} />
+        <input type='hidden' {...(name && formContext ? register(name) : {})} />
 
         <FormFieldError name={name} required={required} label={label} errors={errors} />
       </div>

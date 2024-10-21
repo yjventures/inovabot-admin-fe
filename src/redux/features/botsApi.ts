@@ -54,6 +54,28 @@ const botsApi = api.injectEndpoints({
       query: threadId => ({
         url: `/threads/messages/${threadId}`
       })
+    }),
+    addBotImage: build.mutation({
+      query: body => ({
+        url: '/images/create',
+        method: 'POST',
+        body
+      }),
+      invalidatesTags: ['botImages']
+    }),
+    getBotImages: build.query({
+      query: bot_id => ({
+        url: '/images/get-all',
+        params: { bot_id }
+      }),
+      providesTags: ['botImages']
+    }),
+    deleteBotImage: build.mutation({
+      query: id => ({
+        url: `/images/delete/${id}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['botImages']
     })
   })
 })
@@ -65,5 +87,8 @@ export const {
   useUpdateBotMutation,
   useDeleteBotMutation,
   useGetAllThreadQuery,
-  useGetThreadMessagesQuery
+  useGetThreadMessagesQuery,
+  useAddBotImageMutation,
+  useGetBotImagesQuery,
+  useDeleteBotImageMutation
 } = botsApi

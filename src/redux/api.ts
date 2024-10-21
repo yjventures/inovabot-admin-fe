@@ -61,7 +61,8 @@ const api = createApi({
     'botLink',
     'botLinks',
     'templates',
-    'template'
+    'template',
+    'botImages'
   ],
   endpoints: () => ({})
 })

@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { scroller } from 'react-scroll'
+import BotsImagesComp from '../BotImages/BotsImagesComp'
 import ChatPreview from '../common/ChatPreview'
 
 export default function UpdateBotForm({ updateFrom = 'admin' }: { updateFrom?: 'admin' | 'reseller' }) {
@@ -103,6 +104,7 @@ export default function UpdateBotForm({ updateFrom = 'admin' }: { updateFrom?: '
         <KnowledgeBase companyId={data?.data?.company_id!} id='knowledgeBase' from={updateFrom} />
         <FAQ companyId={data?.data?.company_id!} from={updateFrom} />
         <BotLinks from={updateFrom} />
+        <BotsImagesComp from={updateFrom} />
         <EmbeddedWidgets />
       </div>
     </Form>
