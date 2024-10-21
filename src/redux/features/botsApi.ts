@@ -64,9 +64,9 @@ const botsApi = api.injectEndpoints({
       invalidatesTags: ['botImages']
     }),
     getBotImages: build.query({
-      query: bot_id => ({
+      query: params => ({
         url: '/images/get-all',
-        params: { bot_id }
+        params
       }),
       providesTags: ['botImages']
     }),
