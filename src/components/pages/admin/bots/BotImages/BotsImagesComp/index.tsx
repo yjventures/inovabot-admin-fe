@@ -64,11 +64,11 @@ export default function BotsImagesComp({ from = 'admin', ...rest }: Props) {
         }
       />
 
-      <div className='flex gap-x-5 flex-col md:flex-row gap-y-3 justify-between'>
-        <div className='md:max-w-md w-full md:w-2/5'>
+      <div className='space-y-3'>
+        <div className='w-full flex flex-col md:flex-row gap-x-6 gap-y-3'>
           <DnDUploadMultiple
             accept='image/*'
-            containerClassName='w-full'
+            maxFiles={20}
             required
             buttonLabel='Select Image'
             cb={e => {
@@ -76,30 +76,33 @@ export default function BotsImagesComp({ from = 'admin', ...rest }: Props) {
             }}
           />
 
-          {imageVal.length > 0 && (
-            <div className='grid grid-cols-2 gap-x-3'>
-              {imageVal.map(img => (
-                <ImagePreviewer
-                  key={img}
-                  onClick={() => setformData({ ...formData, image_url: imageVal.filter(i => i !== img) })}
-                  imgSrc={img}
-                />
-              ))}
-            </div>
-          )}
-
           <Textarea
             label='Objective*'
             placeholder='Objective'
             value={formData.objective}
+            containerClassName='flex-1'
+            rows={9}
             onChange={e => setformData({ ...formData, objective: e.target.value })}
           />
-          <Button variant='gradient' icon={<ImagePlus />} isLoading={isLoading} onClick={handleSubmit}>
-            Add Image
-          </Button>
         </div>
 
-        <div className='grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3 w-full md:w-3/5 items-start'>
+        <Button variant='gradient' icon={<ImagePlus />} isLoading={isLoading} onClick={handleSubmit}>
+          Add Image
+        </Button>
+
+        {imageVal.length > 0 && (
+          <div className='grid grid-cols-2 gap-x-3'>
+            {imageVal.map(img => (
+              <ImagePreviewer
+                key={img}
+                onClick={() => setformData({ ...formData, image_url: imageVal.filter(i => i !== img) })}
+                imgSrc={img}
+              />
+            ))}
+          </div>
+        )}
+
+        <div className='grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3 w-full items-start pt-6'>
           {data?.data?.map(img => (
             <BotImageCard key={img._id} botImg={img} />
           ))}
