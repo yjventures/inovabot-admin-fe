@@ -1,3 +1,4 @@
+import CardGrid from '@/components/reusable/cards/commonn/card-grid'
 import CardPopover, { CardPopoverContent } from '@/components/reusable/cards/commonn/card-popover'
 import CardWrapper from '@/components/reusable/cards/commonn/card-wrapper'
 import ConfirmationPrompt from '@/components/reusable/dashboard/confirmation-prompt'
@@ -6,7 +7,7 @@ import { useDeleteBotImageMutation } from '@/redux/features/botsApi'
 import { WithId } from '@/types/common/IResponse'
 import { IBotImage } from '@/types/IBotImage'
 import { rtkErrorMessage } from '@/utils/error/errorMessage'
-import { Eye, PencilLine, Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -25,18 +26,24 @@ export default function BotImageCard({ botImg }: Props) {
 
   return (
     <>
-      <CardWrapper className='w-full max-w-72'>
+      <CardWrapper className='w-full'>
         <CardPopover>
-          <CardPopoverContent text='View Details' icon={<Eye className='text-green-primary' />} />
-          <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} />
+          {/* <CardPopoverContent text='View Details' icon={<Eye className='text-green-primary' />} />
+          <CardPopoverContent text='Edit' icon={<PencilLine className='text-blue-primary' />} /> */}
           <CardPopoverContent
             text='Delete'
             icon={<Trash2 className='text-destructive' />}
             onClick={() => setopenPrompt(true)}
           />
         </CardPopover>
-        <Img src={botImg.image_url} alt={botImg.bot_id} />
-        <p>{botImg.objective}</p>
+
+        <CardGrid>
+          {botImg.image_url.map(img => (
+            <Img key={img} alt={img} src={img} />
+          ))}
+        </CardGrid>
+
+        <p className='pt-3 text-lg text-text-secondary'>{botImg.objective}</p>
       </CardWrapper>
       <ConfirmationPrompt
         open={openPrompt}
