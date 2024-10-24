@@ -54,12 +54,9 @@ const DnDUploadMultiple = ({
   ...rest
 }: Props) => {
   const formContext = useFormContext()
-  const {
-    register,
-    setValue,
-    trigger,
-    formState: { errors }
-  } = formContext || {}
+  const { register, setValue, trigger, formState } = { ...formContext } || {}
+
+  const { errors } = formState || {}
 
   const [files, setFiles] = useState<File[]>([])
   const [uploadedUrls, setUploadedUrls] = useState<string[]>([])
@@ -110,7 +107,7 @@ const DnDUploadMultiple = ({
 
     setUploadedUrls(prevUrls => [...prevUrls, ...newUrls])
     cb([...uploadedUrls, ...newUrls])
-    if (name) {
+    if (name && setValue && trigger) {
       setValue(name, [...uploadedUrls, ...newUrls], { shouldValidate: true, shouldDirty: true })
       trigger(name)
     }
@@ -125,7 +122,7 @@ const DnDUploadMultiple = ({
     setFiles(newFiles)
     setUploadedUrls(newUrls)
     cb(newUrls)
-    if (name) {
+    if (name && setValue && trigger) {
       setValue(name, newUrls, { shouldValidate: true, shouldDirty: true })
       trigger(name)
     }
@@ -149,12 +146,7 @@ const DnDUploadMultiple = ({
             {files.length > 0 ? (
               <div className='space-y-2'>
                 {files.map((file, index) => (
-                  <div key={index} className='flex items-center justify-between'>
-                    <p>{file.name}</p>
-                    <Button onClick={() => removeFile(index)} variant='destructive' size='sm'>
-                      Remove
-                    </Button>
-                  </div>
+                  <p key={index}>{file.name}</p>
                 ))}
               </div>
             ) : (
@@ -197,9 +189,9 @@ const DnDUploadMultiple = ({
           )}
         </div>
 
-        <input type='hidden' {...(name && formContext ? register(name) : {})} />
+        <input type='hidden' {...(name && register ? register(name) : {})} />
 
-        <FormFieldError name={name} required={required} label={label} errors={errors} />
+        {name && <FormFieldError name={name} required={required} label={label} errors={errors} />}
       </div>
       <Overlay isOpen={isUploading} animationData={JSON.parse(JSON.stringify(animationData))} />
     </>

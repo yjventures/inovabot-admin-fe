@@ -23,10 +23,9 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     { containerClassName, className, icon, name, hookFormConfig, label, labelClassName, required, id, hint, ...props },
     ref
   ) => {
-    const {
-      register,
-      formState: { errors }
-    } = useFormContext()
+    const formContext = useFormContext()
+    const { register, formState } = formContext || {}
+    const { errors } = formState || {}
 
     const textareaRef = React.useRef<HTMLTextAreaElement | null>(null)
 

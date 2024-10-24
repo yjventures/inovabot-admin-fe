@@ -39,10 +39,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const {
-      register,
-      formState: { errors }
-    } = useFormContext()
+    const formContext = useFormContext()
+    const { register, formState } = formContext || {}
+    const { errors } = formState || {}
     const inputProps = name
       ? {
           ...register(name, {
