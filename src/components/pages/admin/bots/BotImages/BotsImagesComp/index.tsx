@@ -9,13 +9,10 @@ import BotsImageAddForm from './BotsImageAddForm'
 import ViewBotsImages from './ViewBotsImages'
 
 interface Props {
-  from?: 'admin' | 'reseller'
+  from?: 'admin' | 'reseller' | 'company'
 }
 export default function BotsImagesComp({ from = 'admin', ...rest }: Props) {
   const { id } = useParams()
-
-  // Getting the images
-
   return (
     <FormWrapper {...rest}>
       <DashboardHeading
@@ -32,5 +29,3 @@ export default function BotsImagesComp({ from = 'admin', ...rest }: Props) {
     </FormWrapper>
   )
 }
-
-// image_url: URL[], bot_id: string, objective: string, file_id: string

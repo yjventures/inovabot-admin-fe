@@ -1,5 +1,6 @@
 'use client'
 
+import BotsImagesComp from '@/components/pages/admin/bots/BotImages/BotsImagesComp'
 import ChatPreview from '@/components/pages/admin/bots/common/ChatPreview'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Form from '@/components/reusable/form/form'
@@ -103,6 +104,7 @@ export default function UpdateBotForm({ updateFrom = 'admin' }: { updateFrom?: '
         <KnowledgeBase companyId={data?.data?.company_id!} id='knowledgeBase' from={updateFrom} />
         <FAQ companyId={data?.data?.company_id!} from={updateFrom} />
         <BotLinks from={updateFrom} />
+        <BotsImagesComp from={updateFrom} />
         <EmbeddedWidgets />
       </div>
     </Form>

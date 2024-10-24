@@ -1,5 +1,6 @@
 'use client'
 
+import BotsImagesComp from '@/components/pages/admin/bots/BotImages/BotsImagesComp'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 import Form from '@/components/reusable/form/form'
 import FormWrapper from '@/components/reusable/form/form-wrapper'
@@ -103,6 +104,7 @@ export default function UpdateCompanyBotForm() {
         <KnowledgeBase companyId={data?.data?.company_id!} id='knowledgeBase' />
         <FAQ companyId={data?.data?.company_id!} />
         <BotLinks />
+        <BotsImagesComp from='company' />
         <EmbeddedWidgets />
       </div>
     </Form>
