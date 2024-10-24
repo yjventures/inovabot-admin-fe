@@ -2,7 +2,7 @@ import BotAllImages from '@/components/pages/admin/bots/BotImages/BotAllImages'
 import DashboardHeading from '@/components/reusable/dashboard/dashboard-heading'
 
 export const metadata = {
-  title: 'Bot Images | Inova'
+  title: 'Bot Images'
 }
 
 export default function BotAllImagesPage() {
